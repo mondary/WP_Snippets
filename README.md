@@ -6,6 +6,8 @@ Ce document décrit plusieurs snippets PHP conçus pour améliorer les fonctionn
 
 * [Ajout d'un bouton "Dupliquer" aux articles](#ajout-dun-bouton-dupliquer-aux-articles)
 * [Redimensionnement des colonnes dans l'administration](#redimensionnement-des-colonnes-dans-ladministration)
+* [Ajout d'images miniatures dans la liste des articles](#ajout-dimages-miniatures-dans-la-liste-des-articles)
+* [Liens externes avec nouvel onglet et paramètre ref](#liens-externes-avec-nouvel-onglet-et-parametre-ref)
 * [Calendrier de planification des articles](#calendrier-de-planification-des-articles)
     * [Fonctionnalités](#fonctionnalites-du-calendrier)
     * [Installation et Configuration](#installation-et-configuration-du-calendrier)
@@ -31,6 +33,24 @@ Ce snippet améliore l'expérience utilisateur en ajoutant des grips de redimens
 **Fichier :** `WP_ADMIN - Resize columns.php`
 
 **Fonctionnement :**  Le snippet utilise une combinaison de CSS et de JavaScript. Le CSS ajoute des grips visuels aux en-têtes de colonne, tandis que le JavaScript gère l'interaction utilisateur (clic et glisser) pour redimensionner les colonnes dynamiquement.  Une largeur minimale est définie pour empêcher les colonnes de devenir trop étroites.
+
+
+## Ajout d'images miniatures dans la liste des articles
+
+Ce snippet ajoute une colonne affichant les images miniatures dans la liste des articles de l'administration WordPress.
+
+**Fichier :** `WP_ADMIN - Ajout featured images in posts list.php`
+
+**Fonctionnement :** Le snippet utilise les filtres `manage_posts_columns` et l'action `manage_posts_custom_column` pour ajouter une colonne "Featured Image" et afficher l'image miniature correspondante pour chaque article.  Il inclut également du CSS pour ajuster la largeur de la colonne.
+
+
+## Liens externes avec nouvel onglet et paramètre ref
+
+Ce snippet ajoute un attribut `target="_blank"` et un paramètre `ref=mondary.design` à tous les liens externes sur votre site web.
+
+**Fichier :** `WP_POST - External links +NewTab +ref=mondary.php`
+
+**Fonctionnement :** Le snippet utilise `DOMContentLoaded` pour parcourir tous les liens (`<a>`) de la page.  Il vérifie si le lien est externe et lui ajoute les attributs nécessaires pour ouvrir le lien dans un nouvel onglet et inclure le paramètre `ref`.  Il ajoute également la classe `external-link` pour un style personnalisé (facultatif).
 
 
 ## Calendrier de planification des articles
