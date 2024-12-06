@@ -1,4 +1,3 @@
-// Code PHP a inserer dans WPcode
 // Permet d'ajouter les features images dans le flux RSS, a combiner avec l'extension RSS Feed Styles
 
 
