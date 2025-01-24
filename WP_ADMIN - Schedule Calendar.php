@@ -1,29 +1,4 @@
 <?php
-/**
- * Changelog:
- * v1.0 "Le Petit Calendrier" - Premier jet du calendrier
- * v1.1 "Le Chasseur d'Articles" - Récupération de tous les articles avec pagination
- * v1.2 "Le Débuggeur Fou" - Ajout de la gestion des erreurs
- * v1.3 "Le Filtreur Magique" - Ajout du filtre par catégories
- * v1.4 "L'Explorateur Temporel" - Modification pour inclure tous les articles
- * v1.5 "Le Prophète" - Correction pour les articles programmés
- * v1.6 "Retour vers le Futur" - Inclusion des articles des jours à venir
- * v1.7 "Le Maître du Temps" - Amélioration de l'affichage des articles programmés
- * v1.8 "Le Grand Rassembleur" - Inclusion de tous les statuts d'articles
- * v1.9 "Le Brouillon Farceur" - Ajout des brouillons et mise à jour des couleurs
- * v2.0 "L'Arc-en-Ciel" - Harmonisation des couleurs entre les vues
- * v2.1 "Le Minimaliste" - Simplification du menu et historique complet
- * v2.2 "L'Épurateur" - Simplification des titres
- * v2.3 "Le Jongleur" - Ajout du drag & drop et de la recherche rapide
- * v2.4 "L'Ergonome" - Réorganisation de l'affichage des articles avec actions et grip
- * v2.5 "L'Esthète" - Refonte des tuiles articles et amélioration du drag & drop
- * v2.6 "Le Perfectionniste" - Correction du drag & drop et stabilisation des icônes
- * v2.7 "Le Navigateur" - Ajout du raccourci dans la barre d'administration
- * v2.8 "Le Simplificateur" - Suppression du drag & drop et réorganisation des tuiles
- * v2.9 "L'Organisateur" - Refonte du header avec sélection directe des dates
- * v3.0 "L'Iconographe" - Amélioration des icônes et réorganisation des statistiques
- * v3.1 "Le Statisticien" - Optimisation des requêtes et statistiques globales
- */
 
 // Assurez-vous que le script ne peut être exécuté que dans WordPress
 if (!defined('ABSPATH')) exit;
@@ -703,7 +678,7 @@ function generate_scheduled_posts_calendar_alpha() {
 
 // Ajout de la page du calendrier au menu admin
 add_action('admin_menu', function() {
-    add_menu_page('Calendrier des Articles', 'Calendrier', 'edit_posts', 'scheduled-posts-calendar', 'generate_scheduled_posts_calendar_alpha', 'dashicons-calendar-alt', 6);
+    add_submenu_page('edit.php', 'Calendrier', 'Calendrier', 'edit_posts', 'scheduled-posts-calendar', 'generate_scheduled_posts_calendar_alpha', 1);
 });
 
 // Ajout de l'entrée dans la barre d'administration
