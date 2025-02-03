@@ -440,7 +440,7 @@ function generate_scheduled_posts_calendar_alpha() {
                     <span title="Moyenne mensuelle"><i class="dashicons dashicons-chart-area"></i> <span id="avgPostsPerMonth" class="count">0</span></span>
                 </div>
             </div>
-            <div class="calendar-grid" id="calendarGrid" data-jetpack-boost="ignore">
+            <div class="calendar-grid" id="calendarGrid" data-jetpack-boost="ignore" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <!-- Le calendrier sera généré ici par JavaScript -->
             </div>
         </div>
@@ -545,6 +545,10 @@ function generate_scheduled_posts_calendar_alpha() {
                 dayCell.className = 'calendar-day';
                 
                 const currentDayDate = new Date(firstDay.getFullYear(), firstDay.getMonth(), day);
+                dayCell.setAttribute('data-date', currentDayDate.toISOString());
+                dayCell.addEventListener('drop', drop);
+                dayCell.addEventListener('dragover', allowDrop);
+
                 if (currentDayDate.toDateString() === new Date().toDateString()) {
                     dayCell.classList.add('today');
                 }
@@ -566,6 +570,8 @@ function generate_scheduled_posts_calendar_alpha() {
                     const postDiv = document.createElement('div');
                     postDiv.className = 'post-item ' + post.status;
                     postDiv.setAttribute('data-post-id', post.id);
+                    postDiv.setAttribute('draggable', true);
+                    postDiv.addEventListener('dragstart', drag);
 
                     const postTime = new Date(post.date).toLocaleTimeString('fr-FR', {
                         hour: '2-digit',
@@ -668,6 +674,45 @@ function generate_scheduled_posts_calendar_alpha() {
                 }
             });
         });
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const postId = event.dataTransfer.getData("text");
+            const newDate = event.target.getAttribute('data-date');
+            updatePostDate(postId, newDate);
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.getAttribute('data-post-id'));
+        }
+
+        function updatePostDate(postId, newDate) {
+            fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+                },
+                body: JSON.stringify({ date: newDate })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la mise à jour de la date');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Date mise à jour avec succès:', data);
+                updateCalendar(currentDate);
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+        }
 
         // Initialisation du calendrier
         updateCalendar(currentDate);
