@@ -47,6 +47,14 @@ add_action( 'admin_head', function () {
       $(document).ready(function () {
         $(".wp-list-table thead th").each(function () {
           var $th = $(this);
+          var columnIndex = $th.index(); // Index de la colonne
+          var savedWidth = localStorage.getItem("columnWidth_" + columnIndex); // Récupérer la largeur sauvegardée
+
+          // Appliquer la largeur sauvegardée si elle existe
+          if (savedWidth) {
+            $th.css("width", savedWidth + "px");
+          }
+
           var $resizer = $("<div>", { class: "column-resizer" }).appendTo($th);
 
           $resizer.on("mousedown", function (e) {
@@ -62,6 +70,8 @@ add_action( 'admin_head', function () {
             });
 
             $(document).on("mouseup.resizing", function () {
+              // Enregistrer la largeur choisie dans localStorage
+              localStorage.setItem("columnWidth_" + columnIndex, $th.outerWidth());
               $(document).off(".resizing");
             });
           });
