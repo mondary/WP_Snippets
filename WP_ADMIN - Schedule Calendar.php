@@ -691,13 +691,24 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         function updatePostDate(postId, newDate) {
+            // Créer une nouvelle date avec l'heure fixée à 14h
+            const dateWithTime = new Date(newDate);
+            
+            // Vérifier si la date est valide
+            if (isNaN(dateWithTime.getTime())) {
+                console.error('Date invalide:', newDate);
+                return;
+            }
+
+            dateWithTime.setHours(14, 0, 0); // Fixer l'heure à 14h00
+
             fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
                 },
-                body: JSON.stringify({ date: newDate })
+                body: JSON.stringify({ date: dateWithTime.toISOString() }) // Utiliser la date avec l'heure
             })
             .then(response => {
                 if (!response.ok) {
@@ -707,7 +718,7 @@ function generate_scheduled_posts_calendar_alpha() {
             })
             .then(data => {
                 console.log('Date mise à jour avec succès:', data);
-                updateCalendar(currentDate);
+                updateCalendar(currentDate); // Mettre à jour le calendrier après la modification
             })
             .catch(error => {
                 console.error('Erreur:', error);
