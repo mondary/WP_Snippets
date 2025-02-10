@@ -1,6 +1,6 @@
 <?php
 // Ajoute une barre de recherche dans la barre de menu admin de WordPress
-add_action('admin_bar_menu', 'ajouter_barre_recherche_admin', 100);
+add_action('admin_bar_menu', 'ajouter_barre_recherche_admin', 999);
 
 function ajouter_barre_recherche_admin($admin_bar) {
     $admin_bar->add_node(array(
@@ -20,6 +20,8 @@ add_action('admin_head', function() {
     echo '<style>
         #wpadminbar #wp-admin-bar-recherche_admin {
             padding: 0;
+            float: right;
+            margin-right: 8px;
         }
         #wpadminbar #wp-admin-bar-recherche_admin:hover {
             background: none;
