@@ -741,7 +741,7 @@ add_action('admin_menu', function() {
 add_action('admin_bar_menu', function($admin_bar) {
     $admin_bar->add_node([
         'id'    => 'calendar',
-        'title' => '<span class="ab-icon dashicons dashicons-calendar-alt"></span> Cal.',
+        'title' => '<span class="ab-icon dashicons dashicons-calendar-alt"></span>',
         'href'  => admin_url('admin.php?page=scheduled-posts-calendar'),
         'meta'  => [
             'title' => 'Voir le calendrier des articles',
