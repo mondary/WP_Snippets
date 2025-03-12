@@ -37,6 +37,7 @@ function preview_links_shortcode($atts, $content = null) {
 
 function get_external_links_from_content($content) {
     $links = array();
+    $processed_urls = array();
     $site_host = parse_url(home_url(), PHP_URL_HOST);
     
     // Recherche des liens Markdown [texte](url)
@@ -46,10 +47,13 @@ function get_external_links_from_content($content) {
         $link_host = parse_url($url, PHP_URL_HOST);
         
         if ($link_host && $link_host !== $site_host) {
-            $links[] = array(
-                'url' => $url,
-                'title' => $match[1] ?: $link_host
-            );
+            if (!in_array($url, $processed_urls)) {
+                $links[] = array(
+                    'url' => $url,
+                    'title' => $match[1] ?: $link_host
+                );
+                $processed_urls[] = $url;
+            }
         }
     }
     
@@ -60,10 +64,29 @@ function get_external_links_from_content($content) {
         $link_host = parse_url($url, PHP_URL_HOST);
         
         if ($link_host && $link_host !== $site_host) {
-            $links[] = array(
-                'url' => $url,
-                'title' => strip_tags($match[3]) ?: $link_host
-            );
+            if (!in_array($url, $processed_urls)) {
+                $links[] = array(
+                    'url' => $url,
+                    'title' => strip_tags($match[3]) ?: $link_host
+                );
+                $processed_urls[] = $url;
+            }
+        }
+    }
+    
+    // Recherche des URLs simples dans le texte
+    preg_match_all('/(?<!\[|href=["\'])(?:https?:\/\/[^\s<>"\)\]]+)/', $content, $plain_matches);
+    foreach ($plain_matches[0] as $url) {
+        $link_host = parse_url($url, PHP_URL_HOST);
+        
+        if ($link_host && $link_host !== $site_host) {
+            if (!in_array($url, $processed_urls)) {
+                $links[] = array(
+                    'url' => $url,
+                    'title' => $link_host
+                );
+                $processed_urls[] = $url;
+            }
         }
     }
     
