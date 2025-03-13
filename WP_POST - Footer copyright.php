@@ -12,7 +12,7 @@ add_action('wp_head', function() {
         .custom-footer {
             padding: 0;
             text-align: center;
-            background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%);
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -27,7 +27,7 @@ add_action('wp_head', function() {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0) 100%);
             z-index: 1;
         }
 

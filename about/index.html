@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform Your Digital Presence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: #0f172a;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .scenic-view {
+            flex: 1;
+            position: relative;
+            background: url('cm.jpg') 100% center/cover;
+        }
+
+        .scenic-view::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at left center, rgba(255, 255, 255, 0) 30%, rgba(15, 23, 42, 1) 70%); 
+        }
+
+        .content {
+            flex: 1;
+            padding: 8vh 12vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: clamp(4vh, 6vh, 8vh);
+            gap: clamp(12px, 2vw, 20px);
+        }
+
+        .logo {
+            width: clamp(30px, 8vw, 40px);
+            height: clamp(30px, 8vw, 40px);
+            border-radius: 50%;
+            background: url('cm_logo.png') center/cover;
+            flex-shrink: 0;
+        }
+
+        .header-name {
+            color: #ffffff;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .professional-description {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            margin-right: 60px;
+            padding-right: 20px;
+            overflow-x: auto;
+        }
+
+        .professional-description p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .professional-description p:last-child {
+            margin-bottom: 0;
+            
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .cta-button {
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            align-items: flex-start;
+        }
+
+        .footer-text {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .signature {
+            height: 60px;
+            margin-top: 10px;
+            filter: brightness(0) invert(1);
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                padding: 6vh;
+            }
+            
+            .signature {
+                height: 80px;
+            }
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+
+        .social-links i {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #60a5fa;
+        }
+
+        .social-links a:hover i {
+            color: #60a5fa;
+        }
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .footer span {
+            margin: 0 8px;
+        }
+
+        .signature {
+            height: 140px;
+            filter: brightness(0) invert(1);
+        }
+
+
+
+
+        @media (max-width: 1440px) {
+            .header-name {
+                font-size: clamp(1.2rem, 3vw, 2rem);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                padding: 6vh;
+            }
+            
+            .signature {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column-reverse;
+            }
+        
+            .scenic-view {
+                height: 40vh;
+            }
+        
+            .scenic-view::after {
+                background: linear-gradient(to bottom, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.5) 50%, rgba(15, 23, 42, 0.95) 100%);
+            }
+        
+            .content {
+                padding: 4vh;
+            }
+        
+            .header {
+                margin-bottom: 3vh;
+            }
+        
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        
+            .signature {
+                height: 100px;
+                margin-left: 0;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .header-name {
+                font-size: 1.2rem;
+            }
+    
+            h1 {
+                font-size: 1.8rem;
+            }
+    
+            .content {
+                padding: 3vh;
+            }
+    
+            .signature {
+                height: 80px;
+            }
+        }
+    
+        @media (max-width: 360px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+    
+            .logo {
+                width: 25px;
+                height: 25px;
+            }
+    
+            h1 {
+                font-size: 1.5rem;
+            }
+    
+            .signature {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="scenic-view"></div>
+        <div class="content">
+            <div>
+                <div class="header">
+                    <div class="logo"></div>
+                    <div class="header-name">MONDARY CLEMENT</div>
+                </div>
+                <div class="main-content">
+                    <h1>Sublimons votre présence numérique.</h1>
+                    <p class="tagline">From zero to extraordinary. Let's create your digital reality.</p>
+                    <div class="professional-description">
+                        <p>Senior User eXperience Designer et Ergonome de formation, je m'applique à définir des concepts alliant besoins utilisateurs et enjeux business, avec de l'information structurée, une navigation intuitive, simple d'utilisation pour offrir la meilleure expérience utilisateur possible.</p>
+                        <p>Faire simple est souvent bien compliqué ! (cela implique de faire des choix)</p>
+                        <p>Mon métier d'ergonome / UX designer me passionne pour son caractère louable, où l'on essaye d'adapter les services, produits et travail à l'homme, et non l'inverse..</p>
+                        <div style="text-align: right; margin-top: 20px;">
+                            <img src="cm_signature.png" alt="MONDARY CLEMENT" class="signature" style="height: 140px;">
+                        </div>
+                    </div>
+                    <a href="mailto:clem@mondary.me" class="cta-button">Envoi moi un email</a>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/clementmondary/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/mondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/Clement_mondary" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.facebook.com/clementmondary/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/clementmondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://bsky.app/profile/pouark.bsky.social" target="_blank" rel="noopener noreferrer"><i class="fas fa-cloud"></i></a>
+                    <a href="https://mastodon.social/@pouark" target="_blank" rel="noopener noreferrer"><i class="fab fa-mastodon"></i></a>
+                    <a href="https://www.threads.net/@clementmondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-threads"></i></a>
+                    <a href="https://cmondary.tumblr.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tumblr"></i></a>
+                    <a href="https://mondary.design/feed/" target="_blank" rel="noopener noreferrer"><i class="fas fa-rss"></i></a>
+                </div>
+                <div class="footer-text">
+                    <span>Work fast. Live slow.</span>
+                    <span>•</span>
+                    <span>geek + web3 + ami cerveau</span>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
