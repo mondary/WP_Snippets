@@ -58,6 +58,29 @@
             gap: clamp(12px, 2vw, 20px);
         }
 
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button:hover {
+            color: #60a5fa;
+        }
+
         .logo {
             width: clamp(30px, 8vw, 40px);
             height: clamp(30px, 8vw, 40px);
@@ -226,6 +249,12 @@
         }
 
         @media (max-width: 768px) {
+            .back-button {
+                top: 10px;
+                left: 10px;
+                background: rgba(15, 23, 42, 0.9);
+            }
+
             .container {
                 flex-direction: column-reverse;
                 overflow-y: scroll;
@@ -306,6 +335,7 @@
         <div class="content">
             <div>
                 <div class="header">
+                    <a href="https://mondary.design" class="back-button"><i class="fas fa-arrow-left"></i></a>
                     <div class="logo"></div>
                     <div class="header-name">MONDARY CLEMENT</div>
                 </div>
