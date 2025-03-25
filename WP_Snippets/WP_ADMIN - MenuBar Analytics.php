@@ -53,6 +53,10 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://cronitor.io/app/monitors/MzFC18?env=production&sort=-created&time=7d',
             'icon' => 'dashicons-visibility'
         ),
+        'Collaborator' => array(
+            'url' => 'https://collaborator.pro/creator/article/view?id=328636',
+            'icon' => 'dashicons-admin-post'
+        ),
     );
 
     foreach ($links as $title => $link) {
