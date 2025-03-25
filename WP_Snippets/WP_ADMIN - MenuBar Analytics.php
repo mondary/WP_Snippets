@@ -1,5 +1,9 @@
 
 
+add_action('admin_enqueue_scripts', function() {
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+});
+
 add_action('admin_head', function() {
     echo '<style>
         /* Ensure the Analytics menu icon is clickable */
@@ -14,6 +18,14 @@ add_action('admin_head', function() {
         }
         #wpadminbar #wp-admin-bar-custom_menu:hover .ab-icon {
             color: #72aee6;
+        }
+        /* FontAwesome icons styling */
+        #wpadminbar .fa, #wpadminbar .fas {
+            font-family: "Font Awesome 6 Free" !important;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0 4px 0 0;
         }
     </style>';
 });
@@ -35,34 +47,34 @@ function custom_admin_bar_menu($wp_admin_bar) {
     $links = array(
         'Google Analytics' => array(
             'url' => 'https://analytics.google.com/analytics/web',
-            'icon' => 'dashicons-chart-line'
+            'icon' => 'fa-chart-line'
         ),
         'Umami' => array(
             'url' => 'https://eu.umami.is/websites/18410156-63da-42cf-b3bb-474c0d61f208',
-            'icon' => 'dashicons-chart-bar'
+            'icon' => 'fa-chart-bar'
         ),
         'DataPulse' => array(
             'url' => 'https://datapulse.app/dashboard',
-            'icon' => 'dashicons-chart-area'
+            'icon' => 'fa-chart-area'
         ),
         'Counter' => array(
             'url' => 'https://counter.dev/dashboard.html',
-            'icon' => 'dashicons-clock'
+            'icon' => 'fa-clock'
         ),
         'Cronitor' => array(
             'url' => 'https://cronitor.io/app/monitors/MzFC18?env=production&sort=-created&time=7d',
-            'icon' => 'dashicons-visibility'
+            'icon' => 'fa-eye'
         ),
         'Collaborator' => array(
             'url' => 'https://collaborator.pro/creator/article/view?id=328636',
-            'icon' => 'dashicons-admin-post'
+            'icon' => 'fa-file-lines'
         ),
     );
 
     foreach ($links as $title => $link) {
         $wp_admin_bar->add_node(array(
             'id'    => sanitize_title($title),
-            'title' => '<span class="dashicons ' . $link['icon'] . '"></span> ' . $title,
+            'title' => '<i class="fas ' . $link['icon'] . '"></i> ' . $title,
             'href'  => $link['url'],
             'meta'  => array('target' => '_blank'), // Ouvre dans un nouvel onglet
             'parent' => 'custom_menu', // Définit le parent pour le sous-menu
