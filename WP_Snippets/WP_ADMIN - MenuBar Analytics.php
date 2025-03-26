@@ -69,6 +69,18 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://collaborator.pro/creator/article/view?id=328636',
             'icon' => 'fa-file-lines'
         ),
+        'Jetpack Subscribers' => array(
+            'url' => 'https://cloud.jetpack.com/subscribers/194725933?site=194725933',
+            'icon' => 'fa-users'
+        ),
+        'Jetpack Subscribers Stats' => array(
+            'url' => 'https://wordpress.com/stats/subscribers/mondary.design',
+            'icon' => 'fa-chart-bar'
+        ),
+        'WordPress Reader' => array(
+            'url' => 'https://wordpress.com/reader/feeds/119173277',
+            'icon' => 'fa-rss'
+        ),
     );
 
     foreach ($links as $title => $link) {
