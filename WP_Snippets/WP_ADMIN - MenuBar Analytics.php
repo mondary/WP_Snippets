@@ -81,6 +81,18 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://wordpress.com/reader/feeds/119173277',
             'icon' => 'fa-rss'
         ),
+        'Squarespace' => array(
+            'url' => 'https://account.squarespace.com/domains',
+            'icon' => 'fa-globe'
+        ),
+        'Porkbun' => array(
+            'url' => 'https://porkbun.com/account/domainsSpeedy',
+            'icon' => 'fa-server'
+        ),
+        'OVH Manager' => array(
+            'url' => 'https://www.ovh.com/manager/#/hub',
+            'icon' => 'fa-cloud'
+        ),
     );
 
     foreach ($links as $title => $link) {
