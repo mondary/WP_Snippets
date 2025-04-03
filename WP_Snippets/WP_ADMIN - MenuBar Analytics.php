@@ -1,10 +1,16 @@
 
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+});
 
 add_action('admin_enqueue_scripts', function() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 });
 
-add_action('admin_head', function() {
+add_action('wp_head', 'analytics_menu_styles');
+add_action('admin_head', 'analytics_menu_styles');
+
+function analytics_menu_styles() {
     echo '<style>
         /* Ensure the Analytics menu icon is clickable */
         #wpadminbar #wp-admin-bar-custom_menu > .ab-item {
@@ -28,7 +34,7 @@ add_action('admin_head', function() {
             padding: 0 4px 0 0;
         }
     </style>';
-});
+}
 
 function custom_admin_bar_menu($wp_admin_bar) {
     // Ajouter un groupe de menu
