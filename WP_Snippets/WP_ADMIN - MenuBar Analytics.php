@@ -33,6 +33,12 @@ function analytics_menu_styles() {
             line-height: 1;
             padding: 0 4px 0 0;
         }
+        /* Menu separators */
+        #wpadminbar #wp-admin-bar-custom_menu .separator {
+            height: 1px;
+            margin: 6px 8px;
+            background: rgba(255, 255, 255, 0.2);
+        }
     </style>';
 }
 
@@ -50,6 +56,7 @@ function custom_admin_bar_menu($wp_admin_bar) {
     $wp_admin_bar->add_node($args);
 
     // Ajouter des sous-menus avec des icônes
+    // Groupe Analytics & Stats
     $links = array(
         'Google Analytics' => array(
             'url' => 'https://analytics.google.com/analytics/web',
@@ -71,10 +78,30 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://cronitor.io/app/monitors/MzFC18?env=production&sort=-created&time=7d',
             'icon' => 'fa-eye'
         ),
+        'Google News' => array(
+            'url' => 'https://news.google.com/search?q=site%3Amondary.design&hl=fr&gl=FR&ceid=FR%3Af',
+            'icon' => 'fa-newspaper'
+        ),
+        'separator1' => array(
+            'separator' => true
+        ),
+        // Groupe Publication
         'Collaborator' => array(
             'url' => 'https://collaborator.pro/creator/article/view?id=328636',
             'icon' => 'fa-file-lines'
         ),
+        'Google AdSense' => array(
+            'url' => 'https://www.google.com/adsense/new/u/0/pub-1824217780734986/home',
+            'icon' => 'fa-dollar-sign'
+        ),
+        'AdSense Paiements' => array(
+            'url' => 'https://www.google.com/adsense/new/u/0/pub-1824217780734986/payments/?place=TRANSACTIONS_SERVICE',
+            'icon' => 'fa-money-bill'
+        ),
+        'separator2' => array(
+            'separator' => true
+        ),
+        // Groupe Abonnés & Social
         'Jetpack Subscribers' => array(
             'url' => 'https://cloud.jetpack.com/subscribers/194725933?site=194725933',
             'icon' => 'fa-users'
@@ -87,6 +114,10 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://wordpress.com/reader/feeds/119173277',
             'icon' => 'fa-rss'
         ),
+        'separator3' => array(
+            'separator' => true
+        ),
+        // Groupe Domaines & Hébergement
         'Squarespace' => array(
             'url' => 'https://account.squarespace.com/domains',
             'icon' => 'fa-globe'
@@ -98,17 +129,25 @@ function custom_admin_bar_menu($wp_admin_bar) {
         'OVH Manager' => array(
             'url' => 'https://www.ovh.com/manager/#/hub',
             'icon' => 'fa-cloud'
-        ),
+        )
     );
 
     foreach ($links as $title => $link) {
-        $wp_admin_bar->add_node(array(
-            'id'    => sanitize_title($title),
-            'title' => '<i class="fas ' . $link['icon'] . '"></i> ' . $title,
-            'href'  => $link['url'],
-            'meta'  => array('target' => '_blank'), // Ouvre dans un nouvel onglet
-            'parent' => 'custom_menu', // Définit le parent pour le sous-menu
-        ));
+        if (isset($link['separator'])) {
+            $wp_admin_bar->add_node(array(
+                'id'    => $title,
+                'title' => '<div class="separator"></div>',
+                'parent' => 'custom_menu',
+            ));
+        } else {
+            $wp_admin_bar->add_node(array(
+                'id'    => sanitize_title($title),
+                'title' => '<i class="fas ' . $link['icon'] . '"></i> ' . $title,
+                'href'  => $link['url'],
+                'meta'  => array('target' => '_blank'), // Ouvre dans un nouvel onglet
+                'parent' => 'custom_menu', // Définit le parent pour le sous-menu
+            ));
+        }
     }
 }
 add_action('admin_bar_menu', 'custom_admin_bar_menu', 100);
