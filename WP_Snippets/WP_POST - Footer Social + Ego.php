@@ -1,4 +1,3 @@
-<?php
 /* 
 Title: Combined Footer with Social Links and Copyright
 Description: Combines social links and gradient copyright footer into one unified design
@@ -21,28 +20,34 @@ add_action('wp_head', function() {
             align-items: center;
             padding: 20px;
             background-color: #f8f9fa;
-            margin: 0 300px 20px 300px;
+            max-width: var(--global-content-width);
+            margin: 0 auto 20px auto;
+            width: calc(100% - 40px);
         }
 
         @media screen and (max-width: 1024px) {
             .social-footer {
-                margin: 0 100px 20px 100px;
+                width: calc(100% - 40px);
+                margin: 0 auto 20px auto;
             }
         }
 
         @media screen and (max-width: 768px) {
             .social-footer {
                 flex-direction: column;
-                margin: 0 20px 20px 20px;
+                margin: 0 auto 20px auto;
                 gap: 20px;
+                width: calc(100% - 40px);
             }
 
             .footer-section {
                 justify-content: center;
+                width: 100%;
             }
 
             .social-links, .custom-icons {
                 justify-content: center;
+                flex-wrap: wrap;
             }
         }
 
@@ -57,27 +62,6 @@ add_action('wp_head', function() {
             display: flex;
             align-items: center;
             gap: 5px;
-        }
-
-        .kofi-section {
-            justify-content: center;
-        }
-
-        .kofi-section a {
-            background-color: #FF5F5F;
-            padding: 8px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .kofi-section a:hover {
-            background-color: #FF4545;
         }
 
         .custom-icons {
@@ -184,29 +168,22 @@ function render_combined_footer() {
                 </a>
             </div>
 
-            <!-- Center section - Ko-fi button -->
-            <div class="footer-section kofi-section">
+            <!-- Right section - Streaming link and Ko-fi button -->
+            <div class="footer-section custom-icons">
+
+                <!-- Warez Link -->
+                <a href="<?php echo esc_url('https://mondary.design/warez/'); ?>" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-skull"></i>
+                </a>
+
+                <!-- Streaming Link -->
+                <a href="<?php echo esc_url('https://mondary.design/streaming/'); ?>" target="_blank" rel="noopener noreferrer">
+                <img src="https://mondary.design/wp-content/uploads/2025/02/popcorn.png" alt="Streaming" style="width: 2em; height: 2em;"/>
+                </a>
+
+                <!-- Ko-fi Button -->
                 <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
                 <script type='text/javascript'>kofiwidget2.init('Buy me a coffee !', '#FE7676', 'F1F31908HD');kofiwidget2.draw();</script>
-            </div>
-
-            <!-- Right section - Custom icons -->
-            <div class="footer-section custom-icons">
-                <a href="<?php echo esc_url('https://mondary.design/streaming/'); ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="https://mondary.design/wp-content/uploads/2025/02/popcorn.png" alt="Streaming" style="width: 2em; height: 2em;">
-                </a>
-                <a href="<?php echo esc_url('https://mondary.design/warez'); ?>" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-skull" style="font-size: 2em;"></i>
-                </a>
-                <a href="<?php echo esc_url('https://mondary.design/pk/btc/'); ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="https://mondary.design/wp-content/uploads/2025/02/bitcoin.png" alt="Bitcoin" style="width: 1em; height: 1em;">
-                </a>
-                <a href="<?php echo esc_url('https://mondary.design/pk/joe/'); ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="https://mondary.design/wp-content/uploads/2025/02/biberon.png" alt="Joe" style="width: 1em; height: 1em;">
-                </a>
-                <a href="<?php echo esc_url('https://mondary.design/pk/gog/'); ?>" target="_blank" rel="noopener noreferrer">
-                    <img src="https://mondary.design/wp-content/uploads/2025/02/gog.png" alt="GOG" style="width: 1em; height: 1em;">
-                </a>
             </div>
         </div>
 
