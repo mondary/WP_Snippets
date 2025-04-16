@@ -682,8 +682,22 @@ function generate_scheduled_posts_calendar_alpha() {
         function drop(event) {
             event.preventDefault();
             const postId = event.dataTransfer.getData("text");
-            const newDate = event.target.getAttribute('data-date');
-            updatePostDate(postId, newDate);
+            
+            // Trouver l'élément parent avec l'attribut data-date (la cellule du calendrier)
+            let targetElement = event.target;
+            while (targetElement && !targetElement.getAttribute('data-date')) {
+                targetElement = targetElement.parentElement;
+            }
+            
+            // Récupérer la date de la cellule du calendrier
+            const newDate = targetElement ? targetElement.getAttribute('data-date') : null;
+            
+            // Vérifier que la date est valide avant de mettre à jour
+            if (newDate) {
+                updatePostDate(postId, newDate);
+            } else {
+                console.error('Impossible de trouver une date valide pour le drop');
+            }
         }
 
         function drag(event) {
@@ -691,16 +705,27 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         function updatePostDate(postId, newDate) {
+            // Vérifier que la date est une chaîne valide
+            if (!newDate || typeof newDate !== 'string') {
+                console.error('Format de date invalide:', newDate);
+                return;
+            }
+            
+            // S'assurer que la date est au format ISO
+            const isoDate = newDate.includes('T') ? newDate : newDate + 'T00:00:00.000Z';
+            
             // Créer une nouvelle date avec l'heure fixée à 14h
-            const dateWithTime = new Date(newDate);
+            const dateWithTime = new Date(isoDate);
             
             // Vérifier si la date est valide
             if (isNaN(dateWithTime.getTime())) {
-                console.error('Date invalide:', newDate);
+                console.error('Date invalide après conversion:', isoDate);
                 return;
             }
 
             dateWithTime.setHours(14, 0, 0); // Fixer l'heure à 14h00
+            
+            console.log('Date à envoyer:', dateWithTime.toISOString())
 
             fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${postId}`, {
                 method: 'POST',
