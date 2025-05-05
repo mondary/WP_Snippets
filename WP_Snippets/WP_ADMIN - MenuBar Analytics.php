@@ -70,6 +70,11 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://datapulse.app/dashboard',
             'icon' => 'fa-chart-area'
         ),
+		'Swilty' => array(
+    'url' => 'https://swilty.com/dashboard',
+    'icon' => 'fa-bolt'
+),
+
         'Counter' => array(
             'url' => 'https://counter.dev/dashboard.html',
             'icon' => 'fa-clock'
@@ -82,6 +87,7 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://news.google.com/search?q=site%3Amondary.design&hl=fr&gl=FR&ceid=FR%3Af',
             'icon' => 'fa-newspaper'
         ),
+
         'separator1' => array(
             'separator' => true
         ),
