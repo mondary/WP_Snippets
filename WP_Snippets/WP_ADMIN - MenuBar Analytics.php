@@ -87,6 +87,10 @@ function custom_admin_bar_menu($wp_admin_bar) {
             'url' => 'https://news.google.com/search?q=site%3Amondary.design&hl=fr&gl=FR&ceid=FR%3Af',
             'icon' => 'fa-newspaper'
         ),
+        'Google Search Console' => array(
+            'url' => 'https://search.google.com/search-console/sitemaps?resource_id=https%3A%2F%2Fmondary.design%2F&hl=fr',
+            'icon' => 'fa-search'
+        ),
 
         'separator1' => array(
             'separator' => true

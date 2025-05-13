@@ -1,0 +1,11 @@
+- tous les scripts que je te demande sons des script PHP pour wpcode
+- tous les fichiers doivent commencer par WP_ :
+    -   WP_ADMIN - pour les fichiers qui s'exécutent dans l'interface d'administration
+    -   WP_POST - pour les fichiers qui s'exécutent dans les articles
+    -   WP_THEME - pour les fichiers qui s'exécutent dans le thème
+    -   WP_PLUGIN - pour les fichiers qui s'exécutent dans le plugin
+    -   WP_OPTI - pour les fichiers qui permettent d'executer des otpimisation pour google insight
+    -   WP_Shortcode - pour les fichiers qui permettent de créer des shortcode disponible dans les articles
+
+- Les commentaires sont importants pour que le code soit lisible et compréhensible par les autres développeurs, mais en français (je sais c'est pas bien ;))
+- 
