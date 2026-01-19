@@ -30,7 +30,7 @@ function umami_histogram_html($atts = array()) {
             'region' => 'eu',
             'days' => 30,
             'metric' => 'sessions', // sessions = visites, pageviews = pages vues
-            'height' => 140,
+            'height' => 30,
             'title' => '',
         ),
         $atts
@@ -38,6 +38,7 @@ function umami_histogram_html($atts = array()) {
 
     $days = max(1, (int) $atts['days']);
     $metric = $atts['metric'] === 'pageviews' ? 'pageviews' : 'sessions';
+    $metric_label = $metric === 'pageviews' ? 'Pages vues' : 'Visites';
 
     $cache_key = 'umami_histogram_' . md5($atts['share_id'] . $atts['region'] . $days . $metric);
     $cached = get_transient($cache_key);
@@ -104,10 +105,10 @@ function umami_histogram_html($atts = array()) {
     if (!$style_done) {
         $style_done = true;
         echo '<style>
-.umami-histogram{margin:16px 0;padding:0;background:transparent;}
+.umami-histogram{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:90%;margin:0;padding:0;background:transparent;z-index:9999;}
 .umami-histogram__title{display:none;}
 .umami-histogram__bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(6px,1fr));gap:4px;align-items:end;height:var(--umami-height);}
-.umami-histogram__bar{display:block;width:100%;background:#3b82f6;border-radius:2px 2px 0 0;opacity:.5;transition:opacity .2s ease;position:relative;}
+.umami-histogram__bar{display:block;width:100%;background:#3b82f6;border-radius:2px 2px 0 0;opacity:.2;transition:opacity .2s ease;position:relative;}
 .umami-histogram__bar:hover{opacity:1;}
 .umami-histogram__bar::after{content:attr(data-tooltip);position:absolute;bottom:100%;left:50%;transform:translate(-50%,-6px);background:rgba(0,0,0,.75);color:#fff;font-size:11px;line-height:1;padding:4px 6px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:5;}
 .umami-histogram__bar:hover::after{opacity:1;}
@@ -133,7 +134,7 @@ function umami_histogram_html($atts = array()) {
             }
         }
 
-        echo '<span class="umami-histogram__bar" style="height:' . $height_pct . '%" data-tooltip="' . esc_attr($label . ' : ' . $value) . '"></span>';
+        echo '<span class="umami-histogram__bar" style="height:' . $height_pct . '%" data-tooltip="' . esc_attr($label . ' : ' . $value . ' ' . $metric_label) . '"></span>';
     }
 
     echo '</div>';
