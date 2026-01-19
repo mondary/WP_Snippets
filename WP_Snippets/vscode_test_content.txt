@@ -1,0 +1,12 @@
+Test content for VS Code Extensions plugin:
+
+[vscode_extensions]
+https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-colorize
+https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next
+https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+[/vscode_extensions]
+
+Alternative format:
+Check out these extensions:
+- [Colorize](https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-colorize)
+- [TypeScript Next](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next)
