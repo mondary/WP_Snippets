@@ -651,6 +651,7 @@ function generate_scheduled_posts_calendar_alpha() {
         const urlParams = new URLSearchParams(window.location.search);
         const initialView = urlParams.get('view');
         const initialYearParam = parseInt(urlParams.get('year'), 10);
+        let pendingCenterToday = true;
 
         if (!Number.isNaN(initialYearParam)) {
             currentDate = new Date(initialYearParam, currentDate.getMonth(), 1);
@@ -675,6 +676,35 @@ function generate_scheduled_posts_calendar_alpha() {
             postItems.forEach(item => {
                 const title = item.textContent.toLowerCase();
                 item.style.display = title.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        function centerTodayCellIfNeeded() {
+            if (!pendingCenterToday) {
+                return;
+            }
+
+            const todayCell = calendarMonthsContainer.querySelector('.calendar-day.today');
+            pendingCenterToday = false;
+
+            if (!todayCell) {
+                return;
+            }
+
+            window.requestAnimationFrame(() => {
+                const monthSection = todayCell.closest('.calendar-month-section');
+
+                if (monthSection && monthSection.scrollWidth > monthSection.clientWidth) {
+                    const targetLeft = todayCell.offsetLeft - ((monthSection.clientWidth - todayCell.offsetWidth) / 2);
+                    monthSection.scrollLeft = Math.max(0, targetLeft);
+                }
+
+                const rect = todayCell.getBoundingClientRect();
+                const targetTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
+                window.scrollTo({
+                    top: Math.max(0, targetTop),
+                    behavior: 'auto'
+                });
             });
         }
 
@@ -768,6 +798,7 @@ function generate_scheduled_posts_calendar_alpha() {
                 const selectedMonthCount = selectedMonthResult ? selectedMonthResult.posts.length : 0;
                 updateMonthlyStats(yearStats.yearlyTotal, selectedMonthCount, yearStats.avgPostsPerMonth);
                 applySearchFilter();
+                centerTodayCellIfNeeded();
             })
             .catch(error => {
                 calendarMonthsContainer.innerHTML = '';
@@ -777,6 +808,7 @@ function generate_scheduled_posts_calendar_alpha() {
 
         function updateCalendar(date) {
             currentViewMode = 'single';
+            pendingCenterToday = false;
             visibleMonths = [normalizeMonth(date)];
             refreshCurrentView();
         }
@@ -790,6 +822,7 @@ function generate_scheduled_posts_calendar_alpha() {
             }
 
             currentViewMode = visibleMonths.length > 1 ? 'stacked' : 'single';
+            pendingCenterToday = false;
             refreshCurrentView();
         }
 
@@ -799,6 +832,7 @@ function generate_scheduled_posts_calendar_alpha() {
             monthSelect.value = currentDate.getMonth();
             yearSelect.value = currentDate.getFullYear();
             visibleMonths = Array.from({ length: 12 }, (_, monthIndex) => new Date(year, monthIndex, 1));
+            pendingCenterToday = (year === new Date().getFullYear());
             refreshCurrentView();
         }
 
@@ -1083,10 +1117,10 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         // Initialisation du calendrier
-        if (initialView === 'year') {
-            showFullYearView(currentDate.getFullYear());
-        } else {
+        if (initialView === 'month') {
             updateCalendar(currentDate);
+        } else {
+            showFullYearView(currentDate.getFullYear());
         }
     });
     </script>
