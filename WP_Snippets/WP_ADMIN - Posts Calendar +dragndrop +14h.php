@@ -495,6 +495,13 @@ function generate_scheduled_posts_calendar_alpha() {
         const searchInput = document.getElementById('searchPosts');
         const calendarMonthsContainer = document.getElementById('calendarMonthsContainer');
         const monthLabels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialView = urlParams.get('view');
+        const initialYearParam = parseInt(urlParams.get('year'), 10);
+
+        if (!Number.isNaN(initialYearParam)) {
+            currentDate = new Date(initialYearParam, currentDate.getMonth(), 1);
+        }
         
         // Mise à jour initiale des sélecteurs
         monthSelect.value = currentDate.getMonth();
@@ -635,6 +642,9 @@ function generate_scheduled_posts_calendar_alpha() {
 
         function showFullYearView(year) {
             currentViewMode = 'year';
+            currentDate = new Date(year, currentDate.getMonth(), 1);
+            monthSelect.value = currentDate.getMonth();
+            yearSelect.value = currentDate.getFullYear();
             visibleMonths = Array.from({ length: 12 }, (_, monthIndex) => new Date(year, monthIndex, 1));
             refreshCurrentView();
         }
@@ -920,7 +930,11 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         // Initialisation du calendrier
-        updateCalendar(currentDate);
+        if (initialView === 'year') {
+            showFullYearView(currentDate.getFullYear());
+        } else {
+            updateCalendar(currentDate);
+        }
     });
     </script>
     <?php
@@ -930,6 +944,26 @@ function generate_scheduled_posts_calendar_alpha() {
 add_action('admin_menu', function() {
     add_submenu_page('edit.php', 'Calendrier', 'Calendrier', 'edit_posts', 'scheduled-posts-calendar', 'generate_scheduled_posts_calendar_alpha', 1);
 });
+
+// Bouton rapide vers la vue annuelle depuis "Tous les articles"
+add_action('restrict_manage_posts', function($post_type, $which = '') {
+    if ($which !== 'top' || $post_type !== 'post' || !current_user_can('edit_posts')) {
+        return;
+    }
+
+    $target_year = (int) date('Y');
+    if (!empty($_GET['m']) && preg_match('/^(\d{4})/', (string) $_GET['m'], $matches)) {
+        $target_year = (int) $matches[1];
+    }
+
+    $calendar_year_url = add_query_arg([
+        'page' => 'scheduled-posts-calendar',
+        'view' => 'year',
+        'year' => $target_year,
+    ], admin_url('admin.php'));
+
+    echo '<a href="' . esc_url($calendar_year_url) . '" class="button" style="margin-left:8px;">Calendrier annuel</a>';
+}, 10, 2);
 
 // Ajout de l'entrée dans la barre d'administration
 add_action('admin_bar_menu', function($admin_bar) {
