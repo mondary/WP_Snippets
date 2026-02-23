@@ -403,6 +403,19 @@ function scheduled_posts_calendar_styles_alpha() {
             -webkit-overflow-scrolling: touch;
         }
 
+        @media (min-width: 1800px) {
+            .calendar-months-container {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+                align-items: start;
+            }
+
+            .calendar-month-section {
+                margin: 0;
+            }
+        }
+
         @media (max-width: 1100px) {
             .calendar-header {
                 grid-template-columns: 1fr;
@@ -652,6 +665,7 @@ function generate_scheduled_posts_calendar_alpha() {
         const initialView = urlParams.get('view');
         const initialYearParam = parseInt(urlParams.get('year'), 10);
         let pendingCenterToday = true;
+        let pendingFocusDate = null;
 
         if (!Number.isNaN(initialYearParam)) {
             currentDate = new Date(initialYearParam, currentDate.getMonth(), 1);
@@ -679,7 +693,39 @@ function generate_scheduled_posts_calendar_alpha() {
             });
         }
 
-        function centerTodayCellIfNeeded() {
+        function scrollCalendarCellIntoView(targetCell) {
+            window.requestAnimationFrame(() => {
+                const monthSection = targetCell.closest('.calendar-month-section');
+
+                if (monthSection && monthSection.scrollWidth > monthSection.clientWidth) {
+                    const targetLeft = targetCell.offsetLeft - ((monthSection.clientWidth - targetCell.offsetWidth) / 2);
+                    monthSection.scrollLeft = Math.max(0, targetLeft);
+                }
+
+                const rect = targetCell.getBoundingClientRect();
+                const targetTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
+                window.scrollTo({
+                    top: Math.max(0, targetTop),
+                    behavior: 'auto'
+                });
+            });
+        }
+
+        function focusCalendarCellIfNeeded() {
+            if (pendingFocusDate) {
+                const targetDate = pendingFocusDate;
+                pendingFocusDate = null;
+
+                const exactCell = calendarMonthsContainer.querySelector(`.calendar-day[data-date="${targetDate}"]:not(.empty)`)
+                    || calendarMonthsContainer.querySelector(`.calendar-day[data-date="${targetDate}"]`);
+
+                if (exactCell) {
+                    pendingCenterToday = false;
+                    scrollCalendarCellIntoView(exactCell);
+                    return;
+                }
+            }
+
             if (!pendingCenterToday) {
                 return;
             }
@@ -691,21 +737,7 @@ function generate_scheduled_posts_calendar_alpha() {
                 return;
             }
 
-            window.requestAnimationFrame(() => {
-                const monthSection = todayCell.closest('.calendar-month-section');
-
-                if (monthSection && monthSection.scrollWidth > monthSection.clientWidth) {
-                    const targetLeft = todayCell.offsetLeft - ((monthSection.clientWidth - todayCell.offsetWidth) / 2);
-                    monthSection.scrollLeft = Math.max(0, targetLeft);
-                }
-
-                const rect = todayCell.getBoundingClientRect();
-                const targetTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
-                window.scrollTo({
-                    top: Math.max(0, targetTop),
-                    behavior: 'auto'
-                });
-            });
+            scrollCalendarCellIntoView(todayCell);
         }
 
         function fetchMonthPosts(date) {
@@ -798,7 +830,7 @@ function generate_scheduled_posts_calendar_alpha() {
                 const selectedMonthCount = selectedMonthResult ? selectedMonthResult.posts.length : 0;
                 updateMonthlyStats(yearStats.yearlyTotal, selectedMonthCount, yearStats.avgPostsPerMonth);
                 applySearchFilter();
-                centerTodayCellIfNeeded();
+                focusCalendarCellIfNeeded();
             })
             .catch(error => {
                 calendarMonthsContainer.innerHTML = '';
@@ -1102,8 +1134,13 @@ function generate_scheduled_posts_calendar_alpha() {
             })
             .then(data => {
                 console.log('Date mise à jour avec succès:', data);
+                currentDate = targetMonthDate;
+                monthSelect.value = currentDate.getMonth();
+                yearSelect.value = currentDate.getFullYear();
+                pendingFocusDate = newDate;
+                pendingCenterToday = false;
+
                 if (currentViewMode === 'single' && monthOffset !== 0) {
-                    currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + monthOffset, 1);
                     updateSelectorsAndCalendar();
                     return;
                 }
