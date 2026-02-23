@@ -105,7 +105,7 @@ function umami_histogram_html($atts = array()) {
     if (!$style_done) {
         $style_done = true;
         echo '<style>
-.umami-histogram{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:90%;margin:0;padding:0;background:transparent;z-index:9999;}
+.umami-histogram{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:80%;margin:0;padding:0;background:transparent;z-index:9999;}
 .umami-histogram__title{display:none;}
 .umami-histogram__bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(6px,1fr));gap:4px;align-items:end;height:var(--umami-height);}
 .umami-histogram__bar{display:block;width:100%;background:#3b82f6;border-radius:2px 2px 0 0;opacity:.2;transition:opacity .2s ease;position:relative;}

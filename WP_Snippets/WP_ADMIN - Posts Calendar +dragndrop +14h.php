@@ -516,6 +516,13 @@ function generate_scheduled_posts_calendar_alpha() {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
 
+            function formatDateLocal(dateObj) {
+                const y = dateObj.getFullYear();
+                const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const d = String(dateObj.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            }
+
             // Ajout des en-têtes des jours
             const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
             dayNames.forEach(day => {
@@ -532,6 +539,11 @@ function generate_scheduled_posts_calendar_alpha() {
             for (let i = 0; i < emptyDaysStart; i++) {
                 const emptyDay = document.createElement('div');
                 emptyDay.className = 'calendar-day empty';
+                const prevDate = new Date(firstDay.getFullYear(), firstDay.getMonth() - 1, prevMonthLastDay - emptyDaysStart + i + 1);
+                emptyDay.setAttribute('data-date', formatDateLocal(prevDate));
+                emptyDay.setAttribute('data-month-offset', '-1');
+                emptyDay.addEventListener('drop', drop);
+                emptyDay.addEventListener('dragover', allowDrop);
                 const dateDiv = document.createElement('div');
                 dateDiv.className = 'date';
                 dateDiv.textContent = prevMonthLastDay - emptyDaysStart + i + 1;
@@ -545,7 +557,8 @@ function generate_scheduled_posts_calendar_alpha() {
                 dayCell.className = 'calendar-day';
                 
                 const currentDayDate = new Date(firstDay.getFullYear(), firstDay.getMonth(), day);
-                dayCell.setAttribute('data-date', currentDayDate.toISOString());
+                dayCell.setAttribute('data-date', formatDateLocal(currentDayDate));
+                dayCell.setAttribute('data-month-offset', '0');
                 dayCell.addEventListener('drop', drop);
                 dayCell.addEventListener('dragover', allowDrop);
 
@@ -612,6 +625,11 @@ function generate_scheduled_posts_calendar_alpha() {
             for (let i = 1; i <= emptyDaysEnd; i++) {
                 const emptyDay = document.createElement('div');
                 emptyDay.className = 'calendar-day empty';
+                const nextDate = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, i);
+                emptyDay.setAttribute('data-date', formatDateLocal(nextDate));
+                emptyDay.setAttribute('data-month-offset', '1');
+                emptyDay.addEventListener('drop', drop);
+                emptyDay.addEventListener('dragover', allowDrop);
                 const dateDiv = document.createElement('div');
                 dateDiv.className = 'date';
                 dateDiv.textContent = i;
@@ -682,50 +700,57 @@ function generate_scheduled_posts_calendar_alpha() {
         function drop(event) {
             event.preventDefault();
             const postId = event.dataTransfer.getData("text");
-            
-            // Trouver l'élément parent avec l'attribut data-date (la cellule du calendrier)
-            let targetElement = event.target;
-            while (targetElement && !targetElement.getAttribute('data-date')) {
-                targetElement = targetElement.parentElement;
-            }
-            
-            // Récupérer la date de la cellule du calendrier
+
+            const targetElement = event.currentTarget && event.currentTarget.getAttribute('data-date')
+                ? event.currentTarget
+                : (event.target && event.target.closest ? event.target.closest('[data-date]') : null);
+
             const newDate = targetElement ? targetElement.getAttribute('data-date') : null;
+            const monthOffset = targetElement ? parseInt(targetElement.getAttribute('data-month-offset') || '0', 10) : 0;
             
             // Vérifier que la date est valide avant de mettre à jour
             if (newDate) {
-                updatePostDate(postId, newDate);
+                updatePostDate(postId, newDate, monthOffset);
             } else {
                 console.error('Impossible de trouver une date valide pour le drop');
             }
         }
 
         function drag(event) {
-            event.dataTransfer.setData("text", event.target.getAttribute('data-post-id'));
+            const draggable = event.currentTarget && event.currentTarget.getAttribute('data-post-id')
+                ? event.currentTarget
+                : (event.target && event.target.closest ? event.target.closest('.post-item[data-post-id]') : null);
+
+            if (!draggable) {
+                return;
+            }
+            event.dataTransfer.setData("text", draggable.getAttribute('data-post-id'));
         }
 
-        function updatePostDate(postId, newDate) {
+        function updatePostDate(postId, newDate, monthOffset = 0) {
             // Vérifier que la date est une chaîne valide
             if (!newDate || typeof newDate !== 'string') {
                 console.error('Format de date invalide:', newDate);
                 return;
             }
-            
-            // S'assurer que la date est au format ISO
-            const isoDate = newDate.includes('T') ? newDate : newDate + 'T00:00:00.000Z';
-            
-            // Créer une nouvelle date avec l'heure fixée à 14h
-            const dateWithTime = new Date(isoDate);
-            
-            // Vérifier si la date est valide
-            if (isNaN(dateWithTime.getTime())) {
-                console.error('Date invalide après conversion:', isoDate);
+
+            const parts = newDate.split('-');
+            if (parts.length !== 3) {
+                console.error('Format de date attendu YYYY-MM-DD:', newDate);
                 return;
             }
 
-            dateWithTime.setHours(14, 0, 0); // Fixer l'heure à 14h00
-            
-            console.log('Date à envoyer:', dateWithTime.toISOString())
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10);
+            const day = parseInt(parts[2], 10);
+            const dateWithTime = new Date(year, month - 1, day, 14, 0, 0);
+
+            if (isNaN(dateWithTime.getTime())) {
+                console.error('Date invalide après conversion:', newDate);
+                return;
+            }
+
+            const payloadDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T14:00:00`;
 
             fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${postId}`, {
                 method: 'POST',
@@ -733,7 +758,7 @@ function generate_scheduled_posts_calendar_alpha() {
                     'Content-Type': 'application/json',
                     'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
                 },
-                body: JSON.stringify({ date: dateWithTime.toISOString() }) // Utiliser la date avec l'heure
+                body: JSON.stringify({ date: payloadDate })
             })
             .then(response => {
                 if (!response.ok) {
@@ -743,7 +768,12 @@ function generate_scheduled_posts_calendar_alpha() {
             })
             .then(data => {
                 console.log('Date mise à jour avec succès:', data);
-                updateCalendar(currentDate); // Mettre à jour le calendrier après la modification
+                if (monthOffset !== 0) {
+                    currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + monthOffset, 1);
+                    updateSelectorsAndCalendar();
+                    return;
+                }
+                updateCalendar(currentDate);
             })
             .catch(error => {
                 console.error('Erreur:', error);
