@@ -397,6 +397,159 @@ function scheduled_posts_calendar_styles_alpha() {
             color: #1d2327;
             margin: 0 0 10px 0;
         }
+
+        .calendar-month-section {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 1100px) {
+            .calendar-header {
+                grid-template-columns: 1fr;
+                align-items: stretch;
+            }
+
+            .calendar-nav {
+                flex-wrap: wrap;
+            }
+
+            .calendar-nav select,
+            .calendar-nav button,
+            .calendar-view-actions button,
+            #categoryFilter {
+                min-height: 36px;
+            }
+
+            #categoryFilter {
+                max-width: none;
+                width: 100%;
+            }
+
+            .calendar-view-actions {
+                margin-left: 0;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .calendar-stats {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: 0;
+                border-top: 1px solid #ddd;
+                padding-top: 10px;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 782px) {
+            .calendar-container {
+                margin: 12px 0;
+            }
+
+            .calendar-header {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .calendar-search input {
+                font-size: 16px;
+                min-height: 40px;
+            }
+
+            .calendar-nav {
+                gap: 6px;
+            }
+
+            .calendar-nav button {
+                padding: 6px 10px;
+            }
+
+            .calendar-nav select {
+                min-width: 120px;
+                flex: 1 1 140px;
+            }
+
+            .calendar-view-actions button {
+                flex: 1 1 140px;
+                justify-content: center;
+            }
+
+            .calendar-months-container {
+                gap: 12px;
+                margin-top: 10px;
+            }
+
+            .calendar-month-section {
+                padding: 8px;
+                border-radius: 6px;
+            }
+
+            .calendar-month-title {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .calendar-grid {
+                min-width: 760px;
+                gap: 6px;
+                padding: 8px;
+            }
+
+            .calendar-day-header {
+                padding: 8px 6px;
+                font-size: 12px;
+            }
+
+            .calendar-day {
+                min-height: 110px;
+                padding: 6px;
+            }
+
+            .calendar-day .date {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .post-item {
+                margin: 4px 0;
+                padding: 6px;
+                gap: 6px;
+                font-size: 11px;
+            }
+
+            .post-title {
+                font-size: 11px;
+                line-height: 1.3;
+                margin-bottom: 4px;
+                padding: 0;
+                margin-right: 0;
+            }
+
+            .post-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                padding-top: 4px;
+            }
+
+            .post-time {
+                font-size: 10px;
+            }
+
+            .post-actions {
+                gap: 4px;
+                flex-wrap: wrap;
+            }
+
+            .post-actions a {
+                padding: 4px;
+            }
+
+            .calendar-stats {
+                gap: 10px;
+                font-size: 10px;
+            }
+        }
     </style>
     <?php
 }
@@ -945,14 +1098,14 @@ add_action('admin_menu', function() {
     add_submenu_page('edit.php', 'Calendrier', 'Calendrier', 'edit_posts', 'scheduled-posts-calendar', 'generate_scheduled_posts_calendar_alpha', 1);
 });
 
-// Bouton rapide vers la vue annuelle depuis "Tous les articles"
-add_action('restrict_manage_posts', function($post_type, $which = '') {
-    if ($which !== 'top' || $post_type !== 'post' || !current_user_can('edit_posts')) {
-        return;
+// Lien "Calendrier annuel" dans la ligne de vues de "Tous les articles"
+add_filter('views_edit-post', function($views) {
+    if (!current_user_can('edit_posts')) {
+        return $views;
     }
 
     $target_year = (int) date('Y');
-    if (!empty($_GET['m']) && preg_match('/^(\d{4})/', (string) $_GET['m'], $matches)) {
+    if (!empty($_GET['m']) && preg_match('/^(\d{4})/', (string) wp_unslash($_GET['m']), $matches)) {
         $target_year = (int) $matches[1];
     }
 
@@ -962,8 +1115,10 @@ add_action('restrict_manage_posts', function($post_type, $which = '') {
         'year' => $target_year,
     ], admin_url('admin.php'));
 
-    echo '<a href="' . esc_url($calendar_year_url) . '" class="button" style="margin-left:8px;">Calendrier annuel</a>';
-}, 10, 2);
+    $views['calendar_year'] = '<a href="' . esc_url($calendar_year_url) . '">Calendrier annuel</a>';
+
+    return $views;
+});
 
 // Ajout de l'entrée dans la barre d'administration
 add_action('admin_bar_menu', function($admin_bar) {
