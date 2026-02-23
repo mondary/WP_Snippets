@@ -365,6 +365,38 @@ function scheduled_posts_calendar_styles_alpha() {
             font-weight: 600;
             color: #2271b1;
         }
+
+        .calendar-view-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 4px;
+        }
+
+        .calendar-view-actions button {
+            white-space: nowrap;
+        }
+
+        .calendar-months-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 14px;
+        }
+
+        .calendar-month-section {
+            background: #fff;
+            border: 1px solid #e2e4e7;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .calendar-month-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1d2327;
+            margin: 0 0 10px 0;
+        }
     </style>
     <?php
 }
@@ -424,6 +456,10 @@ function generate_scheduled_posts_calendar_alpha() {
                         ?>
                     </select>
                     <button id="nextMonth"><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+                    <div class="calendar-view-actions">
+                        <button id="appendNextMonth" type="button" title="Ajouter le mois suivant à la vue">+1 mois</button>
+                        <button id="showFullYear" type="button" title="Afficher l'année complète">Année complète</button>
+                    </div>
                 </div>
                 <select id="categoryFilter">
                     <option value="">Toutes les catégories</option>
@@ -440,7 +476,7 @@ function generate_scheduled_posts_calendar_alpha() {
                     <span title="Moyenne mensuelle"><i class="dashicons dashicons-chart-area"></i> <span id="avgPostsPerMonth" class="count">0</span></span>
                 </div>
             </div>
-            <div class="calendar-grid" id="calendarGrid" data-jetpack-boost="ignore" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="calendar-months-container" id="calendarMonthsContainer" data-jetpack-boost="ignore">
                 <!-- Le calendrier sera généré ici par JavaScript -->
             </div>
         </div>
@@ -449,30 +485,47 @@ function generate_scheduled_posts_calendar_alpha() {
     <script data-jetpack-boost="ignore">
     document.addEventListener('DOMContentLoaded', function() {
         let currentDate = new Date();
+        let currentViewMode = 'single';
+        let visibleMonths = [new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)];
 
         // Initialisation des sélecteurs
         const monthSelect = document.getElementById('monthSelect');
         const yearSelect = document.getElementById('yearSelect');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const searchInput = document.getElementById('searchPosts');
+        const calendarMonthsContainer = document.getElementById('calendarMonthsContainer');
+        const monthLabels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         
         // Mise à jour initiale des sélecteurs
         monthSelect.value = currentDate.getMonth();
         yearSelect.value = currentDate.getFullYear();
-        
-        function updateCalendar(date) {
+
+        function normalizeMonth(date) {
+            return new Date(date.getFullYear(), date.getMonth(), 1);
+        }
+
+        function getMonthKey(date) {
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        }
+
+        function applySearchFilter() {
+            const searchTerm = (searchInput.value || '').toLowerCase();
+            const postItems = document.querySelectorAll('.post-item');
+
+            postItems.forEach(item => {
+                const title = item.textContent.toLowerCase();
+                item.style.display = title.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        function fetchMonthPosts(date) {
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
             const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-            // Formatage des dates pour l'API WordPress
             const after = firstDay.toISOString();
             const before = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate(), 23, 59, 59).toISOString();
 
-            // Dates pour l'année en cours
-            const yearStart = new Date(date.getFullYear(), 0, 1).toISOString();
-            const yearEnd = new Date(date.getFullYear(), 11, 31, 23, 59, 59).toISOString();
-
-            // Récupération des articles
-            Promise.all([
-                // Articles du mois
+            return Promise.all([
                 fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish,future&after=${after}&before=${before}&orderby=date&order=asc`, {
                     headers: {
                         'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
@@ -482,38 +535,121 @@ function generate_scheduled_posts_calendar_alpha() {
                     headers: {
                         'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
                     }
-                }).then(response => response.json()),
-                // Articles de l'année
-                fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish&after=${yearStart}&before=${yearEnd}&orderby=date&order=desc`, {
-                    headers: {
-                        'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
-                    }
-                }).then(response => {
-                    const total = response.headers.get('X-WP-Total');
-                    return response.json().then(posts => ({ posts, total }));
-                })
+                }).then(response => response.json())
             ])
-            .then(([monthlyPublished, monthlyDrafts, yearlyPosts]) => {
+            .then(([monthlyPublished, monthlyDrafts]) => {
                 const monthlyPosts = [...monthlyPublished, ...monthlyDrafts];
-                const categoryFilter = document.getElementById('categoryFilter').value;
-                const filteredPosts = categoryFilter ? monthlyPosts.filter(post => post.categories.includes(parseInt(categoryFilter))) : monthlyPosts;
-                
-                generateCalendarGrid(firstDay, lastDay, filteredPosts);
-                
-                // Calcul des statistiques
-                const currentMonth = date.getMonth() + 1; // Mois en cours (1-12)
-                const yearlyTotal = parseInt(yearlyPosts.total) || yearlyPosts.posts.length;
-                const avgPostsPerMonth = currentMonth > 0 ? (yearlyTotal / currentMonth).toFixed(2) : 0;
+                const selectedCategory = categoryFilter.value;
+                const filteredPosts = selectedCategory
+                    ? monthlyPosts.filter(post => post.categories.includes(parseInt(selectedCategory, 10)))
+                    : monthlyPosts;
 
-                updateMonthlyStats(yearlyTotal, filteredPosts.length, avgPostsPerMonth);
+                return { firstDay, lastDay, posts: filteredPosts };
+            });
+        }
+
+        function fetchYearStats(date) {
+            const yearStart = new Date(date.getFullYear(), 0, 1).toISOString();
+            const yearEnd = new Date(date.getFullYear(), 11, 31, 23, 59, 59).toISOString();
+
+            return fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish&after=${yearStart}&before=${yearEnd}&orderby=date&order=desc`, {
+                headers: {
+                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+                }
+            })
+            .then(response => {
+                const total = response.headers.get('X-WP-Total');
+                return response.json().then(posts => ({ posts, total }));
+            })
+            .then(yearlyPosts => {
+                const currentMonth = currentDate.getMonth() + 1;
+                const yearlyTotal = parseInt(yearlyPosts.total, 10) || yearlyPosts.posts.length;
+                const avgPostsPerMonth = currentMonth > 0 ? (yearlyTotal / currentMonth).toFixed(2) : 0;
+                return { yearlyTotal, avgPostsPerMonth };
+            });
+        }
+
+        function renderMonthSection(firstDay, lastDay, posts) {
+            const section = document.createElement('section');
+            section.className = 'calendar-month-section';
+
+            const title = document.createElement('h2');
+            title.className = 'calendar-month-title';
+            title.textContent = `${monthLabels[firstDay.getMonth()]} ${firstDay.getFullYear()}`;
+
+            const grid = document.createElement('div');
+            grid.className = 'calendar-grid';
+
+            section.appendChild(title);
+            section.appendChild(grid);
+            calendarMonthsContainer.appendChild(section);
+
+            generateCalendarGrid(grid, firstDay, lastDay, posts);
+        }
+
+        function refreshCurrentView() {
+            const monthsToRender = (visibleMonths.length ? visibleMonths : [normalizeMonth(currentDate)])
+                .map(normalizeMonth)
+                .sort((a, b) => a - b);
+
+            visibleMonths = monthsToRender;
+            calendarMonthsContainer.innerHTML = '';
+
+            Promise.all([
+                Promise.all(monthsToRender.map(fetchMonthPosts)),
+                fetchYearStats(currentDate)
+            ])
+            .then(([monthResults, yearStats]) => {
+                monthResults.forEach(({ firstDay, lastDay, posts }) => {
+                    renderMonthSection(firstDay, lastDay, posts);
+                });
+
+                const selectedMonthResult = monthResults.find(({ firstDay }) => getMonthKey(firstDay) === getMonthKey(currentDate));
+                const selectedMonthCount = selectedMonthResult ? selectedMonthResult.posts.length : 0;
+                updateMonthlyStats(yearStats.yearlyTotal, selectedMonthCount, yearStats.avgPostsPerMonth);
+                applySearchFilter();
             })
             .catch(error => {
+                calendarMonthsContainer.innerHTML = '';
                 console.error('Erreur lors de la récupération des articles:', error);
             });
         }
 
-        function generateCalendarGrid(firstDay, lastDay, posts) {
-            const grid = document.getElementById('calendarGrid');
+        function updateCalendar(date) {
+            currentViewMode = 'single';
+            visibleMonths = [normalizeMonth(date)];
+            refreshCurrentView();
+        }
+
+        function appendNextMonthToView() {
+            const lastVisible = visibleMonths.length ? visibleMonths[visibleMonths.length - 1] : normalizeMonth(currentDate);
+            const nextMonth = new Date(lastVisible.getFullYear(), lastVisible.getMonth() + 1, 1);
+
+            if (!visibleMonths.some(monthDate => getMonthKey(monthDate) === getMonthKey(nextMonth))) {
+                visibleMonths = [...visibleMonths, nextMonth];
+            }
+
+            currentViewMode = visibleMonths.length > 1 ? 'stacked' : 'single';
+            refreshCurrentView();
+        }
+
+        function showFullYearView(year) {
+            currentViewMode = 'year';
+            visibleMonths = Array.from({ length: 12 }, (_, monthIndex) => new Date(year, monthIndex, 1));
+            refreshCurrentView();
+        }
+
+        function ensureTargetMonthVisible(targetMonthDate) {
+            if (currentViewMode !== 'stacked') {
+                return;
+            }
+
+            if (!visibleMonths.some(monthDate => getMonthKey(monthDate) === getMonthKey(targetMonthDate))) {
+                visibleMonths = [...visibleMonths, targetMonthDate].sort((a, b) => a - b);
+            }
+        }
+
+        function generateCalendarGrid(grid, firstDay, lastDay, posts) {
             grid.innerHTML = '';
 
             function formatDateLocal(dateObj) {
@@ -655,14 +791,26 @@ function generate_scheduled_posts_calendar_alpha() {
             updateSelectorsAndCalendar();
         });
 
+        document.getElementById('appendNextMonth').addEventListener('click', () => {
+            appendNextMonthToView();
+        });
+
+        document.getElementById('showFullYear').addEventListener('click', () => {
+            const selectedYear = parseInt(yearSelect.value, 10) || currentDate.getFullYear();
+            currentDate = new Date(selectedYear, currentDate.getMonth(), 1);
+            monthSelect.value = currentDate.getMonth();
+            yearSelect.value = currentDate.getFullYear();
+            showFullYearView(selectedYear);
+        });
+
         // Gestionnaires d'événements pour les sélecteurs
         monthSelect.addEventListener('change', function() {
-            currentDate = new Date(currentDate.getFullYear(), parseInt(this.value), 1);
+            currentDate = new Date(currentDate.getFullYear(), parseInt(this.value, 10), 1);
             updateCalendar(currentDate);
         });
         
         yearSelect.addEventListener('change', function() {
-            currentDate = new Date(parseInt(this.value), currentDate.getMonth(), 1);
+            currentDate = new Date(parseInt(this.value, 10), currentDate.getMonth(), 1);
             updateCalendar(currentDate);
         });
 
@@ -674,23 +822,13 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         // Filtre par catégorie
-        document.getElementById('categoryFilter').addEventListener('change', () => {
-            updateCalendar(currentDate);
+        categoryFilter.addEventListener('change', () => {
+            refreshCurrentView();
         });
 
         // Recherche
-        document.getElementById('searchPosts').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const postItems = document.querySelectorAll('.post-item');
-            
-            postItems.forEach(item => {
-                const title = item.textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        searchInput.addEventListener('input', function() {
+            applySearchFilter();
         });
 
         function allowDrop(event) {
@@ -708,7 +846,6 @@ function generate_scheduled_posts_calendar_alpha() {
             const newDate = targetElement ? targetElement.getAttribute('data-date') : null;
             const monthOffset = targetElement ? parseInt(targetElement.getAttribute('data-month-offset') || '0', 10) : 0;
             
-            // Vérifier que la date est valide avant de mettre à jour
             if (newDate) {
                 updatePostDate(postId, newDate, monthOffset);
             } else {
@@ -728,7 +865,6 @@ function generate_scheduled_posts_calendar_alpha() {
         }
 
         function updatePostDate(postId, newDate, monthOffset = 0) {
-            // Vérifier que la date est une chaîne valide
             if (!newDate || typeof newDate !== 'string') {
                 console.error('Format de date invalide:', newDate);
                 return;
@@ -744,6 +880,7 @@ function generate_scheduled_posts_calendar_alpha() {
             const month = parseInt(parts[1], 10);
             const day = parseInt(parts[2], 10);
             const dateWithTime = new Date(year, month - 1, day, 14, 0, 0);
+            const targetMonthDate = new Date(year, month - 1, 1);
 
             if (isNaN(dateWithTime.getTime())) {
                 console.error('Date invalide après conversion:', newDate);
@@ -768,12 +905,14 @@ function generate_scheduled_posts_calendar_alpha() {
             })
             .then(data => {
                 console.log('Date mise à jour avec succès:', data);
-                if (monthOffset !== 0) {
+                if (currentViewMode === 'single' && monthOffset !== 0) {
                     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + monthOffset, 1);
                     updateSelectorsAndCalendar();
                     return;
                 }
-                updateCalendar(currentDate);
+
+                ensureTargetMonthVisible(targetMonthDate);
+                refreshCurrentView();
             })
             .catch(error => {
                 console.error('Erreur:', error);
