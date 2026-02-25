@@ -1,8 +1,0 @@
-Exemple d'utilisation du shortcode pour afficher les extensions VS Code :
-
-[vscode_extensions]
-https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-colorize
-https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next
-https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-https://marketplace.visualstudio.com/items?itemName=ms-python.python
-[/vscode_extensions]

@@ -1,0 +1,21 @@
+{
+  "_defaults": {
+    "priority": 10
+  },
+  "WP_ADMIN - Snippets.php": {
+    "desc": "Raccourci admin bar vers la page Code Snippets.",
+    "tags": ["admin", "admin-bar", "code-snippets"],
+    "scope": "admin"
+  },
+  "WP_POST - search cmd+k.php": {
+    "desc": "Ouvre la recherche avec Ctrl/Cmd+K sur le front.",
+    "tags": ["search", "ux", "keyboard"],
+    "scope": "front-end"
+  },
+  "WP_POST - Scheduled Posts Gauge 4.php": {
+    "exclude": true
+  },
+  "WP_POST - Scheduled Posts Gauge 5.php": {
+    "exclude": true
+  }
+}

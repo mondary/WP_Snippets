@@ -1,2 +1,35 @@
 /A TRIER
 /archives
+/build
+
+# OS / editor local files
+.DS_Store
+.vscode/
+
+# Legacy source folders moved out of the main workflow
+/WP_Snippets/
+/WP_Snippets_Online_Current/
+/instruction.md
+/preview_url.html
+/preview_url_2.html
+/preview_url_3.html
+
+# Root legacy archives created during cleanup (contain old reports/scripts with local paths)
+/CODE_SNIPPETS_SYNC/_ROOT_LEGACY/
+/WP_Snippets_FINAL_CLEAN/_ROOT_LEGACY/
+
+# Code Snippets sync: raw exports, generated imports, and reports can contain
+# local absolute paths, export filenames, and full snippet payloads
+/CODE_SNIPPETS_SYNC/exports/*.json
+/CODE_SNIPPETS_SYNC/exports/*.xml
+/CODE_SNIPPETS_SYNC/exports/extracted-online-current/
+/CODE_SNIPPETS_SYNC/imports/*.json
+/CODE_SNIPPETS_SYNC/reports/*.json
+/CODE_SNIPPETS_SYNC/reports/*.md
+
+# Keep explanatory docs in sync folders
+!/CODE_SNIPPETS_SYNC/exports/README.md
+!/CODE_SNIPPETS_SYNC/README.md
+
+# Extra safety: common WP Code Snippets export filenames if dropped anywhere
+*.code-snippets.json
