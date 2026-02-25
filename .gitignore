@@ -26,10 +26,12 @@
 /CODE_SNIPPETS_SYNC/imports/*.json
 /CODE_SNIPPETS_SYNC/reports/*.json
 /CODE_SNIPPETS_SYNC/reports/*.md
+/CODE_SNIPPETS_SYNC/secrets/*.env
 
 # Keep explanatory docs in sync folders
 !/CODE_SNIPPETS_SYNC/exports/README.md
 !/CODE_SNIPPETS_SYNC/README.md
+!/CODE_SNIPPETS_SYNC/secrets/wp-sync.env.example
 
 # Extra safety: common WP Code Snippets export filenames if dropped anywhere
 *.code-snippets.json
