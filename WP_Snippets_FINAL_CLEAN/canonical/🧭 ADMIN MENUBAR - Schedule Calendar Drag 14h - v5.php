@@ -57,6 +57,11 @@
  * CLM-FEATURE-CLASSIFICATION:END */
 
 /* CLM-MANUAL-CHANGELOG
+ * 2026-03-09 (v5.2 hotfix):
+ * - Chargement mensuel: retry court sur les requetes REST pour limiter les echecs transitoires.
+ * - Si un chargement echoue au demarrage, affichage d'un bloc d'erreur avec bouton "Reessayer" au lieu d'un calendrier vide.
+ * - Si le calendrier etait deja affiche, il est conserve tel quel en cas d'erreur de refresh.
+ *
  * 2026-03-09 (v5.1 hotfix):
  * - Compatibilite: fallback sans replaceChildren pour navigateurs/admins plus anciens.
  * - Robustesse: le calendrier continue de se rendre meme si la requete de stats annuelle echoue.
@@ -564,6 +569,24 @@ function scheduled_posts_calendar_styles_alpha() {
             font-weight: 600;
         }
 
+        .calendar-load-error {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffe69c;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        .calendar-load-error .button {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
         .calendar-month-section {
             background: #fff;
             border: 1px solid #e2e4e7;
@@ -1060,6 +1083,53 @@ function generate_scheduled_posts_calendar_alpha() {
             });
         }
 
+        function fetchJsonWithRetry(url, retries = 1, delayMs = 250) {
+            return fetch(url, {
+                headers: {
+                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} on ${url}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                if (retries <= 0) {
+                    throw error;
+                }
+                return new Promise(resolve => setTimeout(resolve, delayMs))
+                    .then(() => fetchJsonWithRetry(url, retries - 1, delayMs));
+            });
+        }
+
+        function renderCalendarLoadError() {
+            const errorBox = document.createElement('div');
+            errorBox.className = 'calendar-load-error';
+
+            const text = document.createElement('span');
+            text.textContent = 'Le calendrier n’a pas pu se charger. Vérifie la connexion puis réessaie.';
+
+            const retryButton = document.createElement('button');
+            retryButton.type = 'button';
+            retryButton.className = 'button button-secondary';
+            retryButton.textContent = 'Réessayer';
+            retryButton.addEventListener('click', function() {
+                refreshCurrentView();
+            }, { once: true });
+
+            errorBox.appendChild(text);
+            errorBox.appendChild(retryButton);
+
+            if (typeof calendarMonthsContainer.replaceChildren === 'function') {
+                calendarMonthsContainer.replaceChildren(errorBox);
+            } else {
+                calendarMonthsContainer.innerHTML = '';
+                calendarMonthsContainer.appendChild(errorBox);
+            }
+        }
+
         function scrollCalendarCellIntoView(targetCell) {
             window.requestAnimationFrame(() => {
                 const monthSection = targetCell.closest('.calendar-month-section');
@@ -1113,18 +1183,12 @@ function generate_scheduled_posts_calendar_alpha() {
 
             const after = firstDay.toISOString();
             const before = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate(), 23, 59, 59).toISOString();
+            const monthlyPublishedUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish,future&after=${after}&before=${before}&orderby=date&order=asc`;
+            const monthlyDraftsUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft&after=${after}&before=${before}&orderby=date&order=asc`;
 
             return Promise.all([
-                fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish,future&after=${after}&before=${before}&orderby=date&order=asc`, {
-                    headers: {
-                        'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
-                    }
-                }).then(response => response.ok ? response.json() : []).then(data => Array.isArray(data) ? data : []),
-                fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft&after=${after}&before=${before}&orderby=date&order=asc`, {
-                    headers: {
-                        'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
-                    }
-                }).then(response => response.ok ? response.json() : []).then(data => Array.isArray(data) ? data : [])
+                fetchJsonWithRetry(monthlyPublishedUrl, 1).then(data => Array.isArray(data) ? data : []),
+                fetchJsonWithRetry(monthlyDraftsUrl, 1).then(data => Array.isArray(data) ? data : [])
             ])
             .then(([monthlyPublished, monthlyDrafts]) => {
                 const monthlyPosts = [...monthlyPublished, ...monthlyDrafts];
@@ -1227,6 +1291,10 @@ function generate_scheduled_posts_calendar_alpha() {
                     return;
                 }
                 console.error('Erreur lors de la récupération des articles:', error);
+                const hasCalendarContent = Boolean(calendarMonthsContainer.querySelector('.calendar-month-section'));
+                if (!hasCalendarContent) {
+                    renderCalendarLoadError();
+                }
             })
             .finally(() => {
                 if (requestToken !== refreshRequestToken) {
