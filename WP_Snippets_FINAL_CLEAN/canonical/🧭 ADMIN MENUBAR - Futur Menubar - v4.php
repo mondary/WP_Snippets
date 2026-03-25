@@ -12,7 +12,38 @@ if (!defined('FS_FUTURE_SITE_QUERY_VAR')) {
 }
 
 if (!defined('FS_FUTURE_SITE_DEFAULT_CAP')) {
-    define('FS_FUTURE_SITE_DEFAULT_CAP', 'manage_options');
+    define('FS_FUTURE_SITE_DEFAULT_CAP', 'fs_view_future_site');
+}
+
+if (!defined('FS_FUTURE_SITE_PREMIUM_ROLE')) {
+    define('FS_FUTURE_SITE_PREMIUM_ROLE', 'premium');
+}
+
+if (!function_exists('fs_future_site_register_access_role')) {
+    function fs_future_site_register_access_role() {
+        $role = get_role(FS_FUTURE_SITE_PREMIUM_ROLE);
+
+        if (!$role) {
+            add_role(
+                FS_FUTURE_SITE_PREMIUM_ROLE,
+                'Premium',
+                array(
+                    'read' => true,
+                    FS_FUTURE_SITE_DEFAULT_CAP => true,
+                )
+            );
+            $role = get_role(FS_FUTURE_SITE_PREMIUM_ROLE);
+        }
+
+        if ($role && !$role->has_cap(FS_FUTURE_SITE_DEFAULT_CAP)) {
+            $role->add_cap(FS_FUTURE_SITE_DEFAULT_CAP);
+        }
+
+        $admin_role = get_role('administrator');
+        if ($admin_role && !$admin_role->has_cap(FS_FUTURE_SITE_DEFAULT_CAP)) {
+            $admin_role->add_cap(FS_FUTURE_SITE_DEFAULT_CAP);
+        }
+    }
 }
 
 if (!function_exists('fs_future_site_preview_requested')) {
@@ -40,6 +71,12 @@ if (!function_exists('fs_future_site_user_can_access')) {
 if (!function_exists('fs_future_site_preview_url')) {
     function fs_future_site_preview_url() {
         return add_query_arg(array(FS_FUTURE_SITE_QUERY_VAR => '1'), home_url('/'));
+    }
+}
+
+if (!function_exists('fs_future_site_public_redirect_url')) {
+    function fs_future_site_public_redirect_url() {
+        return add_query_arg(array('future_premium' => '1'), home_url('/'));
     }
 }
 
@@ -128,6 +165,32 @@ if (!function_exists('fs_future_site_is_post_query')) {
     }
 }
 
+if (!function_exists('fs_future_site_should_expand_post_status')) {
+    function fs_future_site_should_expand_post_status($post_status) {
+        if (empty($post_status)) {
+            return true;
+        }
+
+        if (!is_array($post_status)) {
+            $post_status = array($post_status);
+        }
+
+        $post_status = array_values(array_filter(array_map('strval', $post_status)));
+
+        if ($post_status === array()) {
+            return true;
+        }
+
+        if (in_array('future', $post_status, true) && !in_array('publish', $post_status, true)) {
+            return false;
+        }
+
+        return in_array('publish', $post_status, true) || in_array('any', $post_status, true);
+    }
+}
+
+add_action('init', 'fs_future_site_register_access_role', 5);
+
 add_action('admin_menu', function () {
     if (!fs_future_site_user_can_access()) {
         return;
@@ -175,8 +238,12 @@ add_action('template_redirect', function () {
     }
 
     if (!is_user_logged_in() || !fs_future_site_user_can_access()) {
-        global $wp_query;
+        if (!is_user_logged_in()) {
+            wp_safe_redirect(fs_future_site_public_redirect_url());
+            exit;
+        }
 
+        global $wp_query;
         if ($wp_query instanceof WP_Query) {
             $wp_query->set_404();
         }
@@ -209,6 +276,10 @@ add_action('pre_get_posts', function ($query) {
     }
 
     $post_status = $query->get('post_status');
+    if (!fs_future_site_should_expand_post_status($post_status)) {
+        return;
+    }
+
     if (empty($post_status)) {
         $post_status = array('publish');
     } elseif (!is_array($post_status)) {
@@ -268,6 +339,10 @@ add_filter('query_loop_block_query_vars', function ($query_vars, $block) {
     }
 
     $post_status = isset($query_vars['post_status']) ? $query_vars['post_status'] : array('publish');
+    if (!fs_future_site_should_expand_post_status($post_status)) {
+        return $query_vars;
+    }
+
     if (!is_array($post_status)) {
         $post_status = array($post_status);
     }
@@ -491,4 +566,70 @@ if (function_exists('wp_body_open')) {
     add_action('wp_body_open', $fs_render_banner, 1);
 } else {
     add_action('wp_footer', $fs_render_banner, 1);
+}
+
+$fs_render_public_notice = function () {
+    if (!isset($_GET['future_premium']) || sanitize_text_field(wp_unslash($_GET['future_premium'])) !== '1') {
+        return;
+    }
+    ?>
+    <div id="fs-future-public-notice" role="status" aria-live="polite">
+        <div class="fs-future-public-notice__inner">
+            <div class="fs-future-public-notice__text">
+                <strong>Acces premium</strong>
+                <span>Les articles planifies en avant-premiere sont reserves aux abonnes premium.</span>
+            </div>
+            <a class="fs-future-public-notice__btn" href="<?php echo esc_url(home_url('/')); ?>">Decouvrir l’abonnement</a>
+        </div>
+    </div>
+    <style>
+        #fs-future-public-notice{
+            position:sticky;
+            top:0;
+            z-index:999998;
+            padding:12px 16px;
+            background:#111827;
+            color:#fff;
+        }
+        #fs-future-public-notice .fs-future-public-notice__inner{
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            gap:14px;
+            align-items:center;
+            justify-content:space-between;
+            font:13px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+        #fs-future-public-notice .fs-future-public-notice__text{
+            display:flex;
+            flex-direction:column;
+            gap:2px;
+        }
+        #fs-future-public-notice .fs-future-public-notice__btn{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            min-height:34px;
+            padding:0 12px;
+            border-radius:999px;
+            background:#fff;
+            color:#111827;
+            text-decoration:none;
+            font-weight:700;
+            white-space:nowrap;
+        }
+        @media (max-width: 782px){
+            #fs-future-public-notice .fs-future-public-notice__inner{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+        }
+    </style>
+    <?php
+};
+
+if (function_exists('wp_body_open')) {
+    add_action('wp_body_open', $fs_render_public_notice, 2);
+} else {
+    add_action('wp_footer', $fs_render_public_notice, 2);
 }
