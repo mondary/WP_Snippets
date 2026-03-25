@@ -413,7 +413,7 @@ $fs_render_banner = function () {
             <div class="fs-future-banner__left">
                 <div class="fs-future-badge">PREMIUM</div>
                 <div class="fs-future-text">
-                    <strong>Vue abonne premium.</strong>
+                    <strong>✨ Vue abonné premium.</strong>
                     <span>
                         <?php
                         if (!empty($premium_summary['label'])) {
