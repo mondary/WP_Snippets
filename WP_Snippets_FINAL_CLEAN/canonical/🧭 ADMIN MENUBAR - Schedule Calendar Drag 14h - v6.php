@@ -13,7 +13,7 @@
  * Exact duplicate group: oui (996a6535f4cf…, 2 membres)
  * Canonical exact group ID: 114
  * Version family: DUP ADMIN - Schedule Calendar [DRAG+14h] 📆 (1 variantes)
- * Version: v5
+ * Version: v6
  * Recommended latest in family: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
  * Is family latest: oui
  * Canonical reasons: exact-group-canonical, protected-online-active
@@ -27,8 +27,8 @@
  */
 
 /* CLM-FEATURES-DESCRIPTION:START
- * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v5__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v5__src-wp_snippets_online_current.php
+ * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
+ * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Resume fonctionnalites: customisation interface admin, interface de recherche, UI frontend (CSS/HTML), automatisation date/programmation, 5 hook(s) WP, 16 fonction(s) clef
  * Features detectees: admin-menubar, admin-ui, search-ui, scheduler-date, css-ui, footer-head-injection, svg-ui
  * Dependances probables: jQuery
@@ -43,8 +43,8 @@
  * CLM-FEATURES-DESCRIPTION:END */
 
 /* CLM-FEATURE-CLASSIFICATION:START
- * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v5__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v5__src-wp_snippets_online_current.php
+ * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
+ * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
  * Statut: ACTIVE
  * Cluster principal: admin_menubar
@@ -57,6 +57,23 @@
  * CLM-FEATURE-CLASSIFICATION:END */
 
 /* CLM-MANUAL-CHANGELOG
+ * 2026-03-09 (v6.2 hotfix):
+ * - Rollback du loading plein ecran (trop fragile selon environnement admin).
+ * - Indicateur recentre dans le conteneur calendrier uniquement, sans overlay global.
+ * - Suppression du watchdog additionnel pour revenir au flux de refresh stable.
+ *
+ * 2026-03-09 (v6.1 hotfix):
+ * - Fix accessibilite calendrier: suppression du blocage d'interactions pendant l'etat "is-loading".
+ * - Ajout d'un garde-fou timeout pour retirer l'overlay si une requete reste bloquee.
+ *
+ * 2026-03-09 (v6):
+ * - UI loading: indicateur "Mise a jour du calendrier..." deplace au centre de l'ecran.
+ * - Overlay de chargement plus visible pour eviter l'impression de page vide.
+ *
+ * 2026-03-09 (v5.3 hotfix):
+ * - Correctif affichage calendrier: recuperation paginee de tous les posts du mois (plus limite a 100).
+ * - Evite la disparition de tuiles sur certaines dates de fin de mois quand le volume est eleve.
+ *
  * 2026-03-09 (v5.2 hotfix):
  * - Chargement mensuel: retry court sur les requetes REST pour limiter les echecs transitoires.
  * - Si un chargement echoue au demarrage, affichage d'un bloc d'erreur avec bouton "Reessayer" au lieu d'un calendrier vide.
@@ -400,14 +417,26 @@ function scheduled_posts_calendar_styles_alpha() {
             border-top: 1px solid rgba(0,0,0,0.06);
         }
 
-        .post-time {
+        .post-footer .post-time {
             font-size: 11px;
             color: #666;
+            position: static;
+            top: auto;
+            right: auto;
+            margin: 0;
+            flex-shrink: 0;
         }
 
-        .post-actions {
+        .post-footer .post-actions,
+        .post-item:hover .post-actions {
             display: flex;
             gap: 8px;
+            position: static;
+            right: auto;
+            bottom: auto;
+            margin-left: auto;
+            flex-wrap: nowrap;
+            align-items: center;
         }
 
         .post-actions a,
@@ -415,6 +444,7 @@ function scheduled_posts_calendar_styles_alpha() {
             text-decoration: none;
             color: #666;
             padding: 2px;
+            margin-left: 0;
             border-radius: 3px;
             transition: all 0.2s ease;
             display: inline-flex;
@@ -549,24 +579,28 @@ function scheduled_posts_calendar_styles_alpha() {
         }
 
         .calendar-months-container.is-loading {
-            opacity: 0.55;
-            pointer-events: none;
+            opacity: 0.75;
         }
 
         .calendar-months-container.is-loading::after {
-            content: 'Mise a jour...';
+            content: 'Mise a jour du calendrier...';
             position: absolute;
-            top: 8px;
-            right: 10px;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.95);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
+            background: rgba(255, 255, 255, 0.96);
             color: #1d2327;
             border: 1px solid #dcdcde;
-            border-radius: 999px;
-            padding: 2px 10px;
-            font-size: 11px;
-            line-height: 1.6;
-            font-weight: 600;
+            border-radius: 10px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+            padding: 10px 16px;
+            font-size: 14px;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            text-align: center;
+            pointer-events: none;
         }
 
         .calendar-load-error {
@@ -743,19 +777,22 @@ function scheduled_posts_calendar_styles_alpha() {
             }
 
             .post-footer {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 6px;
                 padding-top: 4px;
             }
 
             .post-time {
                 font-size: 10px;
+                position: static;
             }
 
             .post-actions {
                 gap: 4px;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                margin-left: auto;
             }
 
             .post-actions a {
@@ -1104,6 +1141,50 @@ function generate_scheduled_posts_calendar_alpha() {
             });
         }
 
+        function fetchPostsPageWithRetry(url, retries = 1, delayMs = 250) {
+            return fetch(url, {
+                headers: {
+                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} on ${url}`);
+                }
+
+                const totalPages = parseInt(response.headers.get('X-WP-TotalPages') || '1', 10) || 1;
+                return response.json().then(data => ({
+                    items: Array.isArray(data) ? data : [],
+                    totalPages: totalPages
+                }));
+            })
+            .catch(error => {
+                if (retries <= 0) {
+                    throw error;
+                }
+                return new Promise(resolve => setTimeout(resolve, delayMs))
+                    .then(() => fetchPostsPageWithRetry(url, retries - 1, delayMs));
+            });
+        }
+
+        function fetchAllPagedPosts(baseUrl) {
+            return fetchPostsPageWithRetry(`${baseUrl}&page=1`, 1)
+                .then(firstPage => {
+                    if (firstPage.totalPages <= 1) {
+                        return firstPage.items;
+                    }
+
+                    const remainingRequests = [];
+                    for (let page = 2; page <= firstPage.totalPages; page++) {
+                        remainingRequests.push(
+                            fetchPostsPageWithRetry(`${baseUrl}&page=${page}`, 1).then(pageResult => pageResult.items)
+                        );
+                    }
+
+                    return Promise.all(remainingRequests).then(remainingPages => firstPage.items.concat(...remainingPages));
+                });
+        }
+
         function renderCalendarLoadError() {
             const errorBox = document.createElement('div');
             errorBox.className = 'calendar-load-error';
@@ -1187,8 +1268,8 @@ function generate_scheduled_posts_calendar_alpha() {
             const monthlyDraftsUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft&after=${after}&before=${before}&orderby=date&order=asc`;
 
             return Promise.all([
-                fetchJsonWithRetry(monthlyPublishedUrl, 1).then(data => Array.isArray(data) ? data : []),
-                fetchJsonWithRetry(monthlyDraftsUrl, 1).then(data => Array.isArray(data) ? data : [])
+                fetchAllPagedPosts(monthlyPublishedUrl),
+                fetchAllPagedPosts(monthlyDraftsUrl)
             ])
             .then(([monthlyPublished, monthlyDrafts]) => {
                 const monthlyPosts = [...monthlyPublished, ...monthlyDrafts];
