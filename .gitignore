@@ -5,6 +5,7 @@
 # OS / editor local files
 .DS_Store
 .vscode/
+/.agent/
 
 # Legacy source folders moved out of the main workflow
 /WP_Snippets/
