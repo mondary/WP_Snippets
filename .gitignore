@@ -34,5 +34,8 @@
 !/CODE_SNIPPETS_SYNC/README.md
 !/CODE_SNIPPETS_SYNC/secrets/wp-sync.env.example
 
+# Legacy path kept in comments inside snippets; the folder no longer exists.
+/WP_Snippets_FINAL_CLEAN/
+
 # Extra safety: common WP Code Snippets export filenames if dropped anywhere
 *.code-snippets.json

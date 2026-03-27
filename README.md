@@ -2,7 +2,7 @@
 
 ## Dossiers principaux
 
-- `WP_Snippets_FINAL_CLEAN/`
+- `snippets/`
   - Base de travail des snippets (version finale triée)
   - `canonical/` = snippets à garder / utiliser
   - `archive/` = anciennes versions / variantes
@@ -13,7 +13,7 @@
 
 ## Workflow simple (maintenant)
 
-1. Modifier les snippets dans `WP_Snippets_FINAL_CLEAN/canonical/`
+1. Modifier les snippets dans `snippets/canonical/`
 2. Générer l'import JSON via `CODE_SNIPPETS_SYNC/`
 3. Importer `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json` dans WordPress (`Code Snippets > Import`)
 
@@ -24,3 +24,9 @@ Le plugin WordPress **WP PK Premium** est maintenant dans un repo dedie : `WP_pk
 ## Note
 
 - Les anciens fichiers / scripts / rapports sont conservés dans les dossiers `_ROOT_LEGACY/`.
+
+## Push (recommande)
+
+```bash
+bash CODE_SNIPPETS_SYNC/scripts/push_wordpress.sh --dry-run --verbose
+```

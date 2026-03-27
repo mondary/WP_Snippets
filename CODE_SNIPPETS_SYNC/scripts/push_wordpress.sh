@@ -18,6 +18,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 IMPORT_JSON="CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json"
+SECRETS_ENV="${ROOT_DIR}/CODE_SNIPPETS_SYNC/secrets/wp-sync.env"
 
 cd "$ROOT_DIR"
 
@@ -31,12 +32,22 @@ for arg in "$@"; do
 done
 
 if [[ -z "${WP_SITE_URL:-}" || -z "${WP_SYNC_USER:-}" || -z "${WP_APP_PASSWORD:-}" ]]; then
-  echo "Variables requises manquantes: WP_SITE_URL, WP_SYNC_USER, WP_APP_PASSWORD" >&2
-  exit 1
+  if [[ -f "$SECRETS_ENV" ]]; then
+    # shellcheck source=/dev/null
+    set -a
+    source "$SECRETS_ENV"
+    set +a
+  fi
+
+  if [[ -z "${WP_SITE_URL:-}" || -z "${WP_SYNC_USER:-}" || -z "${WP_APP_PASSWORD:-}" ]]; then
+    echo "Variables requises manquantes: WP_SITE_URL, WP_SYNC_USER, WP_APP_PASSWORD" >&2
+    echo "Config attendue: CODE_SNIPPETS_SYNC/secrets/wp-sync.env (voir wp-sync.env.example)" >&2
+    exit 1
+  fi
 fi
 
 php CODE_SNIPPETS_SYNC/scripts/build_code_snippets_import.php \
-  --snippets-dir=WP_Snippets_FINAL_CLEAN/canonical \
+  --snippets-dir=snippets/canonical \
   --out="$IMPORT_JSON"
 
 ARGS=(
