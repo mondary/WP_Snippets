@@ -17,7 +17,10 @@
 2. Générer l'import JSON via `CODE_SNIPPETS_SYNC/`
 3. Importer `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json` dans WordPress (`Code Snippets > Import`)
 
+## Plugin
+
+Le plugin WordPress **WP PK Premium** est maintenant dans un repo dedie : `WP_pkpremium`.
+
 ## Note
 
 - Les anciens fichiers / scripts / rapports sont conservés dans les dossiers `_ROOT_LEGACY/`.
-
