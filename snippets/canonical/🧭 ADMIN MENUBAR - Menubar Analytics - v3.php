@@ -150,15 +150,19 @@ function custom_admin_bar_menu($wp_admin_bar) {
         'separator1' => array(
             'separator' => true
         ),
-        // Groupe Publication
-        'Collaborator' => array(
-            'url' => 'https://collaborator.pro/creator/article/view?id=328636',
-            'icon' => 'fa-file-lines'
-        ),
-        'Google AdSense' => array(
-            'url' => 'https://www.google.com/adsense/new/u/0/pub-1824217780734986/home',
-            'icon' => 'fa-dollar-sign'
-        ),
+	        // Groupe Publication
+	        'Collaborator' => array(
+	            'url' => 'https://collaborator.pro/creator/article/view?id=328636',
+	            'icon' => 'fa-file-lines'
+	        ),
+	        'Linkhouse' => array(
+	            'url' => 'https://app.linkhouse.co/panel/dashboard',
+	            'icon' => 'fa-link'
+	        ),
+	        'Google AdSense' => array(
+	            'url' => 'https://www.google.com/adsense/new/u/0/pub-1824217780734986/home',
+	            'icon' => 'fa-dollar-sign'
+	        ),
         'AdSense Paiements' => array(
             'url' => 'https://www.google.com/adsense/new/u/0/pub-1824217780734986/payments/?place=TRANSACTIONS_SERVICE',
             'icon' => 'fa-money-bill'
@@ -221,4 +225,3 @@ function custom_admin_bar_menu($wp_admin_bar) {
     }
 }
 add_action('admin_bar_menu', 'custom_admin_bar_menu', 100);
-
