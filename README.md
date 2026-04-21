@@ -17,6 +17,20 @@
 2. Générer l'import JSON via `CODE_SNIPPETS_SYNC/`
 3. Importer `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json` dans WordPress (`Code Snippets > Import`)
 
+## Snippet media (actuel)
+
+- Snippet canonical: `snippets/canonical/🖼️ MEDIA LIBRARY - Usage Audit - v7.php`
+- Fonction: colonne `Used In` + detection `Featured` / `Content` / `Orphan`
+- Filtres media: `Orphan only`, `Used only`, `Featured only`, `Content only`, `Not analyzed`
+- Action requise apres activation: cliquer `Analyze Usage` dans la barre de vues de `Mediatheque > Liste`
+
+### Convention versioning
+
+- Meme nom de base pour la famille de snippet
+- Incrementation `vN` dans le nom de fichier
+- Changelog obligatoire en en-tete du fichier
+- Versions precedentes deplacees dans `snippets/archive/`
+
 ## Plugin
 
 Le plugin WordPress **WP PK Premium** est maintenant dans un repo dedie : `WP_pkpremium`.
