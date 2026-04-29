@@ -1,46 +1,52 @@
-# WP_Snippets (Root)
+# WP_Snippets
 
-## Dossiers principaux
+[🇫🇷 FR](README.md) · [🇬🇧 EN](README_en.md)
 
-- `snippets/`
-  - Base de travail des snippets (version finale triée)
-  - `canonical/` = snippets à garder / utiliser
-  - `archive/` = anciennes versions / variantes
+✨ Collection de snippets WordPress orientée productivité admin, publication et workflows éditoriaux.
 
-- `CODE_SNIPPETS_SYNC/`
-  - Outils de sync import/export pour WordPress `Code Snippets`
-  - Fichier d'import actuel : `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json`
+## ✅ Fonctionnalités
+- Base de snippets prête à l’usage dans `snippets/canonical/`.
+- Historique et variantes dans `snippets/archive/`.
+- Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
+- Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
 
-## Workflow simple (maintenant)
+## 🧠 Utilisation
+1. Ouvrir et éditer les snippets dans `snippets/canonical/`.
+2. Importer un snippet dans WordPress (plugin Code Snippets / WPCode).
+3. Activer le snippet puis tester dans l’admin WordPress.
 
-1. Modifier les snippets dans `snippets/canonical/`
-2. Générer l'import JSON via `CODE_SNIPPETS_SYNC/`
-3. Importer `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json` dans WordPress (`Code Snippets > Import`)
+### Export RAG (nouveau)
+- Fichier: `snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1.php`
+- UI: bouton `Export Markdown (RAG)` dans `wp-admin > Articles`.
+- Sortie: `wp-posts-rag-YYYY-MM-DD.zip`
+- Contenu ZIP:
+  - 1 fichier `.md` par article (`YYYY-MM-DD__slug__id-123.md`)
+  - `INDEX.md` (index global des fichiers)
+- Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-## Snippet media (actuel)
+## ⚙️ Réglages
+- Aucun réglage obligatoire pour la plupart des snippets.
+- Pour l’export RAG, serveur PHP avec extension `ZipArchive` requise.
 
-- Snippet canonical: `snippets/canonical/🖼️ MEDIA LIBRARY - Usage Audit - v7.php`
-- Fonction: colonne `Used In` + detection `Featured` / `Content` / `Orphan`
-- Filtres media: `Orphan only`, `Used only`, `Featured only`, `Content only`, `Not analyzed`
-- Action requise apres activation: cliquer `Analyze Usage` dans la barre de vues de `Mediatheque > Liste`
-
-### Convention versioning
-
-- Meme nom de base pour la famille de snippet
-- Incrementation `vN` dans le nom de fichier
-- Changelog obligatoire en en-tete du fichier
-- Versions precedentes deplacees dans `snippets/archive/`
-
-## Plugin
-
-Le plugin WordPress **WP PK Premium** est maintenant dans un repo dedie : `WP_pkpremium`.
-
-## Note
-
-- Les anciens fichiers / scripts / rapports sont conservés dans les dossiers `_ROOT_LEGACY/`.
-
-## Push (recommande)
-
+## 🧾 Commandes
 ```bash
-bash CODE_SNIPPETS_SYNC/scripts/push_wordpress.sh --dry-run --verbose
+# Vérifier syntaxe d'un snippet PHP
+php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1.php"
 ```
+
+## 📦 Build & Package
+- Génération import JSON via `CODE_SNIPPETS_SYNC/`.
+- Import WordPress recommandé: `CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json`.
+
+## 🧪 Installation
+1. Installer/activer `Code Snippets` (ou WPCode) sur WordPress.
+2. Coller/importer le snippet souhaité.
+3. Activer puis vérifier dans l’interface admin.
+
+## 🧾 Changelog
+- 2026-04-29: ajout du snippet `Admin Export Posts Markdown RAG - v1`.
+- 2026-04-29: README restructuré (FR/EN) et documentation du flux export RAG.
+
+## 🔗 Liens
+- EN README: `README_en.md`
+- Snippets actifs: `snippets/canonical/`
