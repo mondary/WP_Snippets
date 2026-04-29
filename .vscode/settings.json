@@ -1,10 +1,10 @@
 {
     "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#bc9424",
-        "titleBar.inactiveBackground": "#9a791e",
+        "titleBar.activeBackground": "#1D3557",
+        "titleBar.inactiveBackground": "#182b47",
         "titleBar.activeForeground": "#FFFFFF",
         "titleBar.inactiveForeground": "#FFFFFF",
-        "titleBar.border": "#876b1a"
+        "titleBar.border": "#15263f"
     },
     "snyk.advanced.organization": "faaada6d-2cdb-4073-a3cb-e1fc0b655e54",
     "snyk.advanced.autoSelectOrganization": true
