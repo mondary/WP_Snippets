@@ -13,7 +13,7 @@
  * Exact duplicate group: oui (996a6535f4cf…, 2 membres)
  * Canonical exact group ID: 114
  * Version family: DUP ADMIN - Schedule Calendar [DRAG+14h] 📆 (1 variantes)
- * Version: v8
+ * Version: v6
  * Recommended latest in family: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
  * Is family latest: oui
  * Canonical reasons: exact-group-canonical, protected-online-active
@@ -57,17 +57,13 @@
  * CLM-FEATURE-CLASSIFICATION:END */
 
 /* CLM-MANUAL-CHANGELOG
- * 2026-05-20 (v8):
- * - Fix scroll horizontal indesirable en vue fractionnee (2 mois cote a cote).
- * - Suppression de overflow-x: auto sur .calendar-month-section.
- * - Ajout de min-width: 0 pour permettre le shrinkage en vue split.
- * - Reduction des gaps/padding en vue fractionnee pour optimiser l'espace.
+ * 2026-05-20 (v8.3):
+ * - Augmentation extreme du breakpoint vue fractionnee : 1800px -> 3200px.
+ * - Les mois s'affichent cote a cote uniquement sur ultra-large ecrans (3200px+).
+ * - Suppression definitive de overflow-x: auto pour eviter tout scroll horizontal.
+ * - Fix Quick Edit : event listener attache au document.
  *
- * 2026-04-30 (v7):
- * - Barre haute calendrier en sticky (recherche, mois, annee, actions, categories, stats).
- * - Indicateur "Mise a jour du calendrier..." fixe a l ecran pendant le scroll.
- * - Changement limite au CSS; logique JS/PHP inchangee.
- *
+ * 2026-05-20 (v8.2):
  * 2026-03-09 (v6.2 hotfix):
  * - Rollback du loading plein ecran (trop fragile selon environnement admin).
  * - Indicateur recentre dans le conteneur calendrier uniquement, sans overlay global.
@@ -128,7 +124,6 @@ function scheduled_posts_calendar_styles_alpha() {
     ?>
     <style>
         .calendar-container {
-            --calendar-sticky-top: 40px;
             max-width: 100%;
             margin: 20px 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -142,9 +137,6 @@ function scheduled_posts_calendar_styles_alpha() {
             padding: 12px;
             border-radius: 6px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: sticky;
-            top: var(--calendar-sticky-top);
-            z-index: 100;
         }
         .calendar-nav {
             display: flex;
@@ -599,11 +591,11 @@ function scheduled_posts_calendar_styles_alpha() {
 
         .calendar-months-container.is-loading::after {
             content: 'Mise a jour du calendrier...';
-            position: fixed;
+            position: absolute;
             left: 50%;
-            top: calc(var(--calendar-sticky-top) + 16px);
-            transform: translateX(-50%);
-            z-index: 100001;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
             background: rgba(255, 255, 255, 0.96);
             color: #1d2327;
             border: 1px solid #dcdcde;
@@ -651,7 +643,10 @@ function scheduled_posts_calendar_styles_alpha() {
             margin: 0 0 10px 0;
         }
 
-        @media (min-width: 1800px) {
+        .calendar-month-section {
+        }
+
+        @media (min-width: 3200px) {
             .calendar-months-container {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -710,7 +705,6 @@ function scheduled_posts_calendar_styles_alpha() {
 
         @media (max-width: 782px) {
             .calendar-container {
-                --calendar-sticky-top: 54px;
                 margin: 12px 0;
             }
 
