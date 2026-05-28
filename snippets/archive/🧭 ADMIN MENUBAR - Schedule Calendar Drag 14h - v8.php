@@ -6,7 +6,7 @@
  * Display name: ADMIN - Schedule Calendar [DRAG+14h] 📆
  * Scope: global
  * Online snippet: oui
- * Online active: oui
+ * Online active: non
  * Online ID: 155
  * Online modified: 2026-02-23 16:46:20
  * Online revision: 1

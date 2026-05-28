@@ -1,3 +1,4 @@
+<?php
 /* CLM-CREATED-AT: 2026-02-25 */
 /* FINAL-CANONICAL-META
  * Role final: canonical
