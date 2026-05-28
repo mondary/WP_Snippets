@@ -1,3 +1,13 @@
+<?php
+/*
+ * Display name: ⚙️ ADMIN SETTINGS - Fusion Outils+Reglages
+ * Source: WordPress (pulled)
+ * Online ID: 205
+ * Online modified: 2026-05-28 09:30:55
+ * Scope: global
+ * Active: oui
+ */
+
 /* CLM-CREATED-AT: 2026-02-25 */
 /* FINAL-CANONICAL-META
  * Role final: canonical

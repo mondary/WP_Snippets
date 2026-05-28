@@ -1,13 +1,3 @@
-<?php
-/*
- * Display name: 🦶 POST FOOTER - Scroll To Top White Move - v2
- * Source: WordPress (pulled)
- * Online ID: 234
- * Online modified: 2026-05-28 08:27:11
- * Scope: global
- * Active: oui
- */
-
 /* CLM-CREATED-AT: 2026-02-25 */
 /* FINAL-CANONICAL-META
  * Role final: canonical

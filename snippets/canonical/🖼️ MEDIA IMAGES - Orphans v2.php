@@ -1,4 +1,13 @@
 <?php
+/*
+ * Display name: 🖼️ MEDIA IMAGES - Orphans v2
+ * Source: WordPress (pulled)
+ * Online ID: 271
+ * Online modified: 2026-05-28 09:45:08
+ * Scope: global
+ * Active: oui
+ */
+
 /* CLM-CREATED-AT: 2026-04-21 */
 /**
  * Plugin Name: Media Library - Usage Audit

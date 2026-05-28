@@ -1,13 +1,3 @@
-<?php
-/*
- * Display name: 🔗 EXTERNAL LINKS - Post External Links Clickable - v2
- * Source: WordPress (pulled)
- * Online ID: 223
- * Online modified: 2026-05-28 08:27:08
- * Scope: front-end
- * Active: oui
- */
-
 /* CLM-CREATED-AT: 2026-02-25 */
 /* FINAL-CANONICAL-META
  * Role final: canonical

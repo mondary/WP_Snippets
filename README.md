@@ -29,9 +29,74 @@
 - Pour l’export RAG, serveur PHP avec extension `ZipArchive` requise.
 
 ## 🧾 Commandes
+
+### Vérification syntaxe PHP
 ```bash
-# Vérifier syntaxe d'un snippet PHP
 php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1.php"
+```
+
+### Synchronisation WordPress
+
+#### 1. Comparaison WordPress vs Local
+Compare les snippets actifs sur WordPress avec les snippets locaux.
+
+```bash
+# Comparer les snippets actifs WordPress avec les snippets locaux
+python3 scripts/compare-active-wordpress-v2.sh
+```
+
+Sortie:
+- **Snippets à conserver** : actifs sur WordPress
+- **Snippets à archiver** : inactifs sur WordPress
+- **Snippets WordPress sans correspondance locale** : à récupérer
+
+#### 2. Archivage des snippets inactifs
+Archive les snippets locaux qui ne sont pas actifs sur WordPress.
+
+```bash
+# Archiver les snippets inactifs (déplace vers snippets/archive/)
+python3 scripts/archive-inactive-wordpress.sh
+```
+
+#### 3. Récupération des snippets actifs depuis WordPress
+Récupère tous les snippets actifs depuis WordPress et les place dans `snippets/canonical/`.
+
+```bash
+# Récupérer les snippets actifs depuis WordPress
+source .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env
+php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php \
+  --site="${WP_SITE_URL}" \
+  --user="${WP_SYNC_USER}" \
+  --app-password="${WP_APP_PASSWORD}" \
+  --output-dir="snippets/canonical"
+```
+
+#### 4. Correction syntaxe PHP
+Ajoute les balises `<?php` manquantes aux fichiers PHP.
+
+```bash
+./scripts/fix-php-syntax.sh
+```
+
+### Workflow complet de synchronisation
+
+```bash
+# 1. Comparer WordPress vs local
+python3 scripts/compare-active-wordpress-v2.sh
+
+# 2. Archiver les snippets inactifs
+python3 scripts/archive-inactive-wordpress.sh
+
+# 3. Récupérer les snippets actifs depuis WordPress
+source .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env
+php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php \
+  --site="${WP_SITE_URL}" \
+  --user="${WP_SYNC_USER}" \
+  --app-password="${WP_APP_PASSWORD}" \
+  --output-dir="snippets/canonical"
+
+# 4. Nettoyer la syntaxe PHP si nécessaire
+./scripts/fix-php-syntax.sh
 ```
 
 ## 📦 Build & Package
@@ -44,6 +109,8 @@ php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-05-28: ajout des scripts de synchronisation WordPress (compare, archive, pull).
+- 2026-05-28: archivage de 34 snippets inactifs, récupération de 23 snippets actifs depuis WordPress.
 - 2026-04-29: ajout du snippet `Admin Export Posts Markdown RAG - v1`.
 - 2026-04-29: README restructuré (FR/EN) et documentation du flux export RAG.
 
