@@ -9,6 +9,7 @@
 - Historique et variantes dans `snippets/archive/`.
 - Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
+- **Calendrier V11 avec featured images en miniature** (identification visuelle des articles sans image).
 
 ## 🧠 Utilisation
 1. Ouvrir et éditer les snippets dans `snippets/canonical/`.
@@ -23,6 +24,16 @@
   - 1 fichier `.md` par article (`YYYY-MM-DD__slug__id-123.md`)
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
+
+### Calendrier V11 avec Featured Images (nouveau)
+- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v11.php`
+- UI: Menu bar "Schedule Calendar" dans l'admin WordPress.
+- **Nouveau en V11** : Affichage des featured images en miniature dans les cartes du calendrier.
+- **Identification visuelle** : Articles sans featured image marqués d'une bordure rouge gauche + emoji 🖼️.
+- **Vue double mois** : Affichage 2 mois côte à côte (breakpoint > 3200px).
+- **Drag & Drop** : Reprogrammer les articles par glisser-déposer.
+- **Horaires intelligents** : Distribution automatique 10h-15h avec ancrage 14h.
+- **Filtres** : Recherche par titre, filtrage par catégorie, sélection mois/année.
 
 ## ⚙️ Réglages
 - Aucun réglage obligatoire pour la plupart des snippets.
@@ -109,6 +120,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-05-28: ajout du Calendrier V11 avec featured images en miniature (identification visuelle des articles sans image).
 - 2026-05-28: ajout des scripts de synchronisation WordPress (compare, archive, pull).
 - 2026-05-28: archivage de 34 snippets inactifs, récupération de 23 snippets actifs depuis WordPress.
 - 2026-04-29: ajout du snippet `Admin Export Posts Markdown RAG - v1`.

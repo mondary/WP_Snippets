@@ -4,26 +4,33 @@
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] 📆
+ * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images 📆
  * Scope: global
  * Online snippet: oui
- * Online active: oui
- * Online ID: 155
- * Online modified: 2026-05-27 10:00:00
- * Online revision: 2
+ * Online active: non (nouveau, à tester)
+ * Online ID: N/A (nouveau)
+ * Online modified: N/A (nouveau)
+ * Online revision: N/A
  * Exact duplicate group: non
- * Version family: ADMIN - Schedule Calendar [DRAG+14h] 📆 (2 variantes)
- * Version: v10
- * Recommended latest in family: 🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v10.php
+ * Version family: ADMIN - Schedule Calendar [DRAG+14h] 📆 (3 variantes)
+ * Version: v11
+ * Recommended latest in family: 🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v11.php
  * Is family latest: oui
- * Canonical reasons: family-latest, dual-month-view, protected-online-active
- * Features: calendar, search-ui, jetpack, admin-bar, head-injection
+ * Canonical reasons: family-latest, dual-month-view, featured-images-preview
+ * Features: calendar, search-ui, jetpack, admin-bar, head-injection, featured-images-preview
  * Dependances probables: jQuery, jQuery UI, WordPress REST API
  * Hooks WP: admin_enqueue_scripts, admin_head, admin_menu, views_edit-post, admin_bar_menu
  * Fonctions clefs: add_calendar_scripts, scheduled_posts_calendar_styles_alpha, get_posts_years_range, generate_scheduled_posts_calendar_alpha, normalizeMonth, getMonthKey, applySearchFilter, scrollCalendarCellIntoView, focusCalendarCellIfNeeded, fetchMonthPosts, fetchYearStats, renderMonthSection, …
- * Lignes / octets (brut): 1216 / 43947
- * Hash code normalise (sha256): 996a6535f4cf858eebd60f8f2f9b26768975d11b59b9822e11c028902bcaad2b
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
+ * Lignes / octets (brut): ~1300 / ~46000
+ * Hash code normalise (sha256): N/A (nouveau)
+ * Genere le (UTC): 2026-05-28T14:30:00+00:00
+ */
+
+/* V11 NOUVELLES FEATURES:
+ * - Affichage des featured images en miniature dans les cartes du calendrier
+ * - Identification visuelle des articles SANS featured image (bordure rouge + emoji 🖼️)
+ * - API REST avec &_embed pour récupérer les médias
+ * - Images optimisées : 40px hauteur, object-fit cover, loading lazy
  */
 
 /* CLM-FEATURES-DESCRIPTION:START
@@ -252,6 +259,31 @@ function scheduled_posts_calendar_styles_alpha() {
         .post-item.future,
         .status-future {
             background: #cce5ff !important; /* Bleu clair pour les articles planifiés */
+        }
+        .post-featured-image {
+            width: 100%;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .post-featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Highlight articles sans featured image */
+        .post-item[data-featured-image="0"] {
+            border-left: 3px solid #dc3545;
+        }
+        .post-item[data-featured-image="0"] .post-title::before {
+            content: '🖼️';
+            margin-right: 4px;
+            opacity: 0.5;
         }
         .today {
             border: 2px solid #2271b1;
@@ -1050,7 +1082,7 @@ function generate_scheduled_posts_calendar_alpha() {
         function fetchPostsForDay(dayDate, excludedPostId = null) {
             const after = `${dayDate}T00:00:00`;
             const before = `${dayDate}T23:59:59`;
-            const endpoint = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=${AUTO_SCHEDULE_STATUSES}&after=${encodeURIComponent(after)}&before=${encodeURIComponent(before)}&orderby=date&order=asc`;
+            const endpoint = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=${AUTO_SCHEDULE_STATUSES}&after=${encodeURIComponent(after)}&before=${encodeURIComponent(before)}&orderby=date&order=asc&_embed`;
 
             return fetch(endpoint, {
                 headers: {
@@ -1296,8 +1328,8 @@ function generate_scheduled_posts_calendar_alpha() {
 
             const after = firstDay.toISOString();
             const before = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate(), 23, 59, 59).toISOString();
-            const monthlyPublishedUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish,future&after=${after}&before=${before}&orderby=date&order=asc`;
-            const monthlyDraftsUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft&after=${after}&before=${before}&orderby=date&order=asc`;
+            const monthlyPublishedUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish,future&after=${after}&before=${before}&orderby=date&order=asc&_embed`;
+            const monthlyDraftsUrl = `<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft&after=${after}&before=${before}&orderby=date&order=asc&_embed`;
 
             return Promise.all([
                 fetchAllPagedPosts(monthlyPublishedUrl),
@@ -1318,7 +1350,7 @@ function generate_scheduled_posts_calendar_alpha() {
             const yearStart = new Date(date.getFullYear(), 0, 1).toISOString();
             const yearEnd = new Date(date.getFullYear(), 11, 31, 23, 59, 59).toISOString();
 
-            return fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish&after=${yearStart}&before=${yearEnd}&orderby=date&order=desc`, {
+            return fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=publish&after=${yearStart}&before=${yearEnd}&orderby=date&order=desc&_embed`, {
                 headers: {
                     'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
                 }
@@ -1550,7 +1582,17 @@ function generate_scheduled_posts_calendar_alpha() {
                         .replace(/&#039;/g, "'");
                     postDiv.setAttribute('data-post-title', postTitle);
 
+                    // Récupérer l'URL de l'image featured si elle existe
+                    const featuredImageUrl = post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]
+                        ? (post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
+                            ? post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
+                            : (post._embedded['wp:featuredmedia'][0].source_url || null))
+                        : null;
+                    const hasFeaturedImage = featuredImageUrl && featuredImageUrl.length > 0;
+                    postDiv.setAttribute('data-featured-image', hasFeaturedImage ? '1' : '0');
+
                     postDiv.innerHTML = `
+                        ${hasFeaturedImage ? `<div class="post-featured-image"><img src="${featuredImageUrl}" alt="" loading="lazy" /></div>` : ''}
                         <div class="post-title">${postTitle}</div>
                         <div class="post-footer">
                             <span class="post-time">${postTime}</span>
