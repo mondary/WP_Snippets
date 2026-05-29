@@ -1,10 +1,6 @@
 <?php
-/*
- * Display name: ADMIN - Menu order alpha +settings
- * Scope: global
- */
-
-<?php
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/admin/027__id-49__admin-menu-order-alpha-settings.php
@@ -31,6 +27,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__admin__admin-menu-order-alpha-settings__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-menu-order-alpha-settings__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: customisation interface admin, automatisation date/programmation, 1 hook(s) WP, 2 fonction(s) clef
@@ -45,6 +42,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__admin__admin-menu-order-alpha-settings__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-menu-order-alpha-settings__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -169,4 +167,3 @@ function custom_menu_order() {
         $menu = array_merge($default_menu, $extensions_menu);
     }
 }
-

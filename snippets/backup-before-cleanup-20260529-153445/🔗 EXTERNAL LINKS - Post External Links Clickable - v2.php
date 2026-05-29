@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🔗 EXTERNAL LINKS - Post External Links Clickable - v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🔗 EXTERNAL LINKS - Post External Links Clickable - v2
  * Source: WordPress (pulled)
  * Online ID: 223
  * Online modified: 2026-05-28 08:27:08
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/front-end/051__id-109__post-external-links-clickable.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__front-end__post-external-links-clickable__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__front-end__post-external-links-clickable__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: 1 hook(s) WP, 1 fonction(s) clef
@@ -54,6 +51,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__front-end__post-external-links-clickable__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__front-end__post-external-links-clickable__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -97,4 +95,3 @@ function rendre_liens_https_cliquables($content) {
     }
     return $content;
 }
-

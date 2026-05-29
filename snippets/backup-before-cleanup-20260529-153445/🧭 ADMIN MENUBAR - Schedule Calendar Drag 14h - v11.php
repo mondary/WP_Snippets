@@ -1,10 +1,6 @@
 <?php
-/*
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images 📆
- * Scope: global
- */
-
-<?php
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
@@ -37,6 +33,7 @@
  * - Images optimisées : 40px hauteur, object-fit cover, loading lazy
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Resume fonctionnalites: customisation interface admin, interface de recherche, UI frontend (CSS/HTML), automatisation date/programmation, 5 hook(s) WP, 16 fonction(s) clef
@@ -52,6 +49,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -65,6 +63,7 @@
  * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
  * CLM-FEATURE-CLASSIFICATION:END */
 
+/* CLM-MANUAL-CHANGELOG
  * 2026-05-20 (v10):
  * - Vue par défaut : mois en cours + mois suivant (2 mois côte à côte).
  * - Suppression de l'affichage année complète par défaut.
@@ -1944,4 +1943,3 @@ add_action('admin_bar_menu', function($admin_bar) {
         ],
     ]);
 }, 100);
-

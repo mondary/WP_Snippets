@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🔗 SHORTCODE - Preview 13 - v5
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🔗 SHORTCODE - Preview 13 - v5
  * Source: WordPress (pulled)
  * Online ID: 226
  * Online modified: 2026-05-28 08:27:08
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/064__id-122__wp-shortcote-preview-13.php
@@ -41,6 +37,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__wp-shortcote-preview-13__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__wp-shortcote-preview-13__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: shortcode WordPress, UI frontend (CSS/HTML), 3 fonction(s) clef
@@ -56,6 +53,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__wp-shortcote-preview-13__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__wp-shortcote-preview-13__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -175,4 +173,3 @@ function get_preview_styles($style) {
     }
     return '';
 }
-

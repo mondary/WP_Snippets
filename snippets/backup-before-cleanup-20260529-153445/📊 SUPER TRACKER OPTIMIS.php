@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 📊 SUPER TRACKER OPTIMISÉ
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 📊 SUPER TRACKER OPTIMISÉ
  * Source: WordPress (pulled)
  * Online ID: 248
  * Online modified: 2026-03-19 14:03:11
@@ -169,4 +163,3 @@ if (!defined('SUPER_TRACKER_LOADED')) {
     }
     add_action('wp_footer', 'super_tracker_custom_events', 998);
 }
-

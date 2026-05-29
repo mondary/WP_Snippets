@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🧭 ADMIN MENUBAR - Readbutton - v3
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🧭 ADMIN MENUBAR - Readbutton - v3
  * Source: WordPress (pulled)
  * Online ID: 240
  * Online modified: 2026-05-28 08:27:13
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/admin/015__id-24__admin-readbutton.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__admin__admin-readbutton__v3__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-readbutton__v3__src-wp_snippets_online_current.php
  * Resume fonctionnalites: flux RSS, 1 hook(s) WP, 1 fonction(s) clef
@@ -55,6 +52,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__admin__admin-readbutton__v3__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-readbutton__v3__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -84,4 +82,3 @@ function add_custom_admin_bar_button() {
     ) );
 }
 add_action( 'admin_bar_menu', 'add_custom_admin_bar_button', 90 );
-

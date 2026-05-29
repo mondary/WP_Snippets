@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🖼️ MEDIA IMAGES - Admin Media Size - v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🖼️ MEDIA IMAGES - Admin Media Size - v2
  * Source: WordPress (pulled)
  * Online ID: 228
  * Online modified: 2026-05-28 08:27:09
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/085__id-145__admin-media-size.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__admin-media-size__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-media-size__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: 3 hook(s) WP, 4 fonction(s) clef
@@ -54,6 +51,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__admin-media-size__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-media-size__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -186,4 +184,3 @@ function handle_recalculate_request() {
 }
 
 add_action( 'admin_init', 'handle_recalculate_request' );
-

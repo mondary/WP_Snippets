@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: #🔥 DIAG snippets !!!!!!
- * Scope: global
- */
-
-<?php
-/*
- * Display name: #🔥 DIAG snippets !!!!!!
  * Source: WordPress (pulled)
  * Online ID: 247
  * Online modified: 2026-05-28 09:28:26
@@ -401,4 +395,3 @@ $snippets = $wpdb->get_results("
 
 // Arrêter l'exécution normale de WordPress
 die();
-

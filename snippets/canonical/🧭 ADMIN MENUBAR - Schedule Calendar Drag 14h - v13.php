@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images 📆
+ * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images + Réallocation (FIXED) 📆
  * Scope: global
  */
 
@@ -8,7 +8,7 @@
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images 📆
+ * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images + Réallocation (FIXED) 📆
  * Scope: global
  * Online snippet: oui
  * Online active: non (nouveau, à tester)
@@ -16,25 +16,37 @@
  * Online modified: N/A (nouveau)
  * Online revision: N/A
  * Exact duplicate group: non
- * Version family: ADMIN - Schedule Calendar [DRAG+14h] 📆 (3 variantes)
- * Version: v11
- * Recommended latest in family: 🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v11.php
+ * Version family: ADMIN - Schedule Calendar [DRAG+14h] 📆 (5 variantes)
+ * Version: v13
+ * Recommended latest in family: 🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v13.php
  * Is family latest: oui
- * Canonical reasons: family-latest, dual-month-view, featured-images-preview
- * Features: calendar, search-ui, jetpack, admin-bar, head-injection, featured-images-preview
+ * Canonical reasons: family-latest, dual-month-view, featured-images-preview, draft-reallocation, duplicate-detection
+ * Features: calendar, search-ui, jetpack, admin-bar, head-injection, featured-images-preview, draft-reallocation, duplicate-detection
  * Dependances probables: jQuery, jQuery UI, WordPress REST API
  * Hooks WP: admin_enqueue_scripts, admin_head, admin_menu, views_edit-post, admin_bar_menu
- * Fonctions clefs: add_calendar_scripts, scheduled_posts_calendar_styles_alpha, get_posts_years_range, generate_scheduled_posts_calendar_alpha, normalizeMonth, getMonthKey, applySearchFilter, scrollCalendarCellIntoView, focusCalendarCellIfNeeded, fetchMonthPosts, fetchYearStats, renderMonthSection, …
- * Lignes / octets (brut): ~1300 / ~46000
+ * Fonctions clefs: add_calendar_scripts, scheduled_posts_calendar_styles_alpha, get_posts_years_range, generate_scheduled_posts_calendar_alpha, normalizeMonth, getMonthKey, applySearchFilter, scrollCalendarCellIntoView, focusCalendarCellIfNeeded, fetchMonthPosts, fetchYearStats, renderMonthSection, detectDuplicates, reallocateDraftsToDateSlots, formatWPDate
+ * Lignes / octets (brut): ~1450 / ~51000
  * Hash code normalise (sha256): N/A (nouveau)
- * Genere le (UTC): 2026-05-28T14:30:00+00:00
+ * Genere le (UTC): 2026-05-28T17:00:00+00:00
  */
 
-/* V11 NOUVELLES FEATURES:
+/* V13 NOUVELLES FEATURES:
+ * V11-V12 (héritées):
  * - Affichage des featured images en miniature dans les cartes du calendrier
  * - Identification visuelle des articles SANS featured image (bordure rouge + emoji 🖼️)
  * - API REST avec &_embed pour récupérer les médias
  * - Images optimisées : 40px hauteur, object-fit cover, loading lazy
+ * - Bouton "Réallouer brouillons" : déplacer automatiquement les brouillons passés vers des créneaux futurs
+ * - Détection des doublons : identifie les articles avec le même premier mot (même sujet)
+ * - Regroupement visuel des doublons sur la même journée
+ * - Indicateur visuel des doublons (bordure droite rouge + emoji 🔄)
+ * - Priorité : plus anciens brouillons d'abord pour réallocation
+ * - Ne touche PAS aux articles publiés (status=publish)
+ *
+ * V13 (CORRECTIONS):
+ * - FIX format de date WordPress REST API : YYYY-MM-DDTHH:mm:ss (pas de .000Z)
+ * - Déplacement de formatWPDate() au niveau global pour accès partout
+ * - Suppression des définitions locales de formatWPDate
  */
 
  * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
@@ -488,6 +500,56 @@ function scheduled_posts_calendar_styles_alpha() {
         .post-item:hover .post-actions {
             display: flex;
             gap: 8px;
+        }
+
+        /* V12: Bulk actions buttons */
+        .calendar-bulk-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .calendar-bulk-actions .button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .calendar-bulk-actions .button:hover {
+            background: #f0f0f1;
+        }
+        .calendar-bulk-actions .dashicons {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+        }
+        .calendar-bulk-actions .button.button-secondary {
+            background: #fff;
+            border: 1px solid #2271b1;
+            color: #2271b1;
+        }
+
+        /* V12: Duplicate detection styles */
+        .post-item.is-duplicate {
+            border-right: 3px solid #ff6b6b;
+        }
+        .post-item.is-duplicate .post-title::after {
+            content: '🔄';
+            margin-left: 6px;
+            font-size: 11px;
+        }
+        .post-item.is-duplicate[data-featured-image="0"] {
+            border-left: 3px solid #dc3545;
+            border-right: 3px solid #ff6b6b;
+        }
+        .duplicate-group {
+            border: 1px dashed #ff6b6b;
+            padding: 4px;
+            margin: 4px 0;
+            border-radius: 4px;
+            background: rgba(255, 107, 107, 0.05);
+        }
             position: static;
             right: auto;
             bottom: auto;
@@ -929,6 +991,11 @@ function generate_scheduled_posts_calendar_alpha() {
                         <button id="appendNextMonth" type="button" title="Ajouter le mois suivant à la vue">+1 mois</button>
                         <button id="showFullYear" type="button" title="Afficher l'année complète">Année complète</button>
                     </div>
+                    <div class="calendar-bulk-actions">
+                        <button id="reallocateDrafts" type="button" title="Réallouer les brouillons passés vers des créneaux futurs" class="button button-secondary">
+                            <span class="dashicons dashicons-randomize"></span> Réallouer brouillons
+                        </button>
+                    </div>
                 </div>
                 <select id="categoryFilter">
                     <option value="">Toutes les catégories</option>
@@ -998,6 +1065,17 @@ function generate_scheduled_posts_calendar_alpha() {
         let pendingCenterToday = true;
         let pendingFocusDate = null;
         let refreshRequestToken = 0;
+
+        // V13: Fonction utilitaire pour formater les dates au format WordPress REST API
+        const formatWPDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+        };
         const AUTO_SCHEDULE_MIN_HOUR = 10;
         const AUTO_SCHEDULE_MAX_HOUR = 15;
         const AUTO_SCHEDULE_ANCHOR_HOUR = 14;
@@ -1901,6 +1979,221 @@ function generate_scheduled_posts_calendar_alpha() {
 
         // Initialisation du calendrier : toujours afficher le mois en cours + suivant (2 mois)
         updateCalendar(currentDate);
+
+        // ======== V12: Réallocation des brouillons passés ========
+        const reallocateDraftsButton = document.getElementById('reallocateDrafts');
+        if (reallocateDraftsButton) {
+            reallocateDraftsButton.addEventListener('click', function() {
+                if (!confirm('Réallouer tous les brouillons passés vers des créneaux futurs ?')) {
+                    return;
+                }
+
+                reallocateDraftsButton.disabled = true;
+                reallocateDraftsButton.textContent = '⏳ Réallocation...';
+
+                // Récupérer tous les brouillons et pending posts passés
+                const now = new Date();
+                const cutoffDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+
+                // Pour WordPress REST API, utiliser juste la date (sans heure) pour le paramètre before
+                const cutoffDateOnly = `${cutoffDate.getFullYear()}-${String(cutoffDate.getMonth() + 1).padStart(2, '0')}-${String(cutoffDate.getDate()).padStart(2, '0')}`;
+
+                fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft,pending&before=${cutoffDateOnly}&orderby=date&order=asc&_embed`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Erreur récupération brouillons');
+                    return response.json();
+                })
+                .then(pastDrafts => {
+                    if (pastDrafts.length === 0) {
+                        alert('Aucun brouillon passé à réallouer.');
+                        return;
+                    }
+
+                    // Trouver les créneaux disponibles dans le futur
+                    return findAvailableSlots(pastDrafts.length);
+                })
+                .then(slots => {
+                    if (!slots || slots.length === 0) {
+                        throw new Error('Impossible de trouver des créneaux disponibles');
+                    }
+
+                    return reallocateDraftsToDateSlots(slots);
+                })
+                .then(results => {
+                    const success = results.filter(r => r.success).length;
+                    const failed = results.filter(r => !r.success).length;
+
+                    alert(`✅ Réallocation terminée !\nSuccès: ${success}\nÉchecs: ${failed}`);
+                    refreshCurrentView();
+                })
+                .catch(error => {
+                    console.error('Erreur réallocation:', error);
+                    alert('❌ Erreur lors de la réallocation: ' + error.message);
+                })
+                .finally(() => {
+                    reallocateDraftsButton.disabled = false;
+                    reallocateDraftsButton.innerHTML = '<span class="dashicons dashicons-randomize"></span> Réallouer brouillons';
+                });
+            });
+        }
+
+        // Trouver les créneaux disponibles dans le futur
+        function findAvailableSlots(count) {
+            const slots = [];
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() + 1); // Commence demain
+            startDate.setHours(10, 0, 0, 0); // Premier créneau à 10h
+
+            const hours = [10, 14, 11, 12, 13]; // Ordre prioritaire
+            let currentDateCheck = new Date(startDate);
+
+            while (slots.length < count) {
+                // Générer 5 créneaux pour ce jour (10h, 14h, 11h, 12h, 13h)
+                for (let hour of hours) {
+                    if (slots.length >= count) break;
+
+                    const slotDate = new Date(currentDateCheck);
+                    slotDate.setHours(hour, 0, 0, 0);
+                    slots.push(slotDate);
+                }
+
+                // Passer au jour suivant
+                currentDateCheck.setDate(currentDateCheck.getDate() + 1);
+            }
+
+            return Promise.resolve(slots);
+        }
+
+        // Réallouer les brouillons vers les créneaux
+        function reallocateDraftsToDateSlots(slots) {
+            const now = new Date();
+            const cutoffDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+
+            // Pour WordPress REST API, utiliser juste la date (sans heure) pour le paramètre before
+            const cutoffDateOnly = `${cutoffDate.getFullYear()}-${String(cutoffDate.getMonth() + 1).padStart(2, '0')}-${String(cutoffDate.getDate()).padStart(2, '0')}`;
+
+            return fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft,pending&before=${cutoffDateOnly}&orderby=date&order=asc&_embed`)
+            .then(response => response.json())
+            .then(drafts => {
+                // Trier par date (plus anciens d'abord)
+                drafts.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                const promises = drafts.map((draft, index) => {
+                    if (index >= slots.length) return Promise.resolve({ success: false, id: draft.id, error: 'No slot' });
+
+                    const newDate = slots[index];
+                    const payloadDate = `${newDate.getFullYear()}-${String(newDate.getMonth() + 1).padStart(2, '0')}-${String(newDate.getDate()).padStart(2, '0')}T${String(newDate.getHours()).padStart(2, '0')}:00:00`;
+
+                    return fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${draft.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+                        },
+                        body: JSON.stringify({
+                            date: payloadDate
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Failed to update');
+                        return { success: true, id: draft.id, newDate: payloadDate };
+                    })
+                    .catch(error => ({
+                        success: false,
+                        id: draft.id,
+                        error: error.message
+                    }));
+                });
+
+                return Promise.all(promises);
+            });
+        }
+
+        // ======== V12: Détection des doublons (par premier mot du titre) ========
+        function detectDuplicates() {
+            // Analyser tous les articles draft/pending/future
+            const postItems = document.querySelectorAll('.post-item');
+            const postsByFirstWord = {};
+
+            postItems.forEach(item => {
+                const status = item.className.match(/(draft|pending|future)/);
+                if (!status) return; // Ignorer les articles publiés
+
+                const titleElement = item.querySelector('.post-title');
+                if (!titleElement) return;
+
+                const title = titleElement.textContent.trim();
+                const words = title.split(/\s+/);
+                if (words.length === 0) return;
+
+                const firstWord = words[0].toLowerCase().replace(/[^a-z0-9]/g, '');
+
+                if (!postsByFirstWord[firstWord]) {
+                    postsByFirstWord[firstWord] = [];
+                }
+
+                postsByFirstWord[firstWord].push({
+                    element: item,
+                    title: title,
+                    id: item.getAttribute('data-post-id')
+                });
+            });
+
+            // Marquer les doublons
+            Object.values(postsByFirstWord).forEach(posts => {
+                if (posts.length > 1) {
+                    // Plus d'un article avec le même premier mot = doublons
+                    posts.forEach(post => {
+                        post.element.classList.add('is-duplicate');
+                    });
+
+                    // Optionnel: regrouper visuellement sur la même journée
+                    groupDuplicatesOnSameDay(posts);
+                }
+            });
+        }
+
+        // Regrouper les doublons sur la même journée
+        function groupDuplicatesOnSameDay(posts) {
+            if (posts.length < 2) return;
+
+            // Trouver le jour du premier doublon
+            const firstPost = posts[0].element;
+            const dayCell = firstPost.closest('.calendar-day');
+
+            if (dayCell && !dayCell.querySelector('.duplicate-group')) {
+                // Créer un groupe de doublons
+                const group = document.createElement('div');
+                group.className = 'duplicate-group';
+
+                posts.forEach(post => {
+                    const postElement = post.element;
+                    const parent = postElement.parentElement;
+
+                    if (parent !== dayCell && !parent.classList.contains('duplicate-group')) {
+                        // Déplacer l'élément dans le groupe
+                        group.appendChild(postElement);
+                    }
+                });
+
+                if (group.children.length > 0) {
+                    dayCell.appendChild(group);
+                }
+            }
+        }
+
+        // Appliquer la détection des doublons après chaque rafraîchissement
+        const originalRenderMonthSection = window.renderMonthSection;
+        if (originalRenderMonthSection) {
+            window.renderMonthSection = function() {
+                const result = originalRenderMonthSection.apply(this, arguments);
+                setTimeout(() => detectDuplicates(), 100);
+                return result;
+            };
+        }
+
+        // Appliquer la détection au chargement initial
+        setTimeout(() => detectDuplicates(), 500);
     });
     </script>
     <?php

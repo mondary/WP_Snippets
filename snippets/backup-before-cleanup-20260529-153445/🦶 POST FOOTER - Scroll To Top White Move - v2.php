@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🦶 POST FOOTER - Scroll To Top White Move - v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🦶 POST FOOTER - Scroll To Top White Move - v2
  * Source: WordPress (pulled)
  * Online ID: 234
  * Online modified: 2026-05-28 08:27:11
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/025__id-43__post-scroll-to-top-white-move.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__post-scroll-to-top-white-move__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-scroll-to-top-white-move__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: UI frontend (CSS/HTML), 1 hook(s) WP, 1 fonction(s) clef
@@ -55,6 +52,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__post-scroll-to-top-white-move__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-scroll-to-top-white-move__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -89,4 +87,3 @@ function custom_styles_and_js_for_elements() {
     <?php
 }
 add_action('wp_head', 'custom_styles_and_js_for_elements');
-

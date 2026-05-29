@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🖼️ MEDIA IMAGES - Orphans v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🖼️ MEDIA IMAGES - Orphans v2
  * Source: WordPress (pulled)
  * Online ID: 271
  * Online modified: 2026-05-28 09:45:08
@@ -14,6 +8,7 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-04-21 */
 /**
  * Plugin Name: Media Library - Usage Audit
  * Description: Colonne "Used In" + index d'usage (featured/content/orphan) avec analyse manuelle par batch.
@@ -555,4 +550,3 @@ if ( ! function_exists( 'clm_media_usage_v7_boot' ) ) {
         }
     }
 }
-

@@ -1,10 +1,4 @@
 <?php
-/*
- * Display name: 🧰 UTILITIES - Admin Export Posts Markdown RAG - v1.php
- * Scope: global
- */
-
-<?php
 /**
  * Export WordPress posts as one Markdown file per article (ZIP) for RAG ingestion.
  * UI: button on wp-admin/edit.php (Articles list).
@@ -261,4 +255,3 @@ function clm_wp_rag_export_yaml_list_inline( $items ) {
 
 	return implode( ', ', $escaped );
 }
-

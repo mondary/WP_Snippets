@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🧰 UTILITIES - Post Display Reading Time - v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🧰 UTILITIES - Post Display Reading Time - v2
  * Source: WordPress (pulled)
  * Online ID: 245
  * Online modified: 2026-05-28 08:27:15
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/009__id-14__post-display-reading-time.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__post-display-reading-time__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-display-reading-time__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: snippet PHP / JS / CSS
@@ -54,6 +51,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__post-display-reading-time__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-display-reading-time__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -80,4 +78,3 @@ $word_count    = str_word_count( strip_tags( $content ) );
 $reading_time  = ceil( $word_count / $reading_speed );
 
 echo '<p>Temps de lecture estimé : ' . absint( $reading_time ) . ' ' . _n( 'minute', 'minutes', $reading_time ) . '</p>';
-

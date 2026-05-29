@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: 🦶 POST FOOTER - Footer Social Ego - v2
- * Scope: global
- */
-
-<?php
-/*
- * Display name: 🦶 POST FOOTER - Footer Social Ego - v2
  * Source: WordPress (pulled)
  * Online ID: 230
  * Online modified: 2026-05-28 08:27:10
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/036__id-76__post-footer-social-ego.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: flux RSS, UI frontend (CSS/HTML), 3 hook(s) WP, 1 fonction(s) clef
@@ -55,6 +52,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -268,4 +266,3 @@ function render_combined_footer() {
 
 // Hook the combined footer to display at the bottom of the page
 add_action('wp_footer', 'render_combined_footer');
-

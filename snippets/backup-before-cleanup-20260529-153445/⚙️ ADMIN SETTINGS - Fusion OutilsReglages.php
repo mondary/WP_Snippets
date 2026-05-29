@@ -1,12 +1,6 @@
 <?php
 /*
  * Display name: ⚙️ ADMIN SETTINGS - Fusion Outils+Reglages
- * Scope: global
- */
-
-<?php
-/*
- * Display name: ⚙️ ADMIN SETTINGS - Fusion Outils+Reglages
  * Source: WordPress (pulled)
  * Online ID: 205
  * Online modified: 2026-05-28 09:30:55
@@ -14,6 +8,8 @@
  * Active: oui
  */
 
+/* CLM-CREATED-AT: 2026-02-25 */
+/* FINAL-CANONICAL-META
  * Role final: canonical
  * Source root: WP_Snippets_Online_Current
  * Source path: WP_Snippets_Online_Current/active/global/035__id-75__admin-outils-reglages-tri-alphabetique.php
@@ -40,6 +36,7 @@
  * Genere le (UTC): 2026-02-24T16:05:10+00:00
  */
 
+/* CLM-FEATURES-DESCRIPTION:START
  * Fichier: ACTIVE__global__admin-outils-reglages-tri-alphabetique__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-outils-reglages-tri-alphabetique__v2__src-wp_snippets_online_current.php
  * Resume fonctionnalites: customisation interface admin, 1 hook(s) WP, 1 fonction(s) clef
@@ -54,6 +51,7 @@
  * Description generee le (UTC): 2026-02-24T16:39:50+00:00
  * CLM-FEATURES-DESCRIPTION:END */
 
+/* CLM-FEATURE-CLASSIFICATION:START
  * Fichier: ACTIVE__global__admin-outils-reglages-tri-alphabetique__v2__src-wp_snippets_online_current.php
  * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-outils-reglages-tri-alphabetique__v2__src-wp_snippets_online_current.php
  * Bucket FINAL: canonical
@@ -106,4 +104,3 @@ function merge_tools_into_settings() {
     // Supprimer complètement "Outils" du menu principal
     remove_menu_page('tools.php');
 }
-
