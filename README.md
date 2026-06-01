@@ -9,7 +9,7 @@
 - Historique et variantes dans `snippets/archive/`.
 - Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
-- **Calendrier V11 avec featured images en miniature** (identification visuelle des articles sans image).
+- **Calendrier V18 minifié** avec featured images, navigation mensuelle stable et réallocation brouillons.
 
 ## 🧠 Utilisation
 1. Ouvrir et éditer les snippets dans `snippets/canonical/`.
@@ -25,14 +25,15 @@
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-### Calendrier V11 avec Featured Images (nouveau)
-- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v11.php`
+### Calendrier V18 avec Réallocation Brouillons (nouveau)
+- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v18.php`
 - UI: Menu bar "Schedule Calendar" dans l'admin WordPress.
-- **Nouveau en V11** : Affichage des featured images en miniature dans les cartes du calendrier.
+- **Nouveau en V18** : Affichage des featured images en miniature dans les cartes du calendrier.
 - **Identification visuelle** : Articles sans featured image marqués d'une bordure rouge gauche + emoji 🖼️.
-- **Vue double mois** : Affichage 2 mois côte à côte (breakpoint > 3200px).
+- **Vue mensuelle par défaut** : navigation mois précédent/suivant stable, un seul mois à la fois.
 - **Drag & Drop** : Reprogrammer les articles par glisser-déposer.
 - **Horaires intelligents** : Distribution automatique 10h-15h avec ancrage 14h.
+- **Réallocation brouillons** : réattribue les brouillons à partir de J+1 en cadence 10h puis 14h.
 - **Filtres** : Recherche par titre, filtrage par catégorie, sélection mois/année.
 
 ## ⚙️ Réglages
@@ -120,6 +121,8 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-06-01: calendrier `v18` conservé en canonical, versions `v11` à `v17` archivées/supprimées selon workflow.
+- 2026-06-01: correction snippets cassés par metadata injectées (`Fusion OutilsReglages`, `Admin Media Size v2`) en versions minifiées activables.
 - 2026-05-28: ajout du Calendrier V11 avec featured images en miniature (identification visuelle des articles sans image).
 - 2026-05-28: ajout des scripts de synchronisation WordPress (compare, archive, pull).
 - 2026-05-28: archivage de 34 snippets inactifs, récupération de 23 snippets actifs depuis WordPress.

@@ -1,142 +1,7 @@
 <?php
 /*
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images + Réallocation 📆
+ * Display name: ADMIN - Schedule Calendar [DRAG+14h] + Reallocation (MIN v17)
  * Scope: global
- */
-
-<?php
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/global/095__id-155__admin-schedule-calendar-drag-14h.php
- * Display name: ADMIN - Schedule Calendar [DRAG+14h] [2 MOIS] + Featured Images + Réallocation 📆
- * Scope: global
- * Online snippet: oui
- * Online active: non (nouveau, à tester)
- * Online ID: N/A (nouveau)
- * Online modified: N/A (nouveau)
- * Online revision: N/A
- * Exact duplicate group: non
- * Version family: ADMIN - Schedule Calendar [DRAG+14h] 📆 (4 variantes)
- * Version: v12
- * Recommended latest in family: 🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v12.php
- * Is family latest: oui
- * Canonical reasons: family-latest, dual-month-view, featured-images-preview, draft-reallocation, duplicate-detection
- * Features: calendar, search-ui, jetpack, admin-bar, head-injection, featured-images-preview, draft-reallocation, duplicate-detection
- * Dependances probables: jQuery, jQuery UI, WordPress REST API
- * Hooks WP: admin_enqueue_scripts, admin_head, admin_menu, views_edit-post, admin_bar_menu
- * Fonctions clefs: add_calendar_scripts, scheduled_posts_calendar_styles_alpha, get_posts_years_range, generate_scheduled_posts_calendar_alpha, normalizeMonth, getMonthKey, applySearchFilter, scrollCalendarCellIntoView, focusCalendarCellIfNeeded, fetchMonthPosts, fetchYearStats, renderMonthSection, detectDuplicates, reallocateDraftsToDateSlots
- * Lignes / octets (brut): ~1450 / ~51000
- * Hash code normalise (sha256): N/A (nouveau)
- * Genere le (UTC): 2026-05-28T16:00:00+00:00
- */
-
-/* V12 NOUVELLES FEATURES:
- * V11 (héritées):
- * - Affichage des featured images en miniature dans les cartes du calendrier
- * - Identification visuelle des articles SANS featured image (bordure rouge + emoji 🖼️)
- * - API REST avec &_embed pour récupérer les médias
- * - Images optimisées : 40px hauteur, object-fit cover, loading lazy
- *
- * V12 (nouvelles):
- * - Bouton "Réallouer brouillons" : déplacer automatiquement les brouillons passés vers des créneaux futurs
- * - Détection des doublons : identifie les articles avec le même premier mot (même sujet)
- * - Regroupement visuel des doublons sur la même journée
- * - Indicateur visuel des doublons (bordure droite rouge + emoji 🔄)
- * - Priorité : plus anciens brouillons d'abord pour réallocation
- * - Ne touche PAS aux articles publiés (status=publish)
- */
-
- * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
- * Resume fonctionnalites: customisation interface admin, interface de recherche, UI frontend (CSS/HTML), automatisation date/programmation, 5 hook(s) WP, 16 fonction(s) clef
- * Features detectees: admin-menubar, admin-ui, search-ui, scheduler-date, css-ui, footer-head-injection, svg-ui
- * Dependances probables: jQuery
- * Hooks WP: admin_enqueue_scripts, admin_head, admin_menu, views_edit-post, admin_bar_menu
- * Fonctions clefs: add_calendar_scripts, scheduled_posts_calendar_styles_alpha, get_posts_years_range, generate_scheduled_posts_calendar_alpha, normalizeMonth, getMonthKey, applySearchFilter, scrollCalendarCellIntoView, focusCalendarCellIfNeeded, fetchMonthPosts, fetchYearStats, renderMonthSection … (+4)
- * Selecteurs / IDs: .post-item, .calendar-month-section
- * APIs WP detectees: add_calendar_scripts, wp_enqueue_script, add_action, get_current_screen, get_posts_years_range, get_row, get_categories, rest_url, wp_create_nonce, admin_url, add_submenu_page, add_filter, wp_unslash, add_query_arg, add_node
- * Signatures contenu: inline-style, inline-script, html-markup
- * Lignes / octets: 1229 / 44802
- * Empreinte code (sha256): 4d6b0233156fda622fa5ae3ab0871885c4b49579e7333040fdc9fce905abc789
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
- * Fichier: ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-schedule-calendar-drag-14h__v6__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: admin_menubar
- * Clusters secondaires: scheduler_posts, search_ui
- * Domaine: admin
- * Confiance: high
- * Scores (top): admin_menubar=18, scheduler_posts=12, search_ui=10, frontend_ui_widget=6, post_footer_ui=5, admin_ui_settings=4
- * Raisons principales: admin-menubar, menubar, admin_bar_menu
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
-
- * 2026-05-20 (v10):
- * - Vue par défaut : mois en cours + mois suivant (2 mois côte à côte).
- * - Suppression de l'affichage année complète par défaut.
- * - Changement de currentViewMode 'single' → 'dual'.
- * - Barre de navigation sticky (hérité de v9).
- *
- * 2026-05-20 (v9):
- * 2026-05-20 (v9):
- * - Barre de navigation sticky : reste visible pendant le scroll.
- * - Ajout de position: sticky sur .calendar-header avec offset admin bar.
- * - L'offset s'adapte automatiquement (32px desktop, 46px mobile).
- * - Z-index élevé pour rester au-dessus du contenu.
- *
- * 2026-05-20 (v8.3):
- * 2026-05-20 (v8.3):
- * - Augmentation extreme du breakpoint vue fractionnee : 1800px -> 3200px.
- * - Les mois s'affichent cote a cote uniquement sur ultra-large ecrans (3200px+).
- * - Suppression definitive de overflow-x: auto pour eviter tout scroll horizontal.
- * - Fix Quick Edit : event listener attache au document.
- *
- * 2026-05-20 (v8.2):
- * 2026-03-09 (v6.2 hotfix):
- * - Rollback du loading plein ecran (trop fragile selon environnement admin).
- * - Indicateur recentre dans le conteneur calendrier uniquement, sans overlay global.
- * - Suppression du watchdog additionnel pour revenir au flux de refresh stable.
- *
- * 2026-03-09 (v6.1 hotfix):
- * - Fix accessibilite calendrier: suppression du blocage d'interactions pendant l'etat "is-loading".
- * - Ajout d'un garde-fou timeout pour retirer l'overlay si une requete reste bloquee.
- *
- * 2026-03-09 (v6):
- * - UI loading: indicateur "Mise a jour du calendrier..." deplace au centre de l'ecran.
- * - Overlay de chargement plus visible pour eviter l'impression de page vide.
- *
- * 2026-03-09 (v5.3 hotfix):
- * - Correctif affichage calendrier: recuperation paginee de tous les posts du mois (plus limite a 100).
- * - Evite la disparition de tuiles sur certaines dates de fin de mois quand le volume est eleve.
- *
- * 2026-03-09 (v5.2 hotfix):
- * - Chargement mensuel: retry court sur les requetes REST pour limiter les echecs transitoires.
- * - Si un chargement echoue au demarrage, affichage d'un bloc d'erreur avec bouton "Reessayer" au lieu d'un calendrier vide.
- * - Si le calendrier etait deja affiche, il est conserve tel quel en cas d'erreur de refresh.
- *
- * 2026-03-09 (v5.1 hotfix):
- * - Compatibilite: fallback sans replaceChildren pour navigateurs/admins plus anciens.
- * - Robustesse: le calendrier continue de se rendre meme si la requete de stats annuelle echoue.
- *
- * 2026-03-09 (v5):
- * - Perf UI: suppression de l'effet "ecran blanc" pendant refresh (ancien calendrier conserve jusqu'au nouveau rendu).
- * - Ajout d'un etat de chargement visuel non bloquant sur la grille.
- * - Perf reseau: reequilibrage horaire envoie uniquement les updates necessaires (pas de POST quand l'heure est deja correcte).
- *
- * 2026-03-09 (v4):
- * - Drag & drop: auto-agencement horaire des posts d'une journee pour eviter les doublons d'heure.
- * - Repartition automatique sur des creneaux d'1h entre 10h et 15h (ancrage preferentiel a 14h).
- * - Exemple: 4 posts le meme jour => 11h, 12h, 13h, 14h.
- * - Reequilibrage applique aussi sur la journee source quand un post est deplace vers une autre date.
- *
- * 2026-03-04 (v3):
- * - Ajout d'une 3e action sur chaque tuile: icone "Quick Edit".
- * - Ajout d'une popup d'edition rapide: nom du post + date + heure.
- * - Sauvegarde via REST API wp/v2/posts (title + date) puis refresh du calendrier.
- * - Ajustements accessibilite: labels aria, focus visible, fermeture via Escape.
  */
 
 // Assurez-vous que le script ne peut être exécuté que dans WordPress
@@ -992,6 +857,7 @@ function generate_scheduled_posts_calendar_alpha() {
                         <button id="reallocateDrafts" type="button" title="Réallouer les brouillons passés vers des créneaux futurs" class="button button-secondary">
                             <span class="dashicons dashicons-randomize"></span> Réallouer brouillons
                         </button>
+                        <div id="reallocateStatus" aria-live="polite" style="margin-top:6px;font-size:12px;color:#50575e;"></div>
                     </div>
                 </div>
                 <select id="categoryFilter">
@@ -1043,11 +909,8 @@ function generate_scheduled_posts_calendar_alpha() {
     <script data-jetpack-boost="ignore">
     document.addEventListener('DOMContentLoaded', function() {
         let currentDate = new Date();
-        let currentViewMode = 'dual';
-        let visibleMonths = [
-            new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-            new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-        ];
+        let currentViewMode = 'single';
+        let visibleMonths = [new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)];
 
         // Initialisation des sélecteurs
         const monthSelect = document.getElementById('monthSelect');
@@ -1062,6 +925,17 @@ function generate_scheduled_posts_calendar_alpha() {
         let pendingCenterToday = true;
         let pendingFocusDate = null;
         let refreshRequestToken = 0;
+
+        // V16: Fonction utilitaire pour formater les dates au format WordPress REST API
+        const formatWPDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+        };
         const AUTO_SCHEDULE_MIN_HOUR = 10;
         const AUTO_SCHEDULE_MAX_HOUR = 15;
         const AUTO_SCHEDULE_ANCHOR_HOUR = 14;
@@ -1647,11 +1521,15 @@ function generate_scheduled_posts_calendar_alpha() {
                         .replace(/&#039;/g, "'");
                     postDiv.setAttribute('data-post-title', postTitle);
 
-                    // Récupérer l'URL de l'image featured si elle existe
-                    const featuredImageUrl = post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]
-                        ? (post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
-                            ? post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
-                            : (post._embedded['wp:featuredmedia'][0].source_url || null))
+                    // Récupérer l'URL featured avec fallback robuste (évite crash si tailles absentes)
+                    const media = post && post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]
+                        ? post._embedded['wp:featuredmedia'][0]
+                        : null;
+                    const featuredImageUrl = media
+                        ? ((media.media_details && media.media_details.sizes && media.media_details.sizes.thumbnail && media.media_details.sizes.thumbnail.source_url)
+                            || (media.media_details && media.media_details.sizes && media.media_details.sizes.medium && media.media_details.sizes.medium.source_url)
+                            || media.source_url
+                            || null)
                         : null;
                     const hasFeaturedImage = featuredImageUrl && featuredImageUrl.length > 0;
                     postDiv.setAttribute('data-featured-image', hasFeaturedImage ? '1' : '0');
@@ -1963,155 +1841,75 @@ function generate_scheduled_posts_calendar_alpha() {
             });
         }
 
-        // Initialisation du calendrier : toujours afficher le mois en cours + suivant (2 mois)
-        updateCalendar(currentDate);
+        // Initialisation: mois par défaut, année seulement si demandé explicitement
+        if (initialView === 'year') {
+            showFullYearView(currentDate.getFullYear());
+        } else {
+            updateCalendar(currentDate);
+        }
 
-        // ======== V12: Réallocation des brouillons passés ========
+        // ======== V17: Réallocation serveur minifiée (règle 10h / 14h) ========
         const reallocateDraftsButton = document.getElementById('reallocateDrafts');
+        const reallocateStatus = document.getElementById('reallocateStatus');
+
+        function setReallocateStatus(message, isError = false) {
+            if (!reallocateStatus) return;
+            reallocateStatus.textContent = message || '';
+            reallocateStatus.style.color = isError ? '#b32d2e' : '#50575e';
+        }
+
         if (reallocateDraftsButton) {
             reallocateDraftsButton.addEventListener('click', function() {
-                if (!confirm('Réallouer tous les brouillons passés vers des créneaux futurs ?')) {
+                if (!confirm('Réallouer les brouillons vers des créneaux futurs (10h puis 14h) ?')) {
                     return;
                 }
 
                 reallocateDraftsButton.disabled = true;
                 reallocateDraftsButton.textContent = '⏳ Réallocation...';
-
-                // Récupérer tous les brouillons et pending posts passés
-                const now = new Date();
-                const cutoffDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-
-                // Format de date compatible WordPress REST API: YYYY-MM-DDTHH:mm:ss
-                const formatWPDate = (date) => {
-                    const year = date.getFullYear();
-                    const month = String(date.getMonth() + 1).padStart(2, '0');
-                    const day = String(date.getDate()).padStart(2, '0');
-                    const hours = String(date.getHours()).padStart(2, '0');
-                    const minutes = String(date.getMinutes()).padStart(2, '0');
-                    const seconds = String(date.getSeconds()).padStart(2, '0');
-                    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-                };
-
-                const cutoffDateStr = formatWPDate(cutoffDate);
-
-                fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft,pending&before=${encodeURIComponent(cutoffDateStr)}&orderby=date&order=asc&_embed`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Erreur récupération brouillons');
-                    return response.json();
+                setReallocateStatus('Traitement serveur en cours...');
+                fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    body: 'action=clm_reallocate_overdue_posts&nonce=<?php echo rawurlencode( wp_create_nonce('clm_reallocate_overdue_posts') ); ?>'
                 })
-                .then(pastDrafts => {
-                    if (pastDrafts.length === 0) {
-                        alert('Aucun brouillon passé à réallouer.');
+                .then(response => response.json())
+                .then(payload => {
+                    if (!payload || !payload.success) {
+                        const msg = payload && payload.data && payload.data.message ? payload.data.message : 'Erreur inconnue';
+                        throw new Error(msg);
+                    }
+                    return payload.data || {};
+                })
+                .then(data => {
+                    const moved = parseInt(data.moved || 0, 10);
+                    const total = parseInt(data.total || 0, 10);
+                    const failed = parseInt(data.failed || 0, 10);
+                    const failedIds = Array.isArray(data.failed_ids) ? data.failed_ids.map(id => `#${id}`).join(', ') : '';
+
+                    if (total === 0) {
+                        const candidates = parseInt(data.candidates || 0, 10);
+                        const today = data.today ? `\nRéférence: ${data.today}` : '';
+                        setReallocateStatus(`Aucun contenu en retard trouvé. Candidats analysés: ${candidates}.`);
+                        alert(`Aucun brouillon à réallouer.\nCandidats analysés: ${candidates}${today}`);
                         return;
                     }
 
-                    // Trouver les créneaux disponibles dans le futur
-                    return findAvailableSlots(pastDrafts.length);
-                })
-                .then(slots => {
-                    if (!slots || slots.length === 0) {
-                        throw new Error('Impossible de trouver des créneaux disponibles');
-                    }
-
-                    return reallocateDraftsToDateSlots(slots);
-                })
-                .then(results => {
-                    const success = results.filter(r => r.success).length;
-                    const failed = results.filter(r => !r.success).length;
-
-                    alert(`✅ Réallocation terminée !\nSuccès: ${success}\nÉchecs: ${failed}`);
+                    setReallocateStatus(`Terminé. Déplacés: ${moved}/${total}. Échecs: ${failed}.`, failed > 0);
+                    const details = failed > 0 && failedIds ? `\nIDs en échec: ${failedIds}` : '';
+                    alert(`✅ Réallocation terminée !\nDéplacés: ${moved}/${total}\nÉchecs: ${failed}${details}`);
                     refreshCurrentView();
                 })
                 .catch(error => {
                     console.error('Erreur réallocation:', error);
+                    setReallocateStatus(`Erreur: ${error.message}`, true);
                     alert('❌ Erreur lors de la réallocation: ' + error.message);
                 })
                 .finally(() => {
                     reallocateDraftsButton.disabled = false;
                     reallocateDraftsButton.innerHTML = '<span class="dashicons dashicons-randomize"></span> Réallouer brouillons';
                 });
-            });
-        }
-
-        // Trouver les créneaux disponibles dans le futur
-        function findAvailableSlots(count) {
-            const slots = [];
-            const startDate = new Date();
-            startDate.setDate(startDate.getDate() + 1); // Commence demain
-            startDate.setHours(10, 0, 0, 0); // Premier créneau à 10h
-
-            const hours = [10, 14, 11, 12, 13]; // Ordre prioritaire
-            let currentDateCheck = new Date(startDate);
-
-            while (slots.length < count) {
-                // Générer 5 créneaux pour ce jour (10h, 14h, 11h, 12h, 13h)
-                for (let hour of hours) {
-                    if (slots.length >= count) break;
-
-                    const slotDate = new Date(currentDateCheck);
-                    slotDate.setHours(hour, 0, 0, 0);
-                    slots.push(slotDate);
-                }
-
-                // Passer au jour suivant
-                currentDateCheck.setDate(currentDateCheck.getDate() + 1);
-            }
-
-            return Promise.resolve(slots);
-        }
-
-        // Réallouer les brouillons vers les créneaux
-        function reallocateDraftsToDateSlots(slots) {
-            const now = new Date();
-            const cutoffDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-
-            // Format de date compatible WordPress REST API: YYYY-MM-DDTHH:mm:ss
-            const formatWPDate = (date) => {
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                const seconds = String(date.getSeconds()).padStart(2, '0');
-                return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-            };
-
-            const cutoffDateStr = formatWPDate(cutoffDate);
-
-            return fetch(`<?php echo esc_url(rest_url('wp/v2/posts')); ?>?per_page=100&status=draft,pending&before=${encodeURIComponent(cutoffDateStr)}&orderby=date&order=asc&_embed`)
-            .then(response => response.json())
-            .then(drafts => {
-                // Trier par date (plus anciens d'abord)
-                drafts.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-                const promises = drafts.map((draft, index) => {
-                    if (index >= slots.length) return Promise.resolve({ success: false, id: draft.id, error: 'No slot' });
-
-                    const newDate = slots[index];
-                    const payloadDate = `${newDate.getFullYear()}-${String(newDate.getMonth() + 1).padStart(2, '0')}-${String(newDate.getDate()).padStart(2, '0')}T${String(newDate.getHours()).padStart(2, '0')}:00:00`;
-
-                    return fetch(`<?php echo esc_url(rest_url('wp/v2/posts/')); ?>${draft.id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
-                        },
-                        body: JSON.stringify({
-                            date: payloadDate
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Failed to update');
-                        return { success: true, id: draft.id, newDate: payloadDate };
-                    })
-                    .catch(error => ({
-                        success: false,
-                        id: draft.id,
-                        error: error.message
-                    }));
-                });
-
-                return Promise.all(promises);
             });
         }
 
@@ -2244,3 +2042,47 @@ add_action('admin_bar_menu', function($admin_bar) {
     ]);
 }, 100);
 
+// Réallocation serveur: brouillons -> 10h puis 14h sur jours futurs.
+function clm_reallocate_overdue_posts_ajax() {
+    if ( ! current_user_can( 'edit_posts' ) ) wp_send_json_error( array( 'message' => 'Permissions insuffisantes.' ), 403 );
+    check_ajax_referer( 'clm_reallocate_overdue_posts', 'nonce' );
+
+    $tz = wp_timezone();
+    $today = new DateTimeImmutable( 'today', $tz );
+    $tomorrow = $today->modify( '+1 day' );
+    $statuses = array( 'draft' );
+
+    $candidates = get_posts( array(
+        'post_type' => 'post', 'post_status' => $statuses, 'posts_per_page' => -1,
+        'orderby' => 'date', 'order' => 'ASC', 'fields' => 'ids',
+    ) );
+
+    $overdue = array();
+    foreach ( $candidates as $id ) {
+        $p = get_post( $id );
+        if ( ! $p ) continue;
+        $ref = ( $p->post_date && '0000-00-00 00:00:00' !== $p->post_date ) ? $p->post_date : $p->post_modified;
+        if ( ! $ref || false === strtotime( $ref ) ) continue;
+        // Règle métier: tous les brouillons sont réallouables.
+        $overdue[] = (int) $id;
+    }
+
+    if ( ! $overdue ) wp_send_json_success( array( 'moved' => 0, 'failed' => 0, 'failed_ids' => array(), 'total' => 0, 'candidates' => count( $candidates ), 'today' => $today->format( 'Y-m-d H:i:s' ), 'next_slots' => array() ) );
+
+    $moved = 0; $failed = 0; $failed_ids = array(); $next_slots = array();
+    $day = $tomorrow; $hours = array( 10, 14 ); $i = 0;
+
+    foreach ( $overdue as $post_id ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) { $failed++; $failed_ids[] = (int) $post_id; continue; }
+        $slot = $day->setTime( $hours[ $i ], 0, 0 )->format( 'Y-m-d H:i:s' );
+        $i++;
+        if ( $i >= 2 ) { $i = 0; $day = $day->modify( '+1 day' ); }
+        $next_slots[] = array( 'id' => (int) $post_id, 'date' => $slot );
+        $r = wp_update_post( array( 'ID' => (int) $post_id, 'post_date' => $slot, 'post_date_gmt' => get_gmt_from_date( $slot ) ), true );
+        if ( is_wp_error( $r ) ) { $failed++; $failed_ids[] = (int) $post_id; continue; }
+        $moved++;
+    }
+
+    wp_send_json_success( array( 'moved' => $moved, 'failed' => $failed, 'failed_ids' => $failed_ids, 'total' => count( $overdue ), 'candidates' => count( $candidates ), 'today' => $today->format( 'Y-m-d H:i:s' ), 'next_slots' => array_slice( $next_slots, 0, 10 ) ) );
+}
+add_action( 'wp_ajax_clm_reallocate_overdue_posts', 'clm_reallocate_overdue_posts_ajax' );
