@@ -9,7 +9,7 @@
 - Historique et variantes dans `snippets/archive/`.
 - Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
-- **Calendrier V18 minifié** avec featured images, navigation mensuelle stable et réallocation brouillons.
+- **Calendrier V21** avec featured images, drag & drop, réallocation brouillons et vérification des articles planifiés (créneaux 10h, 14h, 11h, 12h, 13h).
 
 ## 🧠 Utilisation
 1. Ouvrir et éditer les snippets dans `snippets/canonical/`.
@@ -25,16 +25,18 @@
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-### Calendrier V18 avec Réallocation Brouillons (nouveau)
-- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar Drag 14h - v18.php`
-- UI: Menu bar "Schedule Calendar" dans l'admin WordPress.
-- **Nouveau en V18** : Affichage des featured images en miniature dans les cartes du calendrier.
-- **Identification visuelle** : Articles sans featured image marqués d'une bordure rouge gauche + emoji 🖼️.
-- **Vue mensuelle par défaut** : navigation mois précédent/suivant stable, un seul mois à la fois.
-- **Drag & Drop** : Reprogrammer les articles par glisser-déposer.
-- **Horaires intelligents** : Distribution automatique 10h-15h avec ancrage 14h.
-- **Réallocation brouillons** : réattribue les brouillons à partir de J+1 en cadence 10h puis 14h.
-- **Filtres** : Recherche par titre, filtrage par catégorie, sélection mois/année.
+### Calendrier V21 (Schedule Calendar)
+- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar - v21.php`
+- UI: Menu bar « Calendrier » dans l'admin WordPress + badge de version dans le titre.
+- **Featured images** en miniature dans les cartes (bordure rouge + 🖼️ si absente).
+- **Vue mensuelle stable** : navigation mois précédent/suivant, option `+1 mois` / `Année complète`.
+- **Drag & Drop** : reprogrammer les articles par glisser-dépose, rebalance automatique du jour.
+- **Créneaux prioritaires `10h, 14h, 11h, 12h, 13h`** : 1er article → 10h, 2e → 14h, puis 11h/12h/13h.
+- **Réallocation brouillons** : bouton dédié + choix du nombre d'articles/jour (1 à 5). Les brouillons sont replanifiés à partir de J+1 en respectant les créneaux déjà pris.
+- **Vérification des articles planifiés** (V21) : au moment de la réallocation, les `future` sont remis sur les bons créneaux ; débordement > 5/jour cascadé vers J+1.
+- **Boîte de résultats détaillée** (V21) : remplace le `alert()` natif, affiche sections réallocation + planifiés vérifiés (corrigés, décalés, inchangés), scrollable.
+- **Barre de statut** (V21) sous le header, en pleine largeur.
+- **Filtres** : recherche par titre, filtrage par catégorie, sélection mois/année, détection des doublons.
 
 ## ⚙️ Réglages
 - Aucun réglage obligatoire pour la plupart des snippets.
@@ -121,6 +123,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-06-15: Calendrier `v21` — nouvel ordre de créneaux `10h, 14h, 11h, 12h, 13h`, vérification des articles planifiés (cascade J+1 si >5/jour), boîte de résultats détaillée (remplace `alert()`), barre de statut sous le header, badge de version dans le titre. Fichier renommé `Schedule Calendar - v21`. `v19` archivée.
 - 2026-06-01: calendrier `v18` conservé en canonical, versions `v11` à `v17` archivées/supprimées selon workflow.
 - 2026-06-01: correction snippets cassés par metadata injectées (`Fusion OutilsReglages`, `Admin Media Size v2`) en versions minifiées activables.
 - 2026-05-28: ajout du Calendrier V11 avec featured images en miniature (identification visuelle des articles sans image).
