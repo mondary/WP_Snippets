@@ -67,12 +67,11 @@ add_action( 'admin_menu', function () {
 	];
 
 	// 3 — Articles manqués (posts future dont la date est dépassée)
-	$label_missed = 'Manqués';
-	if ( $missed > 0 ) {
-		$label_missed .= ' <span class="awaiting-mod count-' . $missed . '">'
-			. '<span class="pending-count" aria-hidden="true">' . number_format_i18n( $missed ) . '</span>'
-			. '</span>';
-	}
+	$badge_color   = $missed > 0 ? '#d63638' : '#00a32a';
+	$label_missed  = 'Manqués'
+		. ' <span class="awaiting-mod" style="background:' . $badge_color . '!important">'
+		. '<span class="pending-count" aria-hidden="true">' . number_format_i18n( $missed ) . '</span>'
+		. '</span>';
 	add_submenu_page(
 		'edit.php',
 		'Articles manqués',
