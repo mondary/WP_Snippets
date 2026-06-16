@@ -575,6 +575,21 @@ function scheduled_posts_calendar_styles_alpha() {
             margin-bottom: 16px;
         }
 
+        .reallocate-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .reallocate-field-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #50575e;
+        }
+
         .reallocate-option {
             display: flex;
             align-items: center;
@@ -1132,34 +1147,51 @@ function generate_scheduled_posts_calendar_alpha() {
     </dialog>
     <dialog id="reallocateDialog" class="reallocate-dialog" aria-labelledby="reallocateTitle">
         <div class="reallocate-dialog__inner">
-            <h2 id="reallocateTitle">Réallouer les brouillons</h2>
-            <p>Combien d'articles par jour souhaitez-vous planifier ? Les créneaux déjà pris sont sautés automatiquement.</p>
-            <div class="reallocate-options">
-                <label class="reallocate-option">
-                    <input type="radio" name="articlesPerDay" value="1">
-                    <span class="reallocate-option-label">1 article / jour</span>
-                    <span class="reallocate-option-hours">10h</span>
-                </label>
-                <label class="reallocate-option">
-                    <input type="radio" name="articlesPerDay" value="2" checked>
-                    <span class="reallocate-option-label">2 articles / jour</span>
-                    <span class="reallocate-option-hours">10h, 14h</span>
-                </label>
-                <label class="reallocate-option">
-                    <input type="radio" name="articlesPerDay" value="3">
-                    <span class="reallocate-option-label">3 articles / jour</span>
-                    <span class="reallocate-option-hours">10h, 14h, 11h</span>
-                </label>
-                <label class="reallocate-option">
-                    <input type="radio" name="articlesPerDay" value="4">
-                    <span class="reallocate-option-label">4 articles / jour</span>
-                    <span class="reallocate-option-hours">10h, 14h, 11h, 12h</span>
-                </label>
-                <label class="reallocate-option">
-                    <input type="radio" name="articlesPerDay" value="5">
-                    <span class="reallocate-option-label">5 articles / jour</span>
-                    <span class="reallocate-option-hours">10h, 14h, 11h, 12h, 13h</span>
-                </label>
+            <h2 id="reallocateTitle">Réallouer</h2>
+            <div class="reallocate-field">
+                <span class="reallocate-field-label">Mode</span>
+                <div class="reallocate-options">
+                    <label class="reallocate-option">
+                        <input type="radio" name="reallocateMode" value="drafts" checked>
+                        <span class="reallocate-option-label">Brouillons uniquement</span>
+                        <span class="reallocate-option-hours">Planifiés laissés en place</span>
+                    </label>
+                    <label class="reallocate-option">
+                        <input type="radio" name="reallocateMode" value="compact">
+                        <span class="reallocate-option-label">Planifiés + brouillons</span>
+                        <span class="reallocate-option-hours">Compacte vers les jours libres dès J+1</span>
+                    </label>
+                </div>
+            </div>
+            <div class="reallocate-field">
+                <span class="reallocate-field-label">Articles par jour</span>
+                <div class="reallocate-options">
+                    <label class="reallocate-option">
+                        <input type="radio" name="articlesPerDay" value="1">
+                        <span class="reallocate-option-label">1 article / jour</span>
+                        <span class="reallocate-option-hours">10h</span>
+                    </label>
+                    <label class="reallocate-option">
+                        <input type="radio" name="articlesPerDay" value="2" checked>
+                        <span class="reallocate-option-label">2 articles / jour</span>
+                        <span class="reallocate-option-hours">10h, 14h</span>
+                    </label>
+                    <label class="reallocate-option">
+                        <input type="radio" name="articlesPerDay" value="3">
+                        <span class="reallocate-option-label">3 articles / jour</span>
+                        <span class="reallocate-option-hours">10h, 14h, 11h</span>
+                    </label>
+                    <label class="reallocate-option">
+                        <input type="radio" name="articlesPerDay" value="4">
+                        <span class="reallocate-option-label">4 articles / jour</span>
+                        <span class="reallocate-option-hours">10h, 14h, 11h, 12h</span>
+                    </label>
+                    <label class="reallocate-option">
+                        <input type="radio" name="articlesPerDay" value="5">
+                        <span class="reallocate-option-label">5 articles / jour</span>
+                        <span class="reallocate-option-hours">10h, 14h, 11h, 12h, 13h</span>
+                    </label>
+                </div>
             </div>
             <div class="reallocate-actions">
                 <button type="button" class="button" id="reallocateCancel">Annuler</button>
@@ -2224,11 +2256,19 @@ function generate_scheduled_posts_calendar_alpha() {
 
         reallocateOptions.forEach(option => {
             option.addEventListener('click', function() {
-                reallocateOptions.forEach(o => o.classList.remove('selected'));
+                const group = this.closest('.reallocate-options');
+                const siblings = group ? group.querySelectorAll('.reallocate-option') : reallocateOptions;
+                siblings.forEach(o => o.classList.remove('selected'));
                 this.classList.add('selected');
                 const radio = this.querySelector('input[type="radio"]');
                 if (radio) radio.checked = true;
             });
+        });
+
+        // Marquer visuellement les options cochées au chargement
+        document.querySelectorAll('.reallocate-option input[type="radio"]:checked').forEach(radio => {
+            const opt = radio.closest('.reallocate-option');
+            if (opt) opt.classList.add('selected');
         });
 
         if (reallocateDraftsButton && reallocateDialog) {
@@ -2252,18 +2292,25 @@ function generate_scheduled_posts_calendar_alpha() {
             reallocateConfirm.addEventListener('click', function() {
                 const selectedRadio = document.querySelector('input[name="articlesPerDay"]:checked');
                 const articlesPerDay = selectedRadio ? parseInt(selectedRadio.value, 10) : 2;
+                const modeRadio = document.querySelector('input[name="reallocateMode"]:checked');
+                const mode = modeRadio ? modeRadio.value : 'drafts';
+                const isCompact = mode === 'compact';
 
                 reallocateDialog.close();
                 reallocateDraftsButton.disabled = true;
                 reallocateDraftsButton.textContent = '⏳ Réallocation...';
-                setReallocateStatus(`Vérification des articles planifiés + réallocation des brouillons (${articlesPerDay} article(s)/jour)...`);
+                setReallocateStatus(
+                    isCompact
+                        ? `Compactage des planifiés + réallocation des brouillons (${articlesPerDay} article(s)/jour)...`
+                        : `Vérification des articles planifiés + réallocation des brouillons (${articlesPerDay} article(s)/jour)...`
+                );
 
                 fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
-                    body: 'action=clm_reallocate_overdue_posts&nonce=<?php echo rawurlencode( wp_create_nonce('clm_reallocate_overdue_posts') ); ?>&articles_per_day=' + articlesPerDay
+                    body: 'action=clm_reallocate_overdue_posts&nonce=<?php echo rawurlencode( wp_create_nonce('clm_reallocate_overdue_posts') ); ?>&articles_per_day=' + articlesPerDay + '&mode=' + encodeURIComponent(mode)
                 })
                 .then(response => response.json())
                 .then(payload => {
@@ -2280,20 +2327,33 @@ function generate_scheduled_posts_calendar_alpha() {
                     const failedIds = Array.isArray(data.failed_ids) ? data.failed_ids.map(id => `#${id}`).join(', ') : '';
                     const remainingTodayIds = Array.isArray(data.remaining_today_ids) ? data.remaining_today_ids.map(id => `#${id}`).join(', ') : '';
 
-                    // V20: infos de normalisation des articles planifiés
+                    // V21: infos articles planifiés (vérification en mode drafts, compactage en mode compact)
                     const normTotal = parseInt(data.normalized_total || 0, 10);
                     const normMoved = parseInt(data.normalized_moved || 0, 10);
                     const normUnchanged = parseInt(data.normalized_unchanged || 0, 10);
                     const normCascaded = parseInt(data.normalized_cascaded || 0, 10);
                     const normFailed = parseInt(data.normalized_failed || 0, 10);
                     const normFailedIds = Array.isArray(data.normalized_failed_ids) ? data.normalized_failed_ids.map(id => `#${id}`).join(', ') : '';
-                    const normLine = normTotal > 0
-                        ? ` | Planifiés vérifiés: ${normTotal} (corrigés ${normMoved}, décalés ${normCascaded}, inchangés ${normUnchanged})`
+
+                    const planifiedVerb = isCompact ? 'compactés' : 'vérifiés';
+                    const planifiedTitle = isCompact ? 'Articles planifiés (compactage)' : 'Articles planifiés (vérification)';
+                    const planifiedStatusLine = normTotal > 0
+                        ? ` | Planifiés ${planifiedVerb}: ${normTotal} (${isCompact ? `déplacés ${normMoved}, inchangés ${normUnchanged}` : `corrigés ${normMoved}, décalés ${normCascaded}, inchangés ${normUnchanged}`})`
                         : '';
-                    const normAlert = normTotal > 0
-                        ? `\n\n📅 Articles planifiés vérifiés: ${normTotal}\n   • Corrigés: ${normMoved}\n   • Décalés J+1: ${normCascaded}\n   • Inchangés: ${normUnchanged}`
-                            + (normFailed > 0 ? `\n   • Échecs: ${normFailed}${normFailedIds ? ` (${normFailedIds})` : ''}` : '')
-                        : '';
+
+                    function buildPlanifiedRows() {
+                        const rows = [{ label: 'Total', value: String(normTotal) }];
+                        if (isCompact) {
+                            rows.push({ label: 'Déplacés', value: String(normMoved) });
+                        } else {
+                            rows.push({ label: 'Corrigés', value: String(normMoved) });
+                            rows.push({ label: 'Décalés J+1', value: String(normCascaded) });
+                        }
+                        rows.push({ label: 'Inchangés', value: String(normUnchanged) });
+                        if (normFailed > 0) rows.push({ label: 'Échecs', value: String(normFailed) + (normFailedIds ? ` (${normFailedIds})` : '') });
+                        return rows;
+                    }
+
                     const needsRefresh = normMoved > 0 || normCascaded > 0;
 
                     if (total === 0) {
@@ -2301,7 +2361,7 @@ function generate_scheduled_posts_calendar_alpha() {
                         const todayRef = data.today ? data.today : '';
                         setReallocateStatus(
                             normTotal > 0
-                                ? `Planifiés vérifiés: ${normTotal} (corrigés ${normMoved}, décalés ${normCascaded}). Aucun brouillon à réallouer.`
+                                ? `Planifiés ${planifiedVerb}: ${normTotal}. Aucun brouillon à réallouer.`
                                 : `Aucun contenu en retard trouvé. Candidats analysés: ${candidates}.`,
                             normFailed > 0
                         );
@@ -2311,32 +2371,25 @@ function generate_scheduled_posts_calendar_alpha() {
                             { label: 'Déplacés', value: '0' }
                         ]));
                         if (normTotal > 0) {
-                            const normRows = [
-                                { label: 'Total vérifiés', value: String(normTotal) },
-                                { label: 'Corrigés', value: String(normMoved) },
-                                { label: 'Décalés J+1', value: String(normCascaded) },
-                                { label: 'Inchangés', value: String(normUnchanged) }
-                            ];
-                            if (normFailed > 0) normRows.push({ label: 'Échecs', value: String(normFailed) + (normFailedIds ? ` (${normFailedIds})` : '') });
-                            sections.push(buildResultSection('📅', 'Articles planifiés', normFailed > 0 ? 'error' : 'success', normRows));
+                            sections.push(buildResultSection('📅', planifiedTitle, normFailed > 0 ? 'error' : 'success', buildPlanifiedRows()));
                         }
                         showReallocateResult({
                             title: 'Aucun brouillon à réallouer',
                             sections: sections,
                             meta: todayRef,
-                            fallbackText: `Aucun brouillon à réallouer.\nCandidats analysés: ${candidates}${normAlert}${today}`
+                            fallbackText: `Aucun brouillon à réallouer.\nCandidats analysés: ${candidates}${normTotal > 0 ? `\n\n📅 Articles planifiés ${planifiedVerb}: ${normTotal}` : ''}${todayRef}`
                         });
                         if (needsRefresh) refreshCurrentView();
                         return;
                     }
 
-                    setReallocateStatus(`Terminé. Déplacés: ${moved}/${total}. Échecs: ${failed}.${normLine}`, failed > 0 || remainingTodayIds.length > 0 || normFailed > 0);
+                    setReallocateStatus(`Terminé. Déplacés: ${moved}/${total}. Échecs: ${failed}.${planifiedStatusLine}`, failed > 0 || remainingTodayIds.length > 0 || normFailed > 0);
                     const details = failed > 0 && failedIds ? `IDs en échec: ${failedIds}` : '';
                     const remainingDetails = remainingTodayIds ? `Restent aujourd'hui/avant: ${remainingTodayIds}` : '';
                     const successSections = [];
                     successSections.push(buildResultSection(
                         '✅',
-                        'Réallocation terminée',
+                        'Réallocation brouillons',
                         failed > 0 ? 'error' : 'success',
                         [
                             { label: 'Déplacés', value: `${moved} / ${total}` },
@@ -2345,19 +2398,12 @@ function generate_scheduled_posts_calendar_alpha() {
                         [details, remainingDetails].filter(Boolean).join(' · ')
                     ));
                     if (normTotal > 0) {
-                        const normRows = [
-                            { label: 'Total vérifiés', value: String(normTotal) },
-                            { label: 'Corrigés', value: String(normMoved) },
-                            { label: 'Décalés J+1', value: String(normCascaded) },
-                            { label: 'Inchangés', value: String(normUnchanged) }
-                        ];
-                        if (normFailed > 0) normRows.push({ label: 'Échecs', value: String(normFailed) + (normFailedIds ? ` (${normFailedIds})` : '') });
-                        successSections.push(buildResultSection('📅', 'Articles planifiés', normFailed > 0 ? 'error' : 'success', normRows));
+                        successSections.push(buildResultSection('📅', planifiedTitle, normFailed > 0 ? 'error' : 'success', buildPlanifiedRows()));
                     }
                     showReallocateResult({
                         title: 'Réallocation terminée',
                         sections: successSections,
-                        fallbackText: `✅ Réallocation terminée !\nDéplacés: ${moved}/${total}\nÉchecs: ${failed}${details ? '\n' + details : ''}${remainingDetails ? '\n' + remainingDetails : ''}${normAlert}`
+                        fallbackText: `✅ Réallocation terminée !\nDéplacés: ${moved}/${total}\nÉchecs: ${failed}${details ? '\n' + details : ''}${remainingDetails ? '\n' + remainingDetails : ''}`
                     });
                     refreshCurrentView();
                 })
@@ -2612,7 +2658,97 @@ function clm_normalize_future_posts_schedule( array $slot_hours ) {
     return $result;
 }
 
-// Réallocation serveur v3: brouillons -> J+1 puis jours suivants, en respectant
+// V21: Compactage des articles planifiés (future) vers les premiers jours libres.
+// - Reprend TOUS les future, triés par date, et les re-flotde à partir de $start_day.
+// - Respecte $articles_per_day (plafond TOTAL: planifiés + déjà placés) et l'ordre des créneaux.
+// - Remplit d'abord les trous (jours incomplets) puis avance jour par jour.
+// - Les posts déjà à la bonne place ne sont pas réécrits.
+function clm_compact_future_posts( array $slot_hours, $articles_per_day, DateTimeImmutable $start_day ) {
+    $tz = wp_timezone();
+
+    $future_posts = get_posts( array(
+        'post_type'      => 'post',
+        'post_status'    => array( 'future' ),
+        'posts_per_page' => -1,
+        'numberposts'    => -1,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+    ) );
+
+    $result = array(
+        'total'      => count( $future_posts ),
+        'normalized' => 0,
+        'unchanged'  => 0,
+        'cascaded'   => 0,
+        'failed'     => 0,
+        'failed_ids' => array(),
+    );
+
+    if ( ! $future_posts ) {
+        return $result;
+    }
+
+    $max_slots    = min( (int) $articles_per_day, count( $slot_hours ) );
+    $current_day  = $start_day;
+    $slot_idx     = 0;
+    $day_count    = array(); // day_key => int
+
+    foreach ( $future_posts as $post ) {
+        // Avance jour par jour tant que le jour courant est saturé.
+        $day_key = $current_day->format( 'Y-m-d' );
+        $count   = isset( $day_count[ $day_key ] ) ? $day_count[ $day_key ] : 0;
+        while ( $count >= $max_slots ) {
+            $current_day = $current_day->modify( '+1 day' );
+            $slot_idx    = 0;
+            $day_key     = $current_day->format( 'Y-m-d' );
+            $count       = isset( $day_count[ $day_key ] ) ? $day_count[ $day_key ] : 0;
+        }
+
+        $hour        = (int) $slot_hours[ $slot_idx ];
+        $target_slot = $current_day->setTime( $hour, 0, 0 )->format( 'Y-m-d H:i:s' );
+        $original_day = substr( $post->post_date, 0, 10 );
+
+        if ( ! isset( $day_count[ $day_key ] ) ) $day_count[ $day_key ] = 0;
+        $day_count[ $day_key ]++;
+        $slot_idx++;
+        if ( $slot_idx >= $max_slots ) {
+            $current_day = $current_day->modify( '+1 day' );
+            $slot_idx    = 0;
+        }
+
+        if ( $post->post_date === $target_slot ) {
+            $result['unchanged']++;
+            continue;
+        }
+
+        if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+            $result['failed']++;
+            $result['failed_ids'][] = (int) $post->ID;
+            continue;
+        }
+
+        $r = wp_update_post( array(
+            'ID'            => (int) $post->ID,
+            'post_date'     => $target_slot,
+            'post_date_gmt' => get_gmt_from_date( $target_slot ),
+        ), true );
+
+        if ( is_wp_error( $r ) ) {
+            $result['failed']++;
+            $result['failed_ids'][] = (int) $post->ID;
+            continue;
+        }
+
+        clean_post_cache( $post->ID );
+        $result['normalized']++;
+        if ( $original_day !== $day_key ) {
+            $result['cascaded']++;
+        }
+    }
+
+    $result['failed_ids'] = array_values( array_unique( $result['failed_ids'] ) );
+    return $result;
+}
 // les créneaux déjà pris et le plafond quotidien choisi.
 function clm_reallocate_overdue_posts_ajax() {
     global $wpdb;
@@ -2621,6 +2757,8 @@ function clm_reallocate_overdue_posts_ajax() {
     check_ajax_referer( 'clm_reallocate_overdue_posts', 'nonce' );
 
     $articles_per_day = isset( $_POST['articles_per_day'] ) ? max( 1, min( 5, intval( $_POST['articles_per_day'] ) ) ) : 2;
+    $mode = isset( $_POST['mode'] ) ? sanitize_key( wp_unslash( $_POST['mode'] ) ) : 'drafts';
+    if ( ! in_array( $mode, array( 'drafts', 'compact' ), true ) ) $mode = 'drafts';
 
     $tz = wp_timezone();
     $today = new DateTimeImmutable( 'today', $tz );
@@ -2628,8 +2766,13 @@ function clm_reallocate_overdue_posts_ajax() {
     $tomorrow = $today->modify( '+1 day' );
     $slot_hours = array( 10, 14, 11, 12, 13 );
 
-    // V20: normaliser d'abord les articles planifiés avant de réallouer les brouillons.
-    $normalized = clm_normalize_future_posts_schedule( $slot_hours );
+    // V21: selon le mode, on normalise (fixe les créneaux intra-jour) ou on compacte
+    // (re-flotte tous les planifiés vers les premiers jours libres dès J+1).
+    if ( $mode === 'compact' ) {
+        $normalized = clm_compact_future_posts( $slot_hours, $articles_per_day, $tomorrow );
+    } else {
+        $normalized = clm_normalize_future_posts_schedule( $slot_hours );
+    }
 
     $candidates = get_posts( array(
         'post_type'      => 'post',
@@ -2643,7 +2786,24 @@ function clm_reallocate_overdue_posts_ajax() {
 
     $draft_ids = array_values( array_filter( array_map( 'intval', $candidates ) ) );
 
-    if ( ! $draft_ids ) wp_send_json_success( array( 'moved' => 0, 'failed' => 0, 'failed_ids' => array(), 'total' => 0, 'candidates' => 0, 'today' => $today->format( 'Y-m-d H:i:s' ), 'next_slots' => array(), 'remaining_today_ids' => array(), 'articles_per_day' => $articles_per_day ) );
+    if ( ! $draft_ids ) wp_send_json_success( array(
+        'moved' => 0,
+        'failed' => 0,
+        'failed_ids' => array(),
+        'total' => 0,
+        'candidates' => 0,
+        'today' => $today->format( 'Y-m-d H:i:s' ),
+        'next_slots' => array(),
+        'remaining_today_ids' => array(),
+        'articles_per_day' => $articles_per_day,
+        'mode' => $mode,
+        'normalized_total'      => (int) $normalized['total'],
+        'normalized_moved'      => (int) $normalized['normalized'],
+        'normalized_unchanged'  => (int) $normalized['unchanged'],
+        'normalized_cascaded'   => (int) $normalized['cascaded'],
+        'normalized_failed'     => (int) $normalized['failed'],
+        'normalized_failed_ids' => array_values( array_map( 'intval', $normalized['failed_ids'] ) ),
+    ) );
 
     $moved = 0;
     $failed = 0;
@@ -2796,6 +2956,7 @@ function clm_reallocate_overdue_posts_ajax() {
         'next_slots'            => array_slice( $next_slots, 0, 10 ),
         'remaining_today_ids'   => array_values( array_map( 'intval', $remaining_today_ids ) ),
         'articles_per_day'      => $articles_per_day,
+        'mode'                  => $mode,
         'normalized_total'      => (int) $normalized['total'],
         'normalized_moved'      => (int) $normalized['normalized'],
         'normalized_unchanged'  => (int) $normalized['unchanged'],
