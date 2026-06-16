@@ -24,10 +24,13 @@ function scheduled_posts_calendar_styles_alpha() {
             margin: 20px 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
         }
-        .calendar-header {
+        .calendar-topbar {
             position: sticky;
             top: 32px;
             z-index: 100;
+            background: #fff;
+        }
+        .calendar-header {
             display: grid;
             grid-template-columns: minmax(200px, 1fr) auto minmax(150px, auto) auto;
             gap: 12px;
@@ -618,10 +621,16 @@ function scheduled_posts_calendar_styles_alpha() {
             border: 0;
             border-radius: 8px;
             width: min(560px, calc(100vw - 32px));
-            max-height: min(80vh, 720px);
+            max-width: min(560px, calc(100vw - 32px));
+            max-height: min(85vh, 760px);
             padding: 0;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
             color: #1d2327;
+            overflow: hidden;
+        }
+        .reallocate-result-dialog[open] {
+            display: flex;
+            flex-direction: column;
         }
         .reallocate-result-dialog::backdrop {
             background: rgba(0, 0, 0, 0.45);
@@ -630,14 +639,19 @@ function scheduled_posts_calendar_styles_alpha() {
             padding: 18px;
             display: flex;
             flex-direction: column;
-            max-height: min(80vh, 720px);
+            min-height: 0;
+            max-height: min(85vh, 760px);
+            overflow: hidden;
         }
         .reallocate-result-dialog h2 {
             margin: 0 0 14px;
             font-size: 18px;
             line-height: 1.2;
+            flex: 0 0 auto;
         }
         .reallocate-result-body {
+            flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto;
             padding-right: 4px;
             font-size: 13px;
@@ -703,6 +717,7 @@ function scheduled_posts_calendar_styles_alpha() {
             justify-content: flex-end;
             gap: 8px;
             margin-top: 14px;
+            flex: 0 0 auto;
         }
 
         /* Style pour les statistiques */
@@ -887,8 +902,11 @@ function scheduled_posts_calendar_styles_alpha() {
                 margin: 12px 0;
             }
 
-            .calendar-header {
+            .calendar-topbar {
                 top: 46px;
+            }
+
+            .calendar-header {
                 padding: 10px;
                 gap: 10px;
             }
@@ -1029,6 +1047,7 @@ function generate_scheduled_posts_calendar_alpha() {
     <div class="wrap">
         <h1>Calendrier <span style="font-size:0.55em;font-weight:600;color:#2271b1;vertical-align:middle;background:#e8f0fe;padding:2px 8px;border-radius:999px;margin-left:6px;">v21</span></h1>
         <div class="calendar-container" data-jetpack-boost="ignore">
+          <div class="calendar-topbar">
             <div class="calendar-header">
                 <div class="calendar-search">
                     <input type="text" id="searchPosts" placeholder="Rechercher des articles...">
@@ -1080,6 +1099,7 @@ function generate_scheduled_posts_calendar_alpha() {
                 </div>
             </div>
             <div id="reallocateStatus" class="reallocate-status" role="status" aria-live="polite"></div>
+          </div>
             <div class="calendar-months-container" id="calendarMonthsContainer" data-jetpack-boost="ignore">
                 <!-- Le calendrier sera généré ici par JavaScript -->
             </div>
@@ -2177,9 +2197,14 @@ function generate_scheduled_posts_calendar_alpha() {
 
             (options.sections || []).forEach(section => {
                 if (!section) return;
-                reallocateResultBody.appendChild(
-                    buildResultSection(section.icon, section.title, section.tone, section.rows, section.meta)
-                );
+                // Accepte soit un nœud DOM déjà construit, soit un objet de config.
+                if (section.nodeType === 1) {
+                    reallocateResultBody.appendChild(section);
+                } else {
+                    reallocateResultBody.appendChild(
+                        buildResultSection(section.icon, section.title, section.tone, section.rows, section.meta)
+                    );
+                }
             });
 
             reallocateResultDialog.showModal();

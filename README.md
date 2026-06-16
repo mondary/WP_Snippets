@@ -123,6 +123,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-06-16: Calendrier `v21` — fix de la popup de résultat vide (sections déjà construites re-construites). Barre de statut désormais sticky sous le header (reste visible au scroll). Dialog corps scroll corrigé (flex: 1 + min-height: 0).
 - 2026-06-15: Calendrier `v21` — nouvel ordre de créneaux `10h, 14h, 11h, 12h, 13h`, vérification des articles planifiés (cascade J+1 si >5/jour), boîte de résultats détaillée (remplace `alert()`), barre de statut sous le header, badge de version dans le titre. Fichier renommé `Schedule Calendar - v21`. `v19` archivée.
 - 2026-06-01: calendrier `v18` conservé en canonical, versions `v11` à `v17` archivées/supprimées selon workflow.
 - 2026-06-01: correction snippets cassés par metadata injectées (`Fusion OutilsReglages`, `Admin Media Size v2`) en versions minifiées activables.

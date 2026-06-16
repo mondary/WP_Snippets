@@ -58,6 +58,7 @@ php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1
 3. Activate and verify in admin UI.
 
 ## 🧾 Changelog
+- 2026-06-16: Schedule Calendar `v21` — fix empty result popup (reconstructed already-built sections). Status bar now sticky below header (stays visible on scroll). Dialog body scroll fixed (flex: 1 + min-height: 0).
 - 2026-06-15: Schedule Calendar `v21` — new slot order `10h, 14h, 11h, 12h, 13h`, scheduled-post verification (D+1 cascade when >5/day), detailed result dialog (replaces `alert()`), status bar below header, version badge in title. File renamed to `Schedule Calendar - v21`. `v19` archived.
 - 2026-04-29: added `Admin Export Posts Markdown RAG - v1` snippet.
 - 2026-04-29: README restructured (FR/EN) and RAG export workflow documented.
