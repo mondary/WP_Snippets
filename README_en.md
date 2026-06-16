@@ -9,7 +9,8 @@
 - History and variants in `snippets/archive/`.
 - WordPress sync workflow via `CODE_SNIPPETS_SYNC/`.
 - New RAG export snippet: one Markdown file per post (ZIP).
-- **Schedule Calendar V21** with featured images, drag & drop, draft reallocation, and scheduled-post verification (slots 10am, 2pm, 11am, 12pm, 1pm).
+- **Schedule Calendar V23** with featured images, drag & drop, draft reallocation, and scheduled-post verification (slots 10am, 2pm, 11am, 12pm, 1pm). Reallocation now accounts for **published** posts when calculating daily capacity.
+- **"Scheduled Posts" submenu** in the left sidebar, under the Posts menu, with a badge showing the scheduled post count.
 
 ## 🧠 Usage
 1. Open and edit snippets in `snippets/canonical/`.
@@ -25,18 +26,24 @@
   - `INDEX.md` (global files index)
 - Included metadata: date, author, categories, tags, keywords, excerpt, URL, status, etc.
 
-### Schedule Calendar V21
-- File: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar - v21.php`
+### Schedule Calendar V23
+- File: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar - v23.php`
 - UI: "Calendar" menu bar entry in WordPress admin + version badge in the page title.
 - **Featured images** as thumbnails in day cards (red border + 🖼️ when missing).
 - **Stable month view**: prev/next navigation, `+1 month` / `Full year` options.
 - **Drag & Drop**: reschedule posts via drag, automatic day rebalance.
 - **Priority slots `10h, 14h, 11h, 12h, 13h`**: 1st post → 10am, 2nd → 2pm, then 11am/12pm/1pm.
-- **Draft reallocation**: dedicated button + posts-per-day selector (1 to 5). Drafts are rescheduled from D+1 onward, skipping taken slots.
-- **Scheduled-post verification** (V21): on reallocation, `future` posts are realigned to correct slots; overflow > 5/day cascades to D+1.
-- **Detailed result dialog** (V21): replaces the native `alert()`, shows reallocation + verified-scheduled sections (fixed, shifted, unchanged), scrollable.
-- **Status bar** (V21) below the header, full width.
+- **Draft reallocation**: dedicated button + posts-per-day selector (1 to 5). Default mode: **Scheduled + drafts** (compacting from today). Drafts are rescheduled from D+1 onward, skipping taken slots.
+- **V23: published-post awareness** — daily capacity is now `articles_per_day - count(published on that day)`. A day with 5 published posts won't receive any additional scheduled or draft posts. Works in both *drafts* mode (`clm_normalize_future_posts_schedule`) and *compact* mode (`clm_compact_future_posts`).
+- **Detailed result dialog** with diagnostic sections: draft placement (ID + target date) and 5-day occupancy overview.
+- **Status bar** below the header, full width.
 - **Filters**: title search, category filter, month/year selection, duplicate detection.
+
+### Scheduled Posts Submenu
+- File: `snippets/canonical/🧭 ADMIN MENUBAR - Scheduled Posts Submenu - v1.php`
+- UI: "Scheduled Posts" submenu in the left sidebar, under the Posts menu.
+- Shows a badge with the number of scheduled posts.
+- Clean redirect to `edit.php?post_status=future&post_type=post&orderby=date&order=asc`.
 
 ## ⚙️ Settings
 - No mandatory settings for most snippets.
@@ -58,6 +65,8 @@ php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1
 3. Activate and verify in admin UI.
 
 ## 🧾 Changelog
+- 2026-06-16: Schedule Calendar `v23` — reallocation now accounts for **published** posts when calculating daily capacity (`clm_normalize_future_posts_schedule` and `clm_compact_future_posts` now query the DB to exclude published slots). Default mode changed to **Scheduled + drafts**. Diagnostics added to result dialog (detailed placement + occupancy). `v22` archived.
+- 2026-06-16: New snippet **"Scheduled Posts"** — left sidebar submenu under Posts, with count badge and clean redirect to scheduled posts sorted by ascending date.
 - 2026-06-16: Schedule Calendar `v21` — fix empty result popup (reconstructed already-built sections). Status bar now sticky below header (stays visible on scroll). Dialog body scroll fixed (flex: 1 + min-height: 0).
 - 2026-06-15: Schedule Calendar `v21` — new slot order `10h, 14h, 11h, 12h, 13h`, scheduled-post verification (D+1 cascade when >5/day), detailed result dialog (replaces `alert()`), status bar below header, version badge in title. File renamed to `Schedule Calendar - v21`. `v19` archived.
 - 2026-04-29: added `Admin Export Posts Markdown RAG - v1` snippet.
