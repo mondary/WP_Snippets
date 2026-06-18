@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🦶 POST FOOTER - Progress Bar - v2
+ * Display name: POST 🦶 FOOTER - Progress Bar - v2
  * Scope: global
  */
 

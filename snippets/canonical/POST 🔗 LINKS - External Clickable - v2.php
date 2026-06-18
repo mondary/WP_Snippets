@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🔗 EXTERNAL LINKS - Post External Links Clickable - v2
+ * Display name: POST 🔗 LINKS - External Clickable - v2
  * Scope: global
  */
 

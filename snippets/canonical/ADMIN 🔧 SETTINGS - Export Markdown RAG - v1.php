@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧰 UTILITIES - Admin Export Posts Markdown RAG - v1.php
+ * Display name: ADMIN 🔧 SETTINGS - Export Markdown RAG - v1
  * Scope: global
  */
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN SETTINGS - Fusion OutilsReglages
+ * Display name: ADMIN 🔧 SETTINGS - Fusion OutilsReglages - v1
  * Scope: global
  */
 if (!defined('ABSPATH')) exit;

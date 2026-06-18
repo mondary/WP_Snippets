@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🦶 POST FOOTER - Footer Social Ego - v2
+ * Display name: POST 🦶 FOOTER - Social Ego - v2
  * Scope: global
  */
 

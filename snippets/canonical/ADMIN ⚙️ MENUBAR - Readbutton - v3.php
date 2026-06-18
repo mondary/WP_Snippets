@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧭 ADMIN MENUBAR - Readbutton - v3
+ * Display name: ADMIN ⚙️ MENUBAR - Readbutton - v3
  * Scope: global
  */
 

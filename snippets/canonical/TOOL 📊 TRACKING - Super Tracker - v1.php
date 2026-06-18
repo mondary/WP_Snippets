@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 📊 SUPER TRACKER OPTIMISÉ
+ * Display name: TOOL 📊 TRACKING - Super Tracker - v1
  * Scope: global
  */
 

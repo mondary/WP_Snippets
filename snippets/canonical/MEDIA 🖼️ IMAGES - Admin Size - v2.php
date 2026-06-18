@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: MEDIA IMAGES - Admin Media Size - v2
+ * Display name: MEDIA 🖼️ IMAGES - Admin Size - v2
  * Scope: global
  */
 if (!defined('ABSPATH')) exit;

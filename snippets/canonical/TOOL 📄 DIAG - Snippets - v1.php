@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: #🔥 DIAG snippets !!!!!!
+ * Display name: TOOL 📄 DIAG - Snippets - v1
  * Scope: global
  */
 

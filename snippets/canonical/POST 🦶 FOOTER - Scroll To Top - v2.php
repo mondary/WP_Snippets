@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🦶 POST FOOTER - Scroll To Top White Move - v2
+ * Display name: POST 🦶 FOOTER - Scroll To Top - v2
  * Scope: global
  */
 

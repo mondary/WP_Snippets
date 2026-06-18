@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ▶️ FAB - News Player Fullscreen Diaporama - v1
+ * Display name: ▶️ POST - News Player - v1
  * Scope: global
  */
 
@@ -59,13 +59,10 @@ function news_player_get_posts(WP_REST_Request $request) {
                 $content_images = array_values(array_unique($m[1]));
             }
 
-            // Contenu nettoye (sans balises img)
+            // Contenu nettoye (sans balises img) - integralement affiche
             $filtered = apply_filters('the_content', $raw_content);
             $filtered = preg_replace('/<img[^>]*>/i', '', $filtered);
             $text     = wp_strip_all_tags($filtered);
-            if (mb_strlen($text) > 600) {
-                $text = mb_substr($text, 0, 600) . '…';
-            }
 
             $result[] = array(
                 'id'       => $post_id,
@@ -96,31 +93,31 @@ function news_player_print_styles() {
         #np-fab {
             position: fixed;
             bottom: 24px;
-            right: 24px;
+            left: 50%;
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: #ffffff;
+            background: #4d7cff;
             border: none;
-            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 6px 22px rgba(77, 124, 255, 0.45);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #111;
+            color: #fff;
             z-index: 99998;
             transition: transform 0.22s ease, box-shadow 0.22s ease;
-            transform: translateY(20px);
+            transform: translateX(-50%) translateY(20px);
             opacity: 0;
             animation: np-fab-in 0.5s ease 0.4s forwards;
         }
         #np-fab:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+            transform: translateX(-50%) translateY(0) scale(1.08);
+            box-shadow: 0 12px 30px rgba(77, 124, 255, 0.6);
         }
         #np-fab svg { margin-left: 3px; }
         @keyframes np-fab-in {
-            to { transform: translateY(0); opacity: 1; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
         /* ---------- Overlay plein ecran ---------- */
@@ -171,14 +168,12 @@ function news_player_print_styles() {
             bottom: 0;
             padding: 40px 8% 32px;
             color: #fff;
-            max-width: 1000px;
-            margin: 0 auto;
         }
         #np-meta {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0.65;
+            opacity: 0.7;
             margin-bottom: 10px;
         }
         #np-title {
@@ -186,13 +181,14 @@ function news_player_print_styles() {
             line-height: 1.15;
             margin: 0 0 14px;
             font-weight: 800;
-            text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+            color: #4d7cff;
+            text-shadow: 0 0 24px rgba(77, 124, 255, 0.55), 0 2px 18px rgba(0, 0, 0, 0.7);
         }
         #np-text {
             font-size: 15px;
             line-height: 1.65;
-            opacity: 0.92;
-            max-height: 150px;
+            opacity: 0.94;
+            max-height: 220px;
             overflow-y: auto;
             margin-bottom: 16px;
             padding-right: 8px;
@@ -204,7 +200,7 @@ function news_player_print_styles() {
             background: rgba(255, 255, 255, 0.3);
             border-radius: 3px;
         }
-        #np-text p { margin: 0 0 10px; }
+        #np-text p { margin: 0 0 12px; }
         #np-text p:last-child { margin-bottom: 0; }
 
         /* ---------- Bande de miniatures ---------- */
@@ -332,7 +328,7 @@ function news_player_print_styles() {
             #np-close { top: 14px; right: 14px; }
             #np-bottom { padding: 30px 22px 22px; }
             #np-thumbs img { width: 58px; height: 58px; }
-            #np-text { max-height: 110px; }
+            #np-text { max-height: 160px; }
         }
     </style>
     <?php

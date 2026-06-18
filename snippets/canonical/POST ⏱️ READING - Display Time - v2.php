@@ -1,12 +1,12 @@
 <?php
 /*
- * Display name: 🧰 UTILITIES - Post Display Reading Time - v2
+ * Display name: POST ⏱️ READING - Display Time - v2
  * Scope: global
  */
 
 <?php
 /*
- * Display name: 🧰 UTILITIES - Post Display Reading Time - v2
+ * Display name: ▶️ POST - Display Reading Time - v2
  * Source: WordPress (pulled)
  * Online ID: 245
  * Online modified: 2026-05-28 08:27:15

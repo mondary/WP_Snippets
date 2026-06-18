@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧰 UTILITIES - Admin List Duplicate Post Page - v3
+ * Display name: ADMIN 🧰 TOOL - Duplicate Post Page - v3
  * Scope: global
  */
 

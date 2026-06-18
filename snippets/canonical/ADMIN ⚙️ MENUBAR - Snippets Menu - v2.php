@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧭 ADMIN MENUBAR - Snippets Menu - v2
+ * Display name: ADMIN ⚙️ MENUBAR - Snippets Menu - v2
  * Scope: global
  */
 

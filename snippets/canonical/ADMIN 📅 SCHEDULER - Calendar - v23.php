@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN - Schedule Calendar + Reallocation v23
+ * Display name: ADMIN 📅 SCHEDULER - Calendar - v23
  * Scope: global
  */
 

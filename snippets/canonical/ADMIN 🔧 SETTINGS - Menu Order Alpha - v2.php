@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN - Menu order alpha +settings
+ * Display name: ADMIN 🔧 SETTINGS - Menu Order Alpha - v2
  * Scope: global
  */
 

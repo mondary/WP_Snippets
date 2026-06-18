@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN - List Add featured images + Delete Media
+ * Display name: ADMIN 📋 COLUMNS - Featured Images - v4
  * Scope: global
  *
  * v4:

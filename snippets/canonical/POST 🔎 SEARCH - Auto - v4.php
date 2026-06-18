@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: POST - Search auto 🟢
+ * Display name: POST 🔎 SEARCH - Auto - v4
  * Scope: global
  */
 

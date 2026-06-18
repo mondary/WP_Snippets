@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧭 ADMIN MENUBAR - Scheduled Posts Submenu - v1.php
+ * Display name: ADMIN 📅 SCHEDULER - Posts Submenu - v1
  * Scope: global
  */
 

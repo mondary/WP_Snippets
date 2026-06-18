@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🖼️ MEDIA IMAGES - Orphans v2
+ * Display name: MEDIA 🖼️ IMAGES - Orphans - v2
  * Scope: global
  */
 

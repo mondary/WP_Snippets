@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🔗 SHORTCODE - Preview 13 - v5
+ * Display name: TOOL 🔗 SHORTCODE - Preview 13 - v5
  * Scope: global
  */
 

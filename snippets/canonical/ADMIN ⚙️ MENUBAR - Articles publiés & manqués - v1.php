@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: 🧭 ADMIN MENUBAR - Articles publiés, planifiés & manqués - v1
+ * Display name: ADMIN ⚙️ MENUBAR - Articles publiés & manqués - v1
  * Scope: global
  */
 
