@@ -9,7 +9,7 @@
 - Historique et variantes dans `snippets/archive/`.
 - Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
-- **Calendrier V23** avec featured images, drag & drop, réallocation brouillons et vérification des articles planifiés (créneaux 10h, 14h, 11h, 12h, 13h). La réallocation tient désormais compte des articles **publiés** pour calculer la capacité réelle d'un jour.
+- **Calendrier V26** avec featured images, drag & drop, réallocation brouillons dès aujourd'hui et vérification des articles planifiés (créneaux 10h, 14h, 11h, 12h, 13h). La réallocation démarre désormais à **aujourd'hui** et respecte la capacité partagée publish+future+draft (max `articles_per_day` par jour). Les créneaux déjà passés sont automatiquement filtrés.
 - **Sous-menu « Articles planifiés »** dans la barre latérale gauche, sous le menu Articles, avec badge du nombre d'articles planifiés.
 
 ## 🧠 Utilisation
@@ -26,16 +26,16 @@
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-### Calendrier V23 (Schedule Calendar)
-- Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Schedule Calendar - v23.php`
+### Calendrier V26 (Schedule Calendar)
+- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v26.php`
 - UI: Menu bar « Calendrier » dans l'admin WordPress + badge de version dans le titre.
 - **Featured images** en miniature dans les cartes (bordure rouge + 🖼️ si absente).
 - **Vue mensuelle stable** : navigation mois précédent/suivant, option `+1 mois` / `Année complète`.
 - **Drag & Drop** : reprogrammer les articles par glisser-dépose, rebalance automatique du jour.
 - **Créneaux prioritaires `10h, 14h, 11h, 12h, 13h`** : 1er article → 10h, 2e → 14h, puis 11h/12h/13h.
-- **Réallocation brouillons** : bouton dédié + choix du nombre d'articles/jour (1 à 5). Mode par défaut: **Planifiés + brouillons** (compactage dès aujourd'hui). Les brouillons sont replanifiés à partir de J+1 en respectant les créneaux déjà pris.
-- **V23: comptage des articles publiés** — la capacité d'un jour est désormais `articles_per_day - count(publiés sur ce jour)`. Un jour avec 5 articles publiés ne recevra aucun planifié ni brouillon supplémentaire. Fonctionne en mode *brouillons* (`clm_normalize_future_posts_schedule`) et en mode *compact* (`clm_compact_future_posts`).
-- **Boîte de résultats détaillée** avec sections diagnostic: placement des brouillons (ID + date cible) et occupation des 5 prochains jours.
+- **Réallocation brouillons** : bouton dédié + choix du nombre d'articles/jour (1 à 5). Mode par défaut: **Planifiés + brouillons** (compactage dès aujourd'hui). V26: les brouillons sont désormais placés **à partir d'aujourd'hui** (et non plus J+1), en respectant les créneaux déjà pris par les articles publiés et planifiés, et la limite `articles_per_day`. Les créneaux déjà passés sont filtrés automatiquement.
+- **V26: capacité partagée** — le total publish + future + draft ne dépasse jamais `articles_per_day` par jour, **y compris pour aujourd'hui**. Un jour avec 3 publiés et `2/jour` n'acceptera qu'aucun brouillon. Un jour avec 0 publié et `2/jour` acceptera 2 brouillons (10h, 14h).
+- **Boîte de résultats détaillée** avec sections diagnostic: placement des brouillons (ID + date cible) et occupation des 6 prochains jours à partir d'aujourd'hui.
 - **Barre de statut** sous le header, en pleine largeur.
 - **Filtres** : recherche par titre, filtrage par catégorie, sélection mois/année, détection des doublons.
 
@@ -130,6 +130,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-07-11: Calendrier `v26` — la réallocation des brouillons démarre désormais à **aujourd'hui** au lieu de J+1. La capacité partagée publish+future+draft est respectée pour tous les jours **y compris aujourd'hui**. Les créneaux déjà passés sont filtrés. Ordre prioritaire `[10,14,11,12,13]` unifié pour tous les jours. Debug occupation étendu à 6 jours depuis aujourd'hui. `v24` et `v25` archivées.
 - 2026-06-16: Calendrier `v23` — la réallocation tient compte des articles **publiés** pour calculer la capacité d'un jour (`clm_normalize_future_posts_schedule` et `clm_compact_future_posts` interrogent désormais la DB pour exclure les créneaux publiés). Mode par défaut changé à **Planifiés + brouillons**. Diagnostics ajoutés au dialogue de résultats (placement détaillé + occupation). `v22` archivée.
 - 2026-06-16: Nouveau snippet **« Articles planifiés »** — sous-menu dans la colonne latérale gauche sous Articles, avec badge de comptage et redirection propre vers les articles planifiés triés par date ascendante.
 - 2026-06-16: Calendrier `v21` — fix de la popup de résultat vide (sections déjà construites re-construites). Barre de statut désormais sticky sous le header (reste visible au scroll). Dialog corps scroll corrigé (flex: 1 + min-height: 0).
