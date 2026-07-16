@@ -130,6 +130,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-07-16: **Media Orphans `v3`** — fusion du snippet taille médiathèque (plus de doublon), UI allégée (filtres dans dropdown uniquement, suppression du mur de boutons), liens colonne Used In fiabilisés (fallback `get_permalink` + titre sans lien), analyse du plus récent au plus ancien (DESC). Token unifié pour Analyze Usage et Recalculer la taille. `v2` + `Admin Size v2` archivés.
 - 2026-07-11: Calendrier `v26` — la réallocation des brouillons démarre désormais à **aujourd'hui** au lieu de J+1. La capacité partagée publish+future+draft est respectée pour tous les jours **y compris aujourd'hui**. Les créneaux déjà passés sont filtrés. Ordre prioritaire `[10,14,11,12,13]` unifié pour tous les jours. Debug occupation étendu à 6 jours depuis aujourd'hui. `v24` et `v25` archivées.
 - 2026-06-16: Calendrier `v23` — la réallocation tient compte des articles **publiés** pour calculer la capacité d'un jour (`clm_normalize_future_posts_schedule` et `clm_compact_future_posts` interrogent désormais la DB pour exclure les créneaux publiés). Mode par défaut changé à **Planifiés + brouillons**. Diagnostics ajoutés au dialogue de résultats (placement détaillé + occupation). `v22` archivée.
 - 2026-06-16: Nouveau snippet **« Articles planifiés »** — sous-menu dans la colonne latérale gauche sous Articles, avec badge de comptage et redirection propre vers les articles planifiés triés par date ascendante.

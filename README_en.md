@@ -65,6 +65,7 @@ php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1
 3. Activate and verify in admin UI.
 
 ## 🧾 Changelog
+- 2026-07-16: **Media Orphans `v3`** — merged media size snippet (no more duplicate), streamlined UI (filters in dropdown only, removed button wall), reliable Used In column links (fallback `get_permalink` + plain title), analysis from newest to oldest (DESC). Unified token for Analyze Usage and Recalculate size. `v2` + `Admin Size v2` archived.
 - 2026-07-11: Schedule Calendar `v26` — draft reallocation now starts from **today** instead of D+1. Shared publish+future+draft capacity is enforced for all days **including today**. Past slots are filtered. Priority order `[10,14,11,12,13]` unified for all days. Debug occupancy extended to 6 days from today. `v24` and `v25` archived.
 - 2026-06-16: Schedule Calendar `v23` — reallocation now accounts for **published** posts when calculating daily capacity (`clm_normalize_future_posts_schedule` and `clm_compact_future_posts` now query the DB to exclude published slots). Default mode changed to **Scheduled + drafts**. Diagnostics added to result dialog (detailed placement + occupancy). `v22` archived.
 - 2026-06-16: New snippet **"Scheduled Posts"** — left sidebar submenu under Posts, with count badge and clean redirect to scheduled posts sorted by ascending date.
