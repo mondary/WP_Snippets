@@ -11,6 +11,7 @@
 - New RAG export snippet: one Markdown file per post (ZIP).
 - **Schedule Calendar V26** with featured images, drag & drop, draft reallocation starting from today, and scheduled-post verification (slots 10am, 2pm, 11am, 12pm, 1pm). Reallocation now starts from **today** and respects shared publish+future+draft capacity (max `articles_per_day` per day). Past slots are automatically filtered.
 - **"Scheduled Posts" submenu** in the left sidebar, under the Posts menu, with a badge showing the scheduled post count.
+- **Missing Featured Image Detection** — filter in the post list, "No Image" submenu with counter, and dedicated page listing published posts without a featured image.
 
 ## 🧠 Usage
 1. Open and edit snippets in `snippets/canonical/`.
@@ -39,6 +40,12 @@
 - **Status bar** below the header, full width.
 - **Filters**: title search, category filter, month/year selection, duplicate detection.
 
+### Missing Featured Image Detection
+- File: `snippets/canonical/ADMIN 🧰 DETECT - Missing Featured Images - v1.php`
+- UI: "No Image" submenu in the left sidebar, under the Posts menu (red badge = count of posts without featured image).
+- "With/Without featured image" filter in the post list (`edit.php`).
+- Dedicated page listing all published posts without a featured image, with Edit/View links.
+
 ### Scheduled Posts Submenu
 - File: `snippets/canonical/🧭 ADMIN MENUBAR - Scheduled Posts Submenu - v1.php`
 - UI: "Scheduled Posts" submenu in the left sidebar, under the Posts menu.
@@ -65,6 +72,7 @@ php -l "snippets/canonical/🧰 UTILITIES - Admin Export Posts Markdown RAG - v1
 3. Activate and verify in admin UI.
 
 ## 🧾 Changelog
+- 2026-07-16: **Missing Featured Image Detection `v1`** — new snippet `ADMIN 🧰 DETECT - Missing Featured Images - v1.php`: filter in the post list (With/Without image), "No Image" submenu with counter, dedicated page listing published posts without a featured image.
 - 2026-07-16: **Media Orphans `v3`** — merged media size snippet (no more duplicate), streamlined UI (filters in dropdown only, removed button wall), reliable Used In column links (fallback `get_permalink` + plain title), analysis from newest to oldest (DESC). Unified token for Analyze Usage and Recalculate size. `v2` + `Admin Size v2` archived.
 - 2026-07-11: Schedule Calendar `v26` — draft reallocation now starts from **today** instead of D+1. Shared publish+future+draft capacity is enforced for all days **including today**. Past slots are filtered. Priority order `[10,14,11,12,13]` unified for all days. Debug occupancy extended to 6 days from today. `v24` and `v25` archived.
 - 2026-06-16: Schedule Calendar `v23` — reallocation now accounts for **published** posts when calculating daily capacity (`clm_normalize_future_posts_schedule` and `clm_compact_future_posts` now query the DB to exclude published slots). Default mode changed to **Scheduled + drafts**. Diagnostics added to result dialog (detailed placement + occupancy). `v22` archived.

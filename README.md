@@ -11,6 +11,7 @@
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
 - **Calendrier V26** avec featured images, drag & drop, réallocation brouillons dès aujourd'hui et vérification des articles planifiés (créneaux 10h, 14h, 11h, 12h, 13h). La réallocation démarre désormais à **aujourd'hui** et respecte la capacité partagée publish+future+draft (max `articles_per_day` par jour). Les créneaux déjà passés sont automatiquement filtrés.
 - **Sous-menu « Articles planifiés »** dans la barre latérale gauche, sous le menu Articles, avec badge du nombre d'articles planifiés.
+- **Détection des articles sans image mise en avant** — filtre dans la liste, sous-menu « Sans image » avec compteur, et page dédiée listant les articles publiés sans featured image.
 
 ## 🧠 Utilisation
 1. Ouvrir et éditer les snippets dans `snippets/canonical/`.
@@ -38,6 +39,12 @@
 - **Boîte de résultats détaillée** avec sections diagnostic: placement des brouillons (ID + date cible) et occupation des 6 prochains jours à partir d'aujourd'hui.
 - **Barre de statut** sous le header, en pleine largeur.
 - **Filtres** : recherche par titre, filtrage par catégorie, sélection mois/année, détection des doublons.
+
+### Détection des articles sans image mise en avant
+- Fichier: `snippets/canonical/ADMIN 🧰 DETECT - Missing Featured Images - v1.php`
+- UI: sous-menu « Sans image » dans la colonne latérale gauche, sous le menu Articles (badge rouge = nombre d'articles sans image).
+- Filtre « Avec / Sans image mise en avant » dans la liste des articles (`edit.php`).
+- Page dédiée listant tous les articles publiés sans featured image, avec liens Modifier/Voir.
 
 ### Articles planifiés (Sous-menu)
 - Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Scheduled Posts Submenu - v1.php`
@@ -130,6 +137,7 @@ php .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/pull_active_snippets.php
 3. Activer puis vérifier dans l’interface admin.
 
 ## 🧾 Changelog
+- 2026-07-16: **Détection articles sans featured image `v1`** — nouveau snippet `ADMIN 🧰 DETECT - Missing Featured Images - v1.php` : filtre dans la liste des articles (Avec/Sans image), sous-menu « Sans image » avec compteur, page dédiée listant les articles publiés sans image mise en avant.
 - 2026-07-16: **Media Orphans `v3`** — fusion du snippet taille médiathèque (plus de doublon), UI allégée (filtres dans dropdown uniquement, suppression du mur de boutons), liens colonne Used In fiabilisés (fallback `get_permalink` + titre sans lien), analyse du plus récent au plus ancien (DESC). Token unifié pour Analyze Usage et Recalculer la taille. `v2` + `Admin Size v2` archivés.
 - 2026-07-11: Calendrier `v26` — la réallocation des brouillons démarre désormais à **aujourd'hui** au lieu de J+1. La capacité partagée publish+future+draft est respectée pour tous les jours **y compris aujourd'hui**. Les créneaux déjà passés sont filtrés. Ordre prioritaire `[10,14,11,12,13]` unifié pour tous les jours. Debug occupation étendu à 6 jours depuis aujourd'hui. `v24` et `v25` archivées.
 - 2026-06-16: Calendrier `v23` — la réallocation tient compte des articles **publiés** pour calculer la capacité d'un jour (`clm_normalize_future_posts_schedule` et `clm_compact_future_posts` interrogent désormais la DB pour exclure les créneaux publiés). Mode par défaut changé à **Planifiés + brouillons**. Diagnostics ajoutés au dialogue de résultats (placement détaillé + occupation). `v22` archivée.
