@@ -27,15 +27,15 @@
   - `INDEX.md` (global files index)
 - Included metadata: date, author, categories, tags, keywords, excerpt, URL, status, etc.
 
-### Schedule Calendar V26
-- File: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v26.php`
+### Schedule Calendar V27
+- File: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v27.php`
 - UI: "Calendar" menu bar entry in WordPress admin + version badge in the page title.
 - **Featured images** as thumbnails in day cards (red border + 🖼️ when missing).
 - **Stable month view**: prev/next navigation, `+1 month` / `Full year` options.
 - **Drag & Drop**: reschedule posts via drag, automatic day rebalance.
 - **Priority slots `10h, 14h, 11h, 12h, 13h`**: 1st post → 10am, 2nd → 2pm, then 11am/12pm/1pm.
-- **Draft reallocation**: dedicated button + posts-per-day selector (1 to 5). Default mode: **Scheduled + drafts** (compacting from today). V26: drafts are now placed starting from **today** (not D+1), respecting slots already taken by published and scheduled posts, and the `articles_per_day` limit. Past slots are automatically filtered.
-- **V26: shared capacity** — total publish + future + draft never exceeds `articles_per_day` per day, **including today**. A day with 3 published posts at `2/day` accepts zero drafts. A day with 0 published at `2/day` accepts 2 drafts (10am, 2pm).
+- **Draft reallocation**: dedicated button + posts-per-day selector (1 to 5). Default: **Scheduled + drafts** with **5 posts/day**, compacting from today. Posts with featured images are processed before posts without one. Taken and past slots are automatically filtered.
+- **Shared capacity** — total publish + future + draft never exceeds `articles_per_day` per day, **including today**. A day with 3 published posts at `2/day` accepts zero drafts. A day with 0 published at `2/day` accepts 2 drafts (10am, 2pm).
 - **Detailed result dialog** with diagnostic sections: draft placement (ID + target date) and 6-day occupancy overview starting from today.
 - **Status bar** below the header, full width.
 - **Filters**: title search, category filter, month/year selection, duplicate detection.

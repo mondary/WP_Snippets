@@ -27,15 +27,15 @@
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-### Calendrier V26 (Schedule Calendar)
-- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v26.php`
+### Calendrier V27 (Schedule Calendar)
+- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v27.php`
 - UI: Menu bar « Calendrier » dans l'admin WordPress + badge de version dans le titre.
 - **Featured images** en miniature dans les cartes (bordure rouge + 🖼️ si absente).
 - **Vue mensuelle stable** : navigation mois précédent/suivant, option `+1 mois` / `Année complète`.
 - **Drag & Drop** : reprogrammer les articles par glisser-dépose, rebalance automatique du jour.
 - **Créneaux prioritaires `10h, 14h, 11h, 12h, 13h`** : 1er article → 10h, 2e → 14h, puis 11h/12h/13h.
-- **Réallocation brouillons** : bouton dédié + choix du nombre d'articles/jour (1 à 5). Mode par défaut: **Planifiés + brouillons** (compactage dès aujourd'hui). V26: les brouillons sont désormais placés **à partir d'aujourd'hui** (et non plus J+1), en respectant les créneaux déjà pris par les articles publiés et planifiés, et la limite `articles_per_day`. Les créneaux déjà passés sont filtrés automatiquement.
-- **V26: capacité partagée** — le total publish + future + draft ne dépasse jamais `articles_per_day` par jour, **y compris pour aujourd'hui**. Un jour avec 3 publiés et `2/jour` n'acceptera qu'aucun brouillon. Un jour avec 0 publié et `2/jour` acceptera 2 brouillons (10h, 14h).
+- **Réallocation brouillons** : bouton dédié + choix du nombre d'articles/jour (1 à 5). Par défaut: **Planifiés + brouillons** avec **5 articles / jour**, compactés dès aujourd'hui. Les articles avec image mise en avant sont traités avant ceux sans image. Les créneaux déjà pris ou passés sont filtrés automatiquement.
+- **Capacité partagée** — le total publish + future + draft ne dépasse jamais `articles_per_day` par jour, **y compris pour aujourd'hui**. Un jour avec 3 publiés et `2/jour` n'acceptera qu'aucun brouillon. Un jour avec 0 publié et `2/jour` acceptera 2 brouillons (10h, 14h).
 - **Boîte de résultats détaillée** avec sections diagnostic: placement des brouillons (ID + date cible) et occupation des 6 prochains jours à partir d'aujourd'hui.
 - **Barre de statut** sous le header, en pleine largeur.
 - **Filtres** : recherche par titre, filtrage par catégorie, sélection mois/année, détection des doublons.
