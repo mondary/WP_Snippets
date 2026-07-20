@@ -10,6 +10,7 @@
 - Workflow de sync WordPress via `CODE_SNIPPETS_SYNC/`.
 - Nouveau snippet d’export RAG: un fichier Markdown par article (ZIP).
 - **Calendrier V26** avec featured images, drag & drop, réallocation brouillons dès aujourd'hui et vérification des articles planifiés (créneaux 10h, 14h, 11h, 12h, 13h). La réallocation démarre désormais à **aujourd'hui** et respecte la capacité partagée publish+future+draft (max `articles_per_day` par jour). Les créneaux déjà passés sont automatiquement filtrés.
+- **Calendrier V28** — Ajout d'une **notification flottante permanente** en haut à droite de l'admin WordPress qui indique en temps réel combien d'articles manquent pour atteindre l'objectif du jour (5 par défaut). Si 3 articles sont prévus, la notif affiche « Manque 2 articles — 3/5 prévus » avec lien direct vers le calendrier. La notif est présente sur **toutes les pages admin**, peut être repliée en pastille, pulse si quota non atteint, et s'auto-refresh toutes les 60s (ou au retour sur l'onglet).
 - **Sous-menu « Articles planifiés »** dans la barre latérale gauche, sous le menu Articles, avec badge du nombre d'articles planifiés.
 - **Détection des articles sans image mise en avant** — filtre dans la liste, sous-menu « Sans image » avec compteur, et page dédiée listant les articles publiés sans featured image.
 
@@ -27,9 +28,10 @@
   - `INDEX.md` (index global des fichiers)
 - Métadonnées incluses: date, auteur, catégories, tags, keywords, excerpt, URL, statut, etc.
 
-### Calendrier V27 (Schedule Calendar)
-- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v27.php`
+### Calendrier V28 (Schedule Calendar)
+- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Calendar - v28.php`
 - UI: Menu bar « Calendrier » dans l'admin WordPress + badge de version dans le titre.
+- **Notification flottante permanente** en haut à droite de l'admin WordPress (toutes pages admin), indique en temps réel le quota d'articles du jour (objectif 5 par défaut). Ex: « Manque 2 articles — 3/5 prévus » avec lien direct vers le calendrier. La notif peut être repliée en pastille (persistant par navigateur), pulse si quota non atteint, et s'auto-refresh toutes les 60s.
 - **Featured images** en miniature dans les cartes (bordure rouge + 🖼️ si absente).
 - **Vue mensuelle stable** : navigation mois précédent/suivant, option `+1 mois` / `Année complète`.
 - **Drag & Drop** : reprogrammer les articles par glisser-dépose, rebalance automatique du jour.
@@ -39,6 +41,12 @@
 - **Boîte de résultats détaillée** avec sections diagnostic: placement des brouillons (ID + date cible) et occupation des 6 prochains jours à partir d'aujourd'hui.
 - **Barre de statut** sous le header, en pleine largeur.
 - **Filtres** : recherche par titre, filtrage par catégorie, sélection mois/année, détection des doublons.
+
+### Créneau automatique dans l'éditeur
+- Fichier: `snippets/canonical/ADMIN 📅 SCHEDULER - Editor Next Free Slot - v3.php`
+- À l'ouverture d'un nouvel article, brouillon ou article planifié dans Gutenberg, remplace la date « immédiatement » par le prochain créneau libre du calendrier.
+- Créneaux et occupation: `10h, 14h, 11h, 12h, 13h`; articles publiés, planifiés et brouillons sont pris en compte. Les créneaux déjà passés sont ignorés.
+- Le sélecteur de date affiche des points sous les jours occupés : rouge pour les brouillons, vert pour les publiés et bleu pour les planifiés.
 
 ### Détection des articles sans image mise en avant
 - Fichier: `snippets/canonical/ADMIN 🧰 DETECT - Missing Featured Images - v1.php`
