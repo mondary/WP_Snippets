@@ -40,3 +40,19 @@
 
 # Extra safety: common WP Code Snippets export filenames if dropped anywhere
 *.code-snippets.json
+.agent
+/AGENT.md
+/AGENTS.md
+/CLAUDE.md
+/CODEX.md
+/GEMINI.md
+/GLM.md
+/OPENCODE.md
+.*
+node_modules/
+dist/
+build/
+.env
+.venv/
+__pycache__/
+*.log

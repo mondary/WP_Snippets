@@ -40,6 +40,12 @@
 - **Status bar** below the header, full width.
 - **Filters**: title search, category filter, month/year selection, duplicate detection.
 
+### Automatic editor slot
+- File: `snippets/canonical/ADMIN 📅 SCHEDULER - Editor Next Free Slot - v3.php`
+- When opening a new post, draft, or scheduled post in Gutenberg, replaces the “immediately” date with the next free calendar slot.
+- Slots and occupancy: `10am, 2pm, 11am, 12pm, 1pm`; published, scheduled, and draft posts are considered. Past slots are ignored.
+- The date picker shows dots below occupied days: red for drafts, green for published posts, and blue for scheduled posts.
+
 ### Missing Featured Image Detection
 - File: `snippets/canonical/ADMIN 🧰 DETECT - Missing Featured Images - v1.php`
 - UI: "No Image" submenu in the left sidebar, under the Posts menu (red badge = count of posts without featured image).
