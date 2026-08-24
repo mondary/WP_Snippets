@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: ADMIN 📅 SCHEDULER - Calendar - v29
+ * Display name: ADMIN 📅 SCHEDULER - Calendar - v31
  * Scope: global
  */
 
@@ -997,6 +997,18 @@ function scheduled_posts_calendar_styles_alpha() {
                 font-size: 10px;
             }
         }
+
+        /* Scroll indépendant : le calendrier scrolle dans son propre conteneur,
+           la fenêtre admin ne bouge plus (menu latéral figé) */
+        .calendar-container {
+            height: calc(100vh - 170px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding-right: 5px;
+        }
+        .calendar-container .calendar-topbar {
+            top: 0;
+        }
     </style>
     <?php
 }
@@ -1029,7 +1041,7 @@ function get_posts_years_range() {
 function generate_scheduled_posts_calendar_alpha() {
     ?>
     <div class="wrap">
-        <h1>Calendrier <span style="font-size:0.55em;font-weight:600;color:#2271b1;vertical-align:middle;background:#e8f0fe;padding:2px 8px;border-radius:999px;margin-left:6px;">v29</span></h1>
+        <h1>Calendrier <span style="font-size:0.55em;font-weight:600;color:#2271b1;vertical-align:middle;background:#e8f0fe;padding:2px 8px;border-radius:999px;margin-left:6px;">v31</span></h1>
         <div class="calendar-container" data-jetpack-boost="ignore">
           <div class="calendar-topbar">
             <div class="calendar-header">
@@ -1494,9 +1506,11 @@ function generate_scheduled_posts_calendar_alpha() {
                     monthSection.scrollLeft = Math.max(0, targetLeft);
                 }
 
+                const scroller = calendarMonthsContainer.closest('.calendar-container') || document.scrollingElement;
+                const scrollerTop = scroller === document.scrollingElement ? 0 : scroller.getBoundingClientRect().top;
                 const rect = targetCell.getBoundingClientRect();
-                const targetTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
-                window.scrollTo({
+                const targetTop = scroller.scrollTop + rect.top - scrollerTop - ((scroller.clientHeight - rect.height) / 2);
+                scroller.scrollTo({
                     top: Math.max(0, targetTop),
                     behavior: 'auto'
                 });
@@ -3296,7 +3310,7 @@ function clm_daily_quota_floating_notice_assets() {
     <style id="clm-daily-quota-notice-css">
         #clm-daily-quota-notice {
             position: fixed;
-            top: 40px;
+            bottom: 20px;
             right: 20px;
             z-index: 99999;
             display: flex;
@@ -3322,7 +3336,7 @@ function clm_daily_quota_floating_notice_assets() {
         /* Sur mobile, on colle sous la barre d'admin */
         @media (max-width: 782px) {
             #clm-daily-quota-notice {
-                top: 56px;
+                bottom: 56px;
                 right: 8px;
                 left: 8px;
                 max-width: none;
@@ -3426,7 +3440,7 @@ function clm_daily_quota_floating_notice_assets() {
         }
         #clm-quota-collapsed-tab {
             position: fixed;
-            top: 40px;
+            bottom: 20px;
             right: 20px;
             z-index: 99998;
             display: none;
@@ -3462,7 +3476,7 @@ function clm_daily_quota_floating_notice_assets() {
         }
 
         @media (max-width: 782px) {
-            #clm-quota-collapsed-tab { top: 56px; right: 8px; }
+            #clm-quota-collapsed-tab { bottom: 56px; right: 8px; }
         }
 
         /* Animation pulse pour attirer l'attention si le quota n'est pas atteint */
@@ -3483,7 +3497,7 @@ function clm_daily_quota_floating_notice_assets() {
         if (window.__clmDailyQuotaInit) return;
         window.__clmDailyQuotaInit = true;
 
-        var STORAGE_KEY = 'clm_quota_collapsed_v29';
+        var STORAGE_KEY = 'clm_quota_collapsed_v30';
 
         function init() {
             var notice = document.getElementById('clm-daily-quota-notice');
