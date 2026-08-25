@@ -30,7 +30,7 @@ for idx, snippet in enumerate(snippets):
     match = re.search(r' - [vV]?(\d+)(?:\.php)?$', name)
     if match:
         version = int(match.group(1))
-        base_name = re.sub(r' - [vV]?\d+\.php$', '', name)
+        base_name = re.sub(r' - [vV]?\d+(\.php)?$', '', name)
 
         if base_name not in groups:
             groups[base_name] = []
