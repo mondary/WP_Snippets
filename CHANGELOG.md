@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026.09.08] - 2026-09-08
+### Changed
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.14` — version gardée uniquement en tooltip du badge (badge et dropdown revenus sans version, trop chargés).
+- `FRONTEND 📊 STATS - Site Stats Page - 2026.09.8` — `ss-version` déplacé en haut à droite du contenu (il était fixed en bas à droite, quasi illisible) : `position:absolute;top:1.25rem;right:1.5rem`, taille et contraste remontés.
+
 ### Added
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.13` — numéro de version visible sur la page : suffixe `v2026.09.13` dans le badge « N en ligne · X vues », ligne « Live Cursors v… » en pied du dropdown et tooltip du badge (parité avec le `ss-version` de la page stats).
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.12` — vrais noms quand possible : compte WP connecté > nom du cookie de commentaire (`wp_get_current_commenter()`), sinon « Anonyme N » unique assigné côté serveur (compteur persistant `clm_anon_n`, mémorisé en localStorage). Purge des anciens faux prénoms aléatoires, nom validé côté serveur à chaque heartbeat (non spoofable). Déployé sur mondary.design (snippet #391 actif, #389 v11 désactivé).
