@@ -56,3 +56,5 @@ build/
 .venv/
 __pycache__/
 *.log
+Icon?
+/umami-complete-2017-2026.csv
