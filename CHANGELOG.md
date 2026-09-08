@@ -2,6 +2,8 @@
 
 ## [2026.09.08] - 2026-09-08
 ### Changed
+- `FRONTEND 📊 STATS - Site Stats Page - 2026.09.10` — la page stats devient l'unique endroit où lire les versions : « Stats v2026.09.10 · Cursor vX » en haut à droite, la version du curseur étant lue dynamiquement dans la table `snippets` (snippet actif).
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.15` — plus aucune version affichée côté curseur (tooltip supprimé).
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.9` — le libellé version porte le nom du script (« Stats v2026.09.9 » en haut à droite) : plus de confusion possible avec les numéros de version du curseur live (un « 2026.09.8 » a existé des deux côtés).
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.14` — version gardée uniquement en tooltip du badge (badge et dropdown revenus sans version, trop chargés).
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.8` — `ss-version` déplacé en haut à droite du contenu (il était fixed en bas à droite, quasi illisible) : `position:absolute;top:1.25rem;right:1.5rem`, taille et contraste remontés.
