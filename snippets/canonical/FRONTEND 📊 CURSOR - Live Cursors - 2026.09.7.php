@@ -10,6 +10,12 @@ if (!defined('ABSPATH')) exit;
 add_action('wp_ajax_clm_cursor_update', 'clm_cursor_update');
 add_action('wp_ajax_nopriv_clm_cursor_update', 'clm_cursor_update');
 function clm_cursor_update() {
+    $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    $ua_l = strtolower($ua);
+    $bots = ['bot','crawl','spider','slurp','headless','phantom','puppeteer','playwright','lighthouse','curl','wget','python','php/','ruby','node','deno'];
+    foreach ($bots as $b) { if (strpos($ua_l, $b) !== false) { header('Content-Type: application/json'); echo '{"ok":0,"cursors":[]}'; exit; } }
+    if ($ua === '') { header('Content-Type: application/json'); echo '{"ok":0,"cursors":[]}'; exit; }
+
     $dir = wp_upload_dir()['basedir'] . '/site-stats';
     if (!is_dir($dir)) wp_mkdir_p($dir);
     $file = $dir . '/cursors.json';
@@ -111,7 +117,7 @@ function clm_cursor_footer_js() {
       font-size:9px;font-style:normal;font-weight:400;line-height:1.3;color:#fff;white-space:nowrap;opacity:.7}
     </style>
     <canvas id="clm-fx"></canvas>
-    <div id="clm-live"><div id="clm-live-inner"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="rotate(-20 12 12)"><path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z" fill="#fff" stroke="none"></path></g></svg><span id="clm-live-count">1</span> en ligne<span class="sep">·</span><a href="<?php echo esc_url($stats_url); ?>"><?php echo number_format_i18n($year_total); ?> vues</a></div><div class="clm-dropdown" id="clm-dropdown"></div></div>
+    <div id="clm-live"><div id="clm-live-inner"><a href="<?php echo esc_url($stats_url); ?>" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:.35rem"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:1em;height:1em"><g transform="rotate(-20 12 12)"><path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z" fill="#fff" stroke="none"></path></g></svg><span id="clm-live-count">1</span> en ligne<span class="sep">·</span><?php echo number_format_i18n($year_total); ?> vues</a></div><div class="clm-dropdown" id="clm-dropdown"></div></div>
     <script>
     (function(){
       if(window.__clmCursorLoaded)return;window.__clmCursorLoaded=true;
@@ -132,6 +138,7 @@ function clm_cursor_footer_js() {
       else if(!storedName)localStorage.setItem('clm_cursor_name',me.name);
       localStorage.setItem('clm_cursor_color',me.color);
       var others={},elements={},lastSend=0;
+      var hasMoved=false, moveCount=0;
 
       /* fireworks */
       var cv=document.getElementById('clm-fx'),ctx=cv.getContext('2d');
@@ -190,13 +197,17 @@ function clm_cursor_footer_js() {
       }
 
       function poll(){
+        if(!hasMoved)return;
         var fd=new FormData();fd.append('action','clm_cursor_update');fd.append('id',me.id);
         fd.append('x','0.5');        fd.append('y',((scrollY+innerHeight/2)/docH()).toFixed(4));
         fd.append('name',me.name);fd.append('color',me.color);fd.append('page',location.pathname);
         fetch(AJAX,{method:'POST',body:fd}).then(function(r){return r.json()}).then(applyCursors).catch(function(){});
       }
 
-      document.addEventListener('mousemove',function(e){sendPos(e.clientX,e.clientY)});
+      document.addEventListener('mousemove',function(e){
+        hasMoved=true;moveCount++;
+        sendPos(e.clientX,e.clientY);
+      });
       document.addEventListener('click',function(e){
         burst(e.clientX,e.clientY);
         sendPos(e.clientX,e.clientY,true);
