@@ -1,13 +1,12 @@
 # Changelog
 
 ## [2026.09.08] - 2026-09-08
-### Changed
+### Added
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.13` — numéro de version visible sur la page : suffixe `v2026.09.13` dans le badge « N en ligne · X vues », ligne « Live Cursors v… » en pied du dropdown et tooltip du badge (parité avec le `ss-version` de la page stats).
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.12` — vrais noms quand possible : compte WP connecté > nom du cookie de commentaire (`wp_get_current_commenter()`), sinon « Anonyme N » unique assigné côté serveur (compteur persistant `clm_anon_n`, mémorisé en localStorage). Purge des anciens faux prénoms aléatoires, nom validé côté serveur à chaque heartbeat (non spoofable). Déployé sur mondary.design (snippet #391 actif, #389 v11 désactivé).
 
 ### Fixed
 - `scripts/prepare-wordpress.sh` — les versions datées (`2026.09.12`) ne matchaient pas le regex ` - \d+$` et les snippets concernés étaient silencieusement exclus du JSON WordPress ; désormais versions datées groupées/triées comme les `vXX`, et snippets sans version conservés actifs.
-
-### Fixed
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.7` — correction UI : alignement de la largeur du dropdown sur celle du badge déclencheur (`width: 100%`) pour une esthétique cohérente.
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.3` — correction layout graphique : augmentation de la viewBox SVG (900x350) pour empêcher le débordement horizontal des années et vertical des axes. UX : inversion de l'ordre des tabs pour rendre la vue « Jour » par défaut.
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.6` — correction : les liens du dropdown n'étaient pas cliquables à cause du gap de 6px qui cassait le survol. Ajout d'un pont transparent (`::after`) pour maintenir l'état `:hover` entre le badge et le dropdown.
