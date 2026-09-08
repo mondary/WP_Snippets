@@ -2,7 +2,10 @@
 
 ## [2026.09.08] - 2026-09-08
 ### Changed
-- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.12` — vrais noms quand possible : compte WP connecté > nom du cookie de commentaire (`wp_get_current_commenter()`), sinon « Anonyme N » unique assigné côté serveur (compteur persistant `clm_anon_n`, mémorisé en localStorage). Purge des anciens faux prénoms aléatoires, nom validé côté serveur à chaque heartbeat (non spoofable). `2026.09.4`/`.8`/`.11` archivées.
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.12` — vrais noms quand possible : compte WP connecté > nom du cookie de commentaire (`wp_get_current_commenter()`), sinon « Anonyme N » unique assigné côté serveur (compteur persistant `clm_anon_n`, mémorisé en localStorage). Purge des anciens faux prénoms aléatoires, nom validé côté serveur à chaque heartbeat (non spoofable). Déployé sur mondary.design (snippet #391 actif, #389 v11 désactivé).
+
+### Fixed
+- `scripts/prepare-wordpress.sh` — les versions datées (`2026.09.12`) ne matchaient pas le regex ` - \d+$` et les snippets concernés étaient silencieusement exclus du JSON WordPress ; désormais versions datées groupées/triées comme les `vXX`, et snippets sans version conservés actifs.
 
 ### Fixed
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.7` — correction UI : alignement de la largeur du dropdown sur celle du badge déclencheur (`width: 100%`) pour une esthétique cohérente.

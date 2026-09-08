@@ -26,15 +26,23 @@ groups = {}
 for idx, snippet in enumerate(snippets):
     name = snippet['name']
 
-    # Extraire version
+    # Extraire version : vXX / XX, ou datée 2026.09.XX ; sinon garder actif tel quel
     match = re.search(r' - [vV]?(\d+)(?:\.php)?$', name)
+    dated = re.search(r' - (\d{4}\.\d{1,2}\.\d+)$', name)
     if match:
         version = int(match.group(1))
         base_name = re.sub(r' - [vV]?\d+(\.php)?$', '', name)
+    elif dated:
+        version = int(dated.group(1).replace('.', ''))
+        base_name = re.sub(r' - \d{4}\.\d{1,2}\.\d+$', '', name)
+    else:
+        snippet['active'] = True
+        kept.append(snippet)
+        continue
 
-        if base_name not in groups:
-            groups[base_name] = []
-        groups[base_name].append((version, idx, snippet))
+    if base_name not in groups:
+        groups[base_name] = []
+    groups[base_name].append((version, idx, snippet))
 
 kept = []
 removed = []
