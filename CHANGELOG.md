@@ -1,6 +1,9 @@
 # Changelog
 
 ## [2026.09.08] - 2026-09-08
+### Changed
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.12` — vrais noms quand possible : compte WP connecté > nom du cookie de commentaire (`wp_get_current_commenter()`), sinon « Anonyme N » unique assigné côté serveur (compteur persistant `clm_anon_n`, mémorisé en localStorage). Purge des anciens faux prénoms aléatoires, nom validé côté serveur à chaque heartbeat (non spoofable). `2026.09.4`/`.8`/`.11` archivées.
+
 ### Fixed
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.7` — correction UI : alignement de la largeur du dropdown sur celle du badge déclencheur (`width: 100%`) pour une esthétique cohérente.
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.3` — correction layout graphique : augmentation de la viewBox SVG (900x350) pour empêcher le débordement horizontal des années et vertical des axes. UX : inversion de l'ordre des tabs pour rendre la vue « Jour » par défaut.
