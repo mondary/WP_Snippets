@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: FRONTEND 📊 STATS - Site Stats Page - 2026.09.9
+ * Display name: FRONTEND 📊 STATS - Site Stats Page - 2026.09.7
  * Scope: global
  */
 
@@ -289,7 +289,7 @@ function clm_stats_render_html($data) {
     if (!$table_html) $table_html = '<div class="ss-month"><p style="text-align:center;color:var(--muted);padding:2rem 0">Aucune donnée pour cette année</p></div>';
     ?>
     <style>
-    .ss-container{position:relative;--bg:#fafafa;--fg:#171717;--muted:#525252;--subtle:#666;--faint:#6e6e6e;--border:#1717171a;--border2:#1717172e;background:var(--bg);color:var(--fg);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.875rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+    .ss-container{--bg:#fafafa;--fg:#171717;--muted:#525252;--subtle:#666;--faint:#6e6e6e;--border:#1717171a;--border2:#1717172e;background:var(--bg);color:var(--fg);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.875rem;line-height:1.5;-webkit-font-smoothing:antialiased}
     .ss-container *{box-sizing:border-box}
     .ss-container a{color:inherit;text-decoration:none}
     .ss-container button{font:inherit;background:none;color:inherit;cursor:pointer}
@@ -335,7 +335,7 @@ function clm_stats_render_html($data) {
     .ss-month .ss-table tr:last-child td{border-bottom:0}
     .ss-month .ss-table .ss-empty td{color:var(--border);font-size:.625rem}
     .ss-table{width:100%;border-collapse:collapse}
-    .ss-version{position:absolute;top:1.25rem;right:1.5rem;font-size:.75rem;font-weight:600;color:var(--muted);letter-spacing:.06em}
+    .ss-version{position:fixed;bottom:.75rem;right:1rem;font-size:.625rem;color:var(--faint);letter-spacing:.08em;opacity:.5}
     </style>
     <div class="ss-container">
     <section class="ss-hero">
@@ -364,7 +364,7 @@ function clm_stats_render_html($data) {
       <h2 class="ss-section-title">Par jour · <?php echo $year; ?></h2>
       <div class="ss-months"><?php echo $table_html; ?></div>
     </section>
-    <div class="ss-version" title="Site Stats Page">Stats v2026.09.9</div>
+    <div class="ss-version">v2026.09.7</div>
     </div>
     </div>
     <script>

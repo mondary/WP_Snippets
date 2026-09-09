@@ -1,7 +1,12 @@
 # Changelog
 
 ## [2026.09.08] - 2026-09-08
+### Added
+- `FRONTEND 🌸 FAB - Hub Flottant - v1` — un seul bouton flottant (bas droite) regroupant 8 fonctionnalités auparavant éparpillées sur les 4 coins de l'écran : Google News, Flux RSS (nouveau), Newsletter (ancre Jetpack), Diaporama articles (overlay plein écran repris de News Diaporama v3, endpoint REST conservé), Articles programmés (panneau jauge + date, repris de Scheduled Posts Popup v14 sans le sondage Patreon), Statistiques (lien `/statistiques/` + vues de l'année + compteur live), Ko-fi (nouveau, handle de Social Ego v2) et Retour en haut. Déploiement du menu en éventail « pétales » (2 rayons alternés, ressort + stagger), étiquettes, voile cliquable, ESC, `prefers-reduced-motion`. Absorbe aussi le positionnement/masquage GTranslate (ex Google News Button v3) et masque le `#kt-scroll-up` Kadence. À activer puis délier : Google News Button v3, News Diaporama v3, Scroll To Top v2.
+- `FRONTEND 🌸 FAB - Hub Flottant - v4` — remplacement du menu pétales par une barre d'actions sticky, compacte sur desktop et défilable horizontalement sur mobile, avec pictogrammes Font Awesome et libellés lisibles.
+
 ### Changed
+- `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.16` — badge « N en ligne · X vues » et dropdown supprimés (remplacés par l'entrée Statistiques du FAB Hub Flottant) : ce script alimente désormais le compteur `#fab-live-count` du hub via `window.__clmLiveN`. Curseurs live et confettis inchangés.
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.11` — versions empilées sur deux lignes alignées à droite (« Stats v… » au-dessus, « Cursor v… » en dessous).
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.09.10` — la page stats devient l'unique endroit où lire les versions : « Stats v2026.09.10 · Cursor vX » en haut à droite, la version du curseur étant lue dynamiquement dans la table `snippets` (snippet actif).
 - `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.15` — plus aucune version affichée côté curseur (tooltip supprimé).

@@ -4,4 +4,3 @@
  * Scope: global
  */
 
-

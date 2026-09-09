@@ -1,6 +1,6 @@
 <?php
 /*
- * Display name: FRONTEND 📊 STATS - Site Stats Page - 2026.09.8
+ * Display name: FRONTEND 📊 STATS - Site Stats Page - 2026.09.9
  * Scope: global
  */
 
@@ -364,7 +364,7 @@ function clm_stats_render_html($data) {
       <h2 class="ss-section-title">Par jour · <?php echo $year; ?></h2>
       <div class="ss-months"><?php echo $table_html; ?></div>
     </section>
-    <div class="ss-version">v2026.09.8</div>
+    <div class="ss-version" title="Site Stats Page">Stats v2026.09.9</div>
     </div>
     </div>
     <script>
