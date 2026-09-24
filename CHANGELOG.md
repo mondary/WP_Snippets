@@ -1,5 +1,18 @@
 # Changelog
 
+## [2026.09.24] - 2026-09-24
+### Added
+- `ADMIN 📅 SCHEDULER - Calendar - v38` — les articles **publiés ne sont plus jamais déplacés** : le rééquilibrage déclenché après chaque drag & drop ne réécrit plus que `future`/`draft`/`pending` (les créneaux des publiés restent occupés tels quels), et les heures déjà passées du jour (11h, 12h…) redeviennent utilisables. Corrige le bug où un article publié (ex. 13h) basculait `publish` → `future` vers un créneau futur. Déployé sur mondary.design (#405).
+- `ADMIN 📅 SCHEDULER - Editor Next Free Slot - v5` — construite sur le fix manuel du 22/09 (le forçage ne vise plus que les validations `publish`) et complétée : purge de la réservation `_clm_editor_reserved_slot` quand un planifié passe en publié via le cron (`future_to_publish`), garde-fou qui ignore tout article déjà publié, et endpoint + garde JS qui lèvent la réservation dès que l'utilisateur choisit lui-même sa date (ex. 11h passée) — le choix manuel prime sur le créneau auto. Déployé (#406).
+
+### Changed
+- Snippet `Default Next Date 10-14 Priority` désactivé en prod (troisième acteur horaire redondant avec l'Editor v5).
+- Archivage : `Calendar v36/v37` et `Editor Next Free Slot v3/v4` déplacés dans `snippets/archive/` ; l'ancienne version en ligne recréée comme entrées inactives (#408, #409) pour retrouver l'historique.
+- Le snippet `MEDIA ▶️ VIDEO - Autoplay Loop Muted - v1` rejoint le dépôt.
+
+### Fixed
+- Dépôt public : `VERSION` supprimé (le `CHANGELOG.md` fait foi), section Changelog retirée des README FR/EN (doublon, avec icône `icon.png` ajoutée en tête), et exports analytics Umami dépubliés (`store/umami-reference/` contenaient des données visiteurs brutes : sessions, géolocalisation, gclid/fbclid).
+
 ## [2026.09.08] - 2026-09-08
 ### Added
 - `FRONTEND 🌸 FAB - Hub Flottant - v1` — un seul bouton flottant (bas droite) regroupant 8 fonctionnalités auparavant éparpillées sur les 4 coins de l'écran : Google News, Flux RSS (nouveau), Newsletter (ancre Jetpack), Diaporama articles (overlay plein écran repris de News Diaporama v3, endpoint REST conservé), Articles programmés (panneau jauge + date, repris de Scheduled Posts Popup v14 sans le sondage Patreon), Statistiques (lien `/statistiques/` + vues de l'année + compteur live), Ko-fi (nouveau, handle de Social Ego v2) et Retour en haut. Déploiement du menu en éventail « pétales » (2 rayons alternés, ressort + stagger), étiquettes, voile cliquable, ESC, `prefers-reduced-motion`. Absorbe aussi le positionnement/masquage GTranslate (ex Google News Button v3) et masque le `#kt-scroll-up` Kadence. À activer puis délier : Google News Button v3, News Diaporama v3, Scroll To Top v2.

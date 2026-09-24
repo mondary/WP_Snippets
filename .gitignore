@@ -58,3 +58,11 @@ __pycache__/
 *.log
 Icon?
 /umami-complete-2017-2026.csv
+
+# Données analytics locales (données visiteurs privées, jamais publiées)
+/store/umami-reference/
+/umami-complete-2017-2026.csv
+
+# Vieilles icônes remplacées (seule icon.png actuelle reste versionnée)
+/icon2.png
+/icon3.png
