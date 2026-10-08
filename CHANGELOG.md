@@ -1,5 +1,13 @@
 # Changelog
 
+## [2026.10.8] - 2026-10-08
+### Added
+- `ADMIN 🧰 DETECT - Duplicates Posts - v1` — page « 🔍 Doublons » sous Articles : détecte les articles traitant du même sujet par similarité de titre (tokens normalisés FR : accents, pluriels et mots vides ignorés) et/ou URLs externes communes du contenu (query strings normalisées, liens internes exclus, URLs omniprésentes écartées), regroupe paires et triplons (composantes connexes) avec écart de dates et « pourquoi » (score titre, URLs communes), actions Modifier / Voir / Corbeille avec retour sur la page, filtres méthode / seuil (60 % par défaut) / période (12 mois par défaut) / statuts. Aucune suppression automatique.
+
+## [2026.10.1] - 2026-10-01
+### Fixed
+- `FRONTEND 📊 STATS - Site Stats Page - 2026.10.1` — les futures vues sont enregistrées après affichage visible dans le navigateur, sur toutes les pages publiques plutôt que sur chaque requête PHP d'article ; fenêtre anti-rechargement de 15 secondes par visiteur/page, contrôle d'origine et cookie visiteur journalier. Aucun recalcul des journées passées, aucun import Umami automatique.
+
 ## [2026.09.24] - 2026-09-24
 ### Added
 - `ADMIN 📅 SCHEDULER - Calendar - v38` — les articles **publiés ne sont plus jamais déplacés** : le rééquilibrage déclenché après chaque drag & drop ne réécrit plus que `future`/`draft`/`pending` (les créneaux des publiés restent occupés tels quels), et les heures déjà passées du jour (11h, 12h…) redeviennent utilisables. Corrige le bug où un article publié (ex. 13h) basculait `publish` → `future` vers un créneau futur. Déployé sur mondary.design (#405).

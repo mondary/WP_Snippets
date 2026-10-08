@@ -15,6 +15,7 @@
 - **Calendrier V28** — Ajout d'une **notification flottante permanente** en haut à droite de l'admin WordPress qui indique en temps réel combien d'articles manquent pour atteindre l'objectif du jour (5 par défaut). Si 3 articles sont prévus, la notif affiche « Manque 2 articles — 3/5 prévus » avec lien direct vers le calendrier. La notif est présente sur **toutes les pages admin**, peut être repliée en pastille, pulse si quota non atteint, et s'auto-refresh toutes les 60s (ou au retour sur l'onglet).
 - **Sous-menu « Articles planifiés »** dans la barre latérale gauche, sous le menu Articles, avec badge du nombre d'articles planifiés.
 - **Détection des articles sans image mise en avant** — filtre dans la liste, sous-menu « Sans image » avec compteur, et page dédiée listant les articles publiés sans featured image.
+- **Détection des doublons d'articles** — page « 🔍 Doublons » sous Articles : compare les titres (mots-clés normalisés) et les URLs externes communes du contenu, groupe les paires/triplons avec écart de dates, actions Modifier/Voir/Corbeille. Voir `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v1.php`.
 - **FAB stack `v19`** — un bouton flottant latéral (droite par défaut) déploie au survol une colonne d'items à largeur unique : Google News, ligne « Articles programmés » **cliquable vers le futur site** (mini-jauge 18px + nombre + date), Statistiques (compteur live), Ko-fi, Newsletter (lien `/newsletter/`), « Lire en diaporama » (déclenche l'overlay de News Diaporama v3 — son bouton play bleu est masqué) et le switcher GTranslate intégré à la géométrie exacte des items. **Burger en icônes officielles iconmonstr** (`layer-multiple-alt-filled` ↔ `cube-filled`, **30px**) qui **se morphent réellement via GSAP MorphSVGPlugin** (gratuit sur cdnjs, 3.13.0) à chaque ouverture/fermeture — `mdhub_render` en wp_footer priorité 99 pour s'exécuter après le chargement de GSAP ; **animation garantie dans tous les cas** : avec GSAP, morph du path (0.7 s, ease élastique) + rotation 180° du badge ; sans GSAP (optimiseurs WP Rocket/Autoptimize/Rocket Loader), spin CSS avec échange de forme à mi-course — plus jamais de saut sec ; **poignée ⇄ collée au burger** pour basculer gauche↔droite. **Toast promotionnel large** (min 300px, z-index au-dessus du GTranslate mais sous la stack déployée, plus de fond blanc sur le wrapper GT) : tirage **sans répétition** (Fisher-Yates persisté) — cliquable, auto-masqué après 10 s, fermable (silence 30 min). Le hub délègue chaque élément à son script dédié : News Diaporama v3, Scroll To Top v2, Live Cursors, Site Stats Page, Social Ego v2, Futur Menubar v4. Voir `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v17.php`.
 - **Futur site `v4`** — aperçu des articles programmés sur `/?future_site=1` (home avec les articles `future` inclus + bandeau « 🚀 version spoiler »). Accès : admins **ou** comptes avec un rôle premium (`$FS_PREMIUM_ROLES`, ajustable + filtre `fs_futur_premium_roles`). Les non-abonnés voient un **paywall** avec CTA vers `/abonnement/`. Admin : sous-menu Articles > Futur site + icône fusée dans la barre d'admin. Entrée publique : ligne « Articles programmés » du FAB v19. Voir `snippets/canonical/🧭 ADMIN MENUBAR - Futur Menubar - v4.php`.
 
@@ -57,6 +58,15 @@
 - UI: sous-menu « Sans image » dans la colonne latérale gauche, sous le menu Articles (badge rouge = nombre d'articles sans image).
 - Filtre « Avec / Sans image mise en avant » dans la liste des articles (`edit.php`).
 - Page dédiée listant tous les articles publiés sans featured image, avec liens Modifier/Voir.
+
+### Détection des doublons d'articles
+- Fichier: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v1.php`
+- UI: sous-menu « 🔍 Doublons » sous Articles.
+- Détecte les articles traitant du même sujet : similarité de titre (mots-clés normalisés — accents, pluriels et mots vides ignorés) et/ou URLs externes communes dans le contenu (query strings et `www.` normalisés, liens internes exclus).
+- Regroupe paires et triplons, affiche l'écart de dates entre chaque article et le plus ancien du groupe (écart ≤ 31 jours en rouge).
+- Filtres: méthode (Titres / URLs / Les deux), seuil de similarité (60 % par défaut), période (12 mois par défaut), statuts (publiés, planifiés, brouillons, en attente).
+- Actions par article : Modifier, Voir, Corbeille (retour automatique sur la page Doublons).
+- Aucune suppression automatique : l'outil liste, vous décidez.
 
 ### Articles planifiés (Sous-menu)
 - Fichier: `snippets/canonical/🧭 ADMIN MENUBAR - Scheduled Posts Submenu - v1.php`
