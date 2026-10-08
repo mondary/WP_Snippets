@@ -2,7 +2,7 @@
 
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
-✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.11**.
+✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.12**.
 
 [Support the project on Ko-fi](https://ko-fi.com/pouark)
 
@@ -16,6 +16,7 @@
 - **Missing Featured Image Detection** — filter in the post list, "No Image" submenu with counter, and dedicated page listing published posts without a featured image.
 - **Media Library usage audit** — compact view filters and small “Analyze usage” / “Recalculate size” buttons. See `snippets/canonical/MEDIA 🖼️ IMAGES - Orphans - v5.php`.
 - **Site statistics page** — aggregated views and visitors, yearly charts, and CSV import under Tools. See `snippets/canonical/FRONTEND 📊 STATS - Site Stats Page - 2026.10.1.php`.
+- **Jump-to-page pagination** — a "Page N" dropdown inside the Kadence pagination (home, archives, search) to jump straight to any of the ~298 pages instead of the visible "1 2 3 … 298" links. Inherits the theme pill style, cache-friendly vanilla JS. See `snippets/canonical/FRONTEND 📄 PAGINATION - Jump Select - v1.php`.
 - **Duplicate Posts Detection** — "Doublons 🔍" page under Posts: compares titles (normalized keywords) and/or shared external URLs, groups pairs/triples (smallest groups first) with 72px thumbnails, status badge and date gaps; clicking a title opens the article in a dedicated window (face-to-face); AJAX trashing without reload + checkboxes and bulk "Trash" action. Defaults: Titles only, 70%, 12 months. A “🔍 Doublons” button is also available directly in the Posts list, alongside the annual calendar button. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`.
 - **Action bar `v4`** — a discreet sticky bar gathers Google News, RSS, Newsletter, fullscreen Diaporama, Scheduled posts, Stats, Ko-fi and Back to top. It stays readable on desktop and scrolls horizontally on mobile. See `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v4.php`.
 

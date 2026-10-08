@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.12] - 2026-10-08
+### Added
+- `FRONTEND 📄 PAGINATION - Jump Select - v1` — un menu déroulant « Page N » greffé dans la pagination Kadence (home, archives, recherche) : avec ~298 pages, on saute à n'importe laquelle d'un seul geste au lieu d'être limité aux liens « 1 2 3 … 298 ». Le `<select>` porte la classe `page-numbers` du thème (style pill, survol et rayon hérités), JS vanilla sans jQuery ni requête serveur, URL cible reconstruite depuis un lien `/page/N/` existant (page 1 = base sans segment `/page/`), compatible cache LiteSpeed. Marqueur de version en `title` sur le select (pas de titre de page sur ce snippet).
+
 ## [2026.10.11] - 2026-10-08
 ### Added
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.10.1` — ajout au dépôt du snippet actif de statistiques du site (`/statistiques/`), avec graphiques annuels, vues/visiteurs agrégés et import CSV dans Outils.
