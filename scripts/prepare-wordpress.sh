@@ -6,8 +6,8 @@ while [ "$SCRIPT_DIR" != "/" ] && [ ! -d "$SCRIPT_DIR/.agent" ] && [ ! -f "$SCRI
 done
 cd "$SCRIPT_DIR"
 
-IMPORT_JSON="$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json"
-OUTPUT_JSON="$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/imports/WORDPRESS-N-N1.json"
+IMPORT_JSON="$SCRIPT_DIR/CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json"
+OUTPUT_JSON="$SCRIPT_DIR/CODE_SNIPPETS_SYNC/imports/WORDPRESS-N-N1.json"
 
 echo "🎯 Préparation JSON WordPress (n + n-1)..."
 echo ""

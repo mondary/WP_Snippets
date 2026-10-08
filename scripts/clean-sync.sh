@@ -18,9 +18,9 @@ echo ""
 
 # Étape 2 : Build JSON standard
 echo "🔨 Étape 2/3 : Génération JSON standard"
-php "$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/build_code_snippets_import.php" \
+php "$SCRIPT_DIR/.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/build_code_snippets_import.php" \
     --snippets-dir=snippets/canonical \
-    --out="$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json"
+    --out="$SCRIPT_DIR/CODE_SNIPPETS_SYNC/imports/IMPORT-WORDPRESS.json"
 echo ""
 
 # Étape 3 : Préparer JSON WordPress (n + n-1)
@@ -46,12 +46,12 @@ echo "   WORDPRESS-N-N1.json"
 echo ""
 
 # Vérifier si les credentials existent
-if [ -f "$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env" ]; then
+if [ -f "$SCRIPT_DIR/.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env" ]; then
     echo "💡 Pour synchroniser :"
     echo "   cd scripts && ./sync-wordpress.sh"
     echo "   Ou : ./sync-wp"
 else
     echo "⚠️  Credentials WordPress non configurés :"
-    echo "   .agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env"
+    echo "   .agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env"
 fi
 echo ""

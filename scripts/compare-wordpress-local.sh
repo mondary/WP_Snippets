@@ -5,7 +5,7 @@ import os
 
 # Charger les credentials
 try:
-    with open('.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env') as f:
+    with open('.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env') as f:
         for line in f:
             if '=' in line and not line.strip().startswith('#'):
                 key, value = line.strip().split('=', 1)

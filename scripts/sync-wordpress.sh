@@ -10,7 +10,7 @@ done
 cd "$SCRIPT_DIR"
 
 # Vérifier que le JSON existe
-JSON_FILE="$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/imports/WORDPRESS-N-N1.json"
+JSON_FILE="$SCRIPT_DIR/CODE_SNIPPETS_SYNC/imports/WORDPRESS-N-N1.json"
 if [ ! -f "$JSON_FILE" ]; then
     echo "❌ JSON introuvable: $JSON_FILE"
     echo "Exécutez d'abord: ./clean-sync"
@@ -18,7 +18,7 @@ if [ ! -f "$JSON_FILE" ]; then
 fi
 
 # Charger les credentials depuis le fichier sécurisé
-SECRETS_FILE="$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env"
+SECRETS_FILE="$SCRIPT_DIR/.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/secrets/wp-sync.env"
 if [ ! -f "$SECRETS_FILE" ]; then
     echo "❌ Fichier de credentials introuvable: $SECRETS_FILE"
     echo "Créez-le à partir de l'exemple."
@@ -41,7 +41,7 @@ echo "   Site: ${WP_SITE_URL}"
 echo ""
 
 # Exécuter le sync
-php "$SCRIPT_DIR/.agent/-pkwpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/push_code_snippets_rest.php" \
+php "$SCRIPT_DIR/.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/push_code_snippets_rest.php" \
     --site="${WP_SITE_URL}" \
     --user="${WP_SYNC_USER}" \
     --app-password="${WP_APP_PASSWORD}" \
