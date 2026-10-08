@@ -4,6 +4,9 @@
 ### Added
 - `ADMIN 🧰 DETECT - Duplicates Posts - v1` — page « 🔍 Doublons » sous Articles : détecte les articles traitant du même sujet par similarité de titre (tokens normalisés FR : accents, pluriels et mots vides ignorés) et/ou URLs externes communes du contenu (query strings normalisées, liens internes exclus, URLs omniprésentes écartées), regroupe paires et triplons (composantes connexes) avec écart de dates et « pourquoi » (score titre, URLs communes), actions Modifier / Voir / Corbeille avec retour sur la page, filtres méthode / seuil (60 % par défaut) / période (12 mois par défaut) / statuts. Aucune suppression automatique.
 
+### Changed
+- `ADMIN 🧰 DETECT - Duplicates Posts - v2` — défauts revus après premier usage : méthode « Titres seulement » (au lieu de Titres + URLs), seuil 70 % avec paliers de 5 de 70 à 100 %, période 12 mois conservée ; miniature de l'image mise en avant devant chaque titre ; clic sur un titre ouvre l'article dans un nouvel onglet pour comparaison face à face (bouton Voir retiré) ; libellé « Titres + URLs (large) » et légende explicative des méthodes. v1 conservée dans `snippets/canonical/`.
+
 ## [2026.10.1] - 2026-10-01
 ### Fixed
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.10.1` — les futures vues sont enregistrées après affichage visible dans le navigateur, sur toutes les pages publiques plutôt que sur chaque requête PHP d'article ; fenêtre anti-rechargement de 15 secondes par visiteur/page, contrôle d'origine et cookie visiteur journalier. Aucun recalcul des journées passées, aucun import Umami automatique.

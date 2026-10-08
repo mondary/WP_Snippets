@@ -12,7 +12,7 @@
 - **Schedule Calendar V26** with featured images, drag & drop, draft reallocation starting from today, and scheduled-post verification (slots 10am, 2pm, 11am, 12pm, 1pm). Reallocation now starts from **today** and respects shared publish+future+draft capacity (max `articles_per_day` per day). Past slots are automatically filtered.
 - **"Scheduled Posts" submenu** in the left sidebar, under the Posts menu, with a badge showing the scheduled post count.
 - **Missing Featured Image Detection** — filter in the post list, "No Image" submenu with counter, and dedicated page listing published posts without a featured image.
-- **Duplicate Posts Detection** — "🔍 Doublons" page under Posts: compares titles (normalized keywords) and shared external URLs in the content, groups pairs/triples with date gaps, Edit/View/Trash actions. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v1.php`.
+- **Duplicate Posts Detection** — "🔍 Doublons" page under Posts: compares titles (normalized keywords) and/or shared external URLs, groups pairs/triples with thumbnails and date gaps; clicking a title opens the article in a new tab (face-to-face). Defaults: Titles only, 70%, 12 months. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v2.php`.
 - **Action bar `v4`** — a discreet sticky bar gathers Google News, RSS, Newsletter, fullscreen Diaporama, Scheduled posts, Stats, Ko-fi and Back to top. It stays readable on desktop and scrolls horizontally on mobile. See `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v4.php`.
 
 ## 🧠 Usage
@@ -55,12 +55,13 @@
 - Dedicated page listing all published posts without a featured image, with Edit/View links.
 
 ### Duplicate Posts Detection
-- File: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v1.php`
+- File: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v2.php`
 - UI: "🔍 Doublons" submenu under Posts.
 - Detects articles covering the same subject: title similarity (normalized keywords — accents, plurals and stop words removed) and/or shared external URLs in the content (query strings and `www.` normalized, internal links excluded).
 - Groups pairs and triples, shows the date gap between each article and the oldest one in its group (gaps ≤ 31 days highlighted in red).
-- Filters: method (Titles / URLs / Both), similarity threshold (60% by default), period (12 months by default), statuses (published, scheduled, drafts, pending).
-- Per-article actions: Edit, View, Trash (redirects back to the Doublons page).
+- Featured-image thumbnail in front of each title; clicking a title opens the article in a new tab for side-by-side comparison.
+- Filters: method (Titles / URLs / Titles + URLs, default: Titles), similarity threshold from 70% to 100% in steps of 5 (default: 70%), period (default: 12 months), statuses (published, scheduled, drafts, pending).
+- Per-article actions: Edit, Trash (redirects back to the Doublons page).
 - No automatic deletion: the tool lists, you decide.
 
 ### Scheduled Posts Submenu
