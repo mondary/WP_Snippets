@@ -45,7 +45,9 @@ php "$SCRIPT_DIR/.agent/skills/pk/-pk-wpsyncsnippets/CODE_SNIPPETS_SYNC/scripts/
     --site="${WP_SITE_URL}" \
     --user="${WP_SYNC_USER}" \
     --app-password="${WP_APP_PASSWORD}" \
-    --import-json="${JSON_FILE}"
+    --import-json="${JSON_FILE}" \
+    --endpoint="${WP_SITE_URL}/wp-json/code-snippets/v1/snippets" \
+    || { echo "❌ Échec du push REST (voir messages ci-dessus)"; exit 1; }
 
 echo ""
 echo "✅ Synchronisation terminée !"

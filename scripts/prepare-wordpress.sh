@@ -33,7 +33,8 @@ for idx, snippet in enumerate(snippets):
         version = int(match.group(1))
         base_name = re.sub(r' - [vV]?\d+(\.php)?$', '', name)
     elif dated:
-        version = int(dated.group(1).replace('.', ''))
+        dp = dated.group(1).split('.')
+        version = int(dp[0]) * 10000 + int(dp[1]) * 100 + int(dp[2])
         base_name = re.sub(r' - \d{4}\.\d{1,2}\.\d+$', '', name)
     else:
         snippet['active'] = True

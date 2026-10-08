@@ -4,6 +4,13 @@
 ### Added
 - `FRONTEND 📄 PAGINATION - Jump Select - v1` — un menu déroulant « Page N » greffé dans la pagination Kadence (home, archives, recherche) : avec ~298 pages, on saute à n'importe laquelle d'un seul geste au lieu d'être limité aux liens « 1 2 3 … 298 ». Le `<select>` porte la classe `page-numbers` du thème (style pill, survol et rayon hérités), JS vanilla sans jQuery ni requête serveur, URL cible reconstruite depuis un lien `/page/N/` existant (page 1 = base sans segment `/page/`), compatible cache LiteSpeed. Marqueur de version en `title` sur le select (pas de titre de page sur ce snippet).
 
+- Déploiement : `Jump Select v1` **en ligne (#430 actif)**, vérifié sur `/`, `/page/2/`, `/page/42/` et `/page/298/`. Au passage, `FRONTEND 📊 CURSOR - Live Cursors - 2026.09.16` déployé (#431 actif, #398 « 2026.09.15 » désactivé) : le code en ligne datait d'avant le 16/09 (badge/dropdown revenus, compteur FAB cassé), séquelle du push périmé ci-dessous.
+
+### Fixed
+- **Incident sync** — un push lancé avec un chemin relatif a résolu `WORDPRESS-N-N1.json` contre la racine du toolkit `.agent/` : c'est un snapshot de septembre qui a été poussé. 12 snippets recréés puis mis à la corbeille (#418-429, dont Google News Button v3 brièvement actif en doublon du FAB) ; 3 codes rétrogradés puis restaurés depuis le canonique (Futur Menubar #261, Duplicate Post Page #289, Live Cursors → remplacé par #431). État final vérifié : 67 snippets dont 55 hors corbeille (32 actifs), plus aucun écart de code avec `snippets/canonical/`.
+- `scripts/sync-wordpress.sh` — le push passe désormais `--endpoint` explicite (`/wp-json/code-snippets/v1/snippets`) : la découverte automatique tombait sur `/cloud/snippets` qui renvoie HTTP 400 depuis la dernière mise à jour du plugin Code Snippets ; un échec du binaire PHP est désormais fatal (le script affichait « ✅ Synchronisation terminée ! » même après un crash `dump-loader` Herd). Rappel : toujours passer un chemin **absolu** au `--import-json` (les chemins relatifs résolvent contre le toolkit `.agent/`, pas la racine du dépôt).
+- `scripts/prepare-wordpress.sh` — comparaison des versions datées corrigée : `2026.09.11` était jugée plus récente que `2026.10.1` (`int("2026101") < int("20260911")`), ce qui inversait n/n-1 pour les familles datées ; désormais tri sur `AAAA*10000 + MM*100 + JJ`.
+
 ## [2026.10.11] - 2026-10-08
 ### Added
 - `FRONTEND 📊 STATS - Site Stats Page - 2026.10.1` — ajout au dépôt du snippet actif de statistiques du site (`/statistiques/`), avec graphiques annuels, vues/visiteurs agrégés et import CSV dans Outils.
