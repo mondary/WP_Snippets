@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.11] - 2026-10-08
+### Added
+- `FRONTEND 📊 STATS - Site Stats Page - 2026.10.1` — ajout au dépôt du snippet actif de statistiques du site (`/statistiques/`), avec graphiques annuels, vues/visiteurs agrégés et import CSV dans Outils.
+
 ## [2026.10.10] - 2026-10-08
 ### Fixed
 - `.gitignore` — les exports Umami CSV à la racine (`/umami-*.csv`) sont ignorés pour éviter d’ajouter les données analytiques brutes aux commits. Le dossier `store/umami-reference/` reste ignoré.
