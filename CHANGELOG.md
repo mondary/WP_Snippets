@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.10] - 2026-10-08
+### Fixed
+- `.gitignore` — les exports Umami CSV à la racine (`/umami-*.csv`) sont ignorés pour éviter d’ajouter les données analytiques brutes aux commits. Le dossier `store/umami-reference/` reste ignoré.
+
 ## [2026.10.9] - 2026-10-08
 ### Added
 - `ADMIN 🧰 DETECT - Duplicates Posts - v6` — bouton « 🔍 Doublons » ajouté directement à la liste des articles ; le lien « Calendrier annuel » y est présenté comme un vrai bouton. Déployé en ligne (#416 actif, #414 désactivé). Le bouton d’export RAG était déjà présent.

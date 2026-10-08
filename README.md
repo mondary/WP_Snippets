@@ -4,7 +4,7 @@
 
 [🇫🇷 FR](README.md) · [🇬🇧 EN](README_en.md)
 
-✨ Collection de snippets WordPress orientée productivité admin, publication et workflows éditoriaux — version **2026.10.9**.
+✨ Collection de snippets WordPress orientée productivité admin, publication et workflows éditoriaux — version **2026.10.10**.
 
 [Soutenir le projet sur Ko-fi](https://ko-fi.com/pouark)
 
