@@ -1,5 +1,13 @@
 # Changelog
 
+## [2026.10.9] - 2026-10-08
+### Added
+- `ADMIN 🧰 DETECT - Duplicates Posts - v6` — bouton « 🔍 Doublons » ajouté directement à la liste des articles ; le lien « Calendrier annuel » y est présenté comme un vrai bouton. Déployé en ligne (#416 actif, #414 désactivé). Le bouton d’export RAG était déjà présent.
+
+### Changed
+- `MEDIA 🖼️ IMAGES - Orphans - v5` — barre des vues de la Médiathèque allégée : libellés courts (« Orphelins », « Utilisées », « Image mise en avant », « Dans le contenu »), boutons d’action compacts à la taille WordPress, sans gras ni style primaire. Déployé en ligne (#417 actif ; #415 v4 désactivé) ; v4 archivée localement.
+- Six snippets inactifs mis à la corbeille en ligne (#339, #347, #349, #353, #359, #360) ; snapshots des six fichiers locaux homonymes ajoutés à `snippets/archive/`. Archivage local de Duplicates v5 et Orphans v3/v4. État en ligne : 53 snippets (43 actifs / 10 inactifs).
+
 ## [2026.10.8] - 2026-10-08
 ### Added
 - `ADMIN 🧰 DETECT - Duplicates Posts - v1` — page « 🔍 Doublons » sous Articles : détecte les articles traitant du même sujet par similarité de titre (tokens normalisés FR : accents, pluriels et mots vides ignorés) et/ou URLs externes communes du contenu (query strings normalisées, liens internes exclus, URLs omniprésentes écartées), regroupe paires et triplons (composantes connexes) avec écart de dates et « pourquoi » (score titre, URLs communes), actions Modifier / Voir / Corbeille avec retour sur la page, filtres méthode / seuil (60 % par défaut) / période (12 mois par défaut) / statuts. Aucune suppression automatique.

@@ -4,7 +4,9 @@
 
 [🇫🇷 FR](README.md) · [🇬🇧 EN](README_en.md)
 
-✨ Collection de snippets WordPress orientée productivité admin, publication et workflows éditoriaux.
+✨ Collection de snippets WordPress orientée productivité admin, publication et workflows éditoriaux — version **2026.10.9**.
+
+[Soutenir le projet sur Ko-fi](https://ko-fi.com/pouark)
 
 ## ✅ Fonctionnalités
 - Base de snippets prête à l’usage dans `snippets/canonical/`.
@@ -15,7 +17,8 @@
 - **Calendrier V28** — Ajout d'une **notification flottante permanente** en haut à droite de l'admin WordPress qui indique en temps réel combien d'articles manquent pour atteindre l'objectif du jour (5 par défaut). Si 3 articles sont prévus, la notif affiche « Manque 2 articles — 3/5 prévus » avec lien direct vers le calendrier. La notif est présente sur **toutes les pages admin**, peut être repliée en pastille, pulse si quota non atteint, et s'auto-refresh toutes les 60s (ou au retour sur l'onglet).
 - **Sous-menu « Articles planifiés »** dans la barre latérale gauche, sous le menu Articles, avec badge du nombre d'articles planifiés.
 - **Détection des articles sans image mise en avant** — filtre dans la liste, sous-menu « Sans image » avec compteur, et page dédiée listant les articles publiés sans featured image.
-- **Détection des doublons d'articles** — page « Doublons 🔍 » sous Articles : compare les titres (mots-clés normalisés) et/ou les URLs externes communes, groupe les paires/triplons (triés du plus petit au plus grand) avec vignettes 72 px, badge statut et écart de dates ; clic sur un titre = article ouvert dans une fenêtre dédiée (face à face) ; suppression en AJAX sans rechargement + cases à cocher et action groupée « Corbeille ». Défauts : Titres seulement, 70 %, 12 mois. Voir `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v5.php`.
+- **Analyse d’usage de la médiathèque** — filtres de vue compacts et actions « Analyser l’usage » / « Recalculer la taille » en petits boutons. Voir `snippets/canonical/MEDIA 🖼️ IMAGES - Orphans - v5.php`.
+- **Détection des doublons d'articles** — page « Doublons 🔍 » sous Articles : compare les titres (mots-clés normalisés) et/ou les URLs externes communes, groupe les paires/triplons (triés du plus petit au plus grand) avec vignettes 72 px, badge statut et écart de dates ; clic sur un titre = article ouvert dans une fenêtre dédiée (face à face) ; suppression en AJAX sans rechargement + cases à cocher et action groupée « Corbeille ». Défauts : Titres seulement, 70 %, 12 mois. Un bouton « 🔍 Doublons » est aussi disponible directement dans la liste des articles. Le calendrier annuel apparaît comme bouton à côté des vues de la liste. Voir `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`.
 - **FAB stack `v19`** — un bouton flottant latéral (droite par défaut) déploie au survol une colonne d'items à largeur unique : Google News, ligne « Articles programmés » **cliquable vers le futur site** (mini-jauge 18px + nombre + date), Statistiques (compteur live), Ko-fi, Newsletter (lien `/newsletter/`), « Lire en diaporama » (déclenche l'overlay de News Diaporama v3 — son bouton play bleu est masqué) et le switcher GTranslate intégré à la géométrie exacte des items. **Burger en icônes officielles iconmonstr** (`layer-multiple-alt-filled` ↔ `cube-filled`, **30px**) qui **se morphent réellement via GSAP MorphSVGPlugin** (gratuit sur cdnjs, 3.13.0) à chaque ouverture/fermeture — `mdhub_render` en wp_footer priorité 99 pour s'exécuter après le chargement de GSAP ; **animation garantie dans tous les cas** : avec GSAP, morph du path (0.7 s, ease élastique) + rotation 180° du badge ; sans GSAP (optimiseurs WP Rocket/Autoptimize/Rocket Loader), spin CSS avec échange de forme à mi-course — plus jamais de saut sec ; **poignée ⇄ collée au burger** pour basculer gauche↔droite. **Toast promotionnel large** (min 300px, z-index au-dessus du GTranslate mais sous la stack déployée, plus de fond blanc sur le wrapper GT) : tirage **sans répétition** (Fisher-Yates persisté) — cliquable, auto-masqué après 10 s, fermable (silence 30 min). Le hub délègue chaque élément à son script dédié : News Diaporama v3, Scroll To Top v2, Live Cursors, Site Stats Page, Social Ego v2, Futur Menubar v4. Voir `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v17.php`.
 - **Futur site `v4`** — aperçu des articles programmés sur `/?future_site=1` (home avec les articles `future` inclus + bandeau « 🚀 version spoiler »). Accès : admins **ou** comptes avec un rôle premium (`$FS_PREMIUM_ROLES`, ajustable + filtre `fs_futur_premium_roles`). Les non-abonnés voient un **paywall** avec CTA vers `/abonnement/`. Admin : sous-menu Articles > Futur site + icône fusée dans la barre d'admin. Entrée publique : ligne « Articles programmés » du FAB v19. Voir `snippets/canonical/🧭 ADMIN MENUBAR - Futur Menubar - v4.php`.
 
@@ -60,7 +63,7 @@
 - Page dédiée listant tous les articles publiés sans featured image, avec liens Modifier/Voir.
 
 ### Détection des doublons d'articles
-- Fichier: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v5.php`
+- Fichier: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`
 - UI: sous-menu « Doublons 🔍 » sous Articles.
 - Détecte les articles traitant du même sujet : similarité de titre (mots-clés normalisés — accents, pluriels et mots vides ignorés) et/ou URLs externes communes dans le contenu (query strings et `www.` normalisés, liens internes exclus).
 - Regroupe paires et triplons, affiche l'écart de dates entre chaque article et le plus ancien du groupe (écart ≤ 31 jours en rouge). Groupes triés du plus petit au plus grand puis par score : les paires précises d'abord, les gros groupes (souvent des faux positifs statistiques) en dernier.

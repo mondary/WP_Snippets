@@ -2,7 +2,9 @@
 
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
-✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows.
+✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.9**.
+
+[Support the project on Ko-fi](https://ko-fi.com/pouark)
 
 ## ✅ Features
 - Ready-to-use snippet base in `snippets/canonical/`.
@@ -12,7 +14,8 @@
 - **Schedule Calendar V26** with featured images, drag & drop, draft reallocation starting from today, and scheduled-post verification (slots 10am, 2pm, 11am, 12pm, 1pm). Reallocation now starts from **today** and respects shared publish+future+draft capacity (max `articles_per_day` per day). Past slots are automatically filtered.
 - **"Scheduled Posts" submenu** in the left sidebar, under the Posts menu, with a badge showing the scheduled post count.
 - **Missing Featured Image Detection** — filter in the post list, "No Image" submenu with counter, and dedicated page listing published posts without a featured image.
-- **Duplicate Posts Detection** — "Doublons 🔍" page under Posts: compares titles (normalized keywords) and/or shared external URLs, groups pairs/triples (smallest groups first) with 72px thumbnails, status badge and date gaps; clicking a title opens the article in a dedicated window (face-to-face); AJAX trashing without reload + checkboxes and bulk "Trash" action. Defaults: Titles only, 70%, 12 months. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v5.php`.
+- **Media Library usage audit** — compact view filters and small “Analyze usage” / “Recalculate size” buttons. See `snippets/canonical/MEDIA 🖼️ IMAGES - Orphans - v5.php`.
+- **Duplicate Posts Detection** — "Doublons 🔍" page under Posts: compares titles (normalized keywords) and/or shared external URLs, groups pairs/triples (smallest groups first) with 72px thumbnails, status badge and date gaps; clicking a title opens the article in a dedicated window (face-to-face); AJAX trashing without reload + checkboxes and bulk "Trash" action. Defaults: Titles only, 70%, 12 months. A “🔍 Doublons” button is also available directly in the Posts list, alongside the annual calendar button. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`.
 - **Action bar `v4`** — a discreet sticky bar gathers Google News, RSS, Newsletter, fullscreen Diaporama, Scheduled posts, Stats, Ko-fi and Back to top. It stays readable on desktop and scrolls horizontally on mobile. See `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v4.php`.
 
 ## 🧠 Usage
@@ -55,7 +58,7 @@
 - Dedicated page listing all published posts without a featured image, with Edit/View links.
 
 ### Duplicate Posts Detection
-- File: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v5.php`
+- File: `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`
 - UI: "Doublons 🔍" submenu under Posts.
 - Detects articles covering the same subject: title similarity (normalized keywords — accents, plurals and stop words removed) and/or shared external URLs in the content (query strings and `www.` normalized, internal links excluded).
 - Groups pairs and triples, shows the date gap between each article and the oldest one in its group (gaps ≤ 31 days highlighted in red).
