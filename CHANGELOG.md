@@ -3,6 +3,7 @@
 ## [2026.10.18] - 2026-10-09
 ### Fixed
 - `POST 🔎 SEARCH - Auto - v6` — correction d'une course dans la v5 : si Kadence focalise son champ avant la fin de l'animation, les lettres suivantes sont désormais insérées dans le champ après le texte capturé au départ ; le timer d'ouverture ne réécrit plus ensuite le champ et n'efface plus les frappes rapides. Version v5 conservée dans `snippets/canonical/`.
+- Déployé et actif : `POST 🔎 SEARCH - Auto - v6` #437 et `ADMIN ⚙️ MENUBAR - Search - v5` #436 ; les v4 #277/#285 et le frontend v5 #435 sont inactifs. Validation en wp-admin : une recherche « WordPress » via le champ de la barre admin a ouvert `edit.php?s=WordPress&post_type=post`. Le HTML public contient le script v6.
 
 ## [2026.10.17] - 2026-10-09
 ### Fixed
