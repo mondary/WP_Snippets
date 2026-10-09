@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.18] - 2026-10-09
+### Fixed
+- `POST 🔎 SEARCH - Auto - v6` — correction d'une course dans la v5 : si Kadence focalise son champ avant la fin de l'animation, les lettres suivantes sont désormais insérées dans le champ après le texte capturé au départ ; le timer d'ouverture ne réécrit plus ensuite le champ et n'efface plus les frappes rapides. Version v5 conservée dans `snippets/canonical/`.
+
 ## [2026.10.17] - 2026-10-09
 ### Fixed
 - **Recherche du site et recherche admin réparées en v5** — diagnostic : les fichiers v4 récupérés contenaient des blocs de métadonnées injectés dans le code PHP et une seconde balise `<?php`; l'API indiquait pourtant `active: true` sans erreur, mais le JS `capturedKeys` n'apparaissait pas dans la page et le formulaire admin n'était pas rendu. `POST 🔎 SEARCH - Auto - v5` est reconstruit avec une initialisation compatible avec LiteSpeed Delay JS, capture la frappe pendant l'ouverture Kadence et attend sa vraie classe `body.showing-popup-drawer-from-full`. `ADMIN ⚙️ MENUBAR - Search - v5` est reconstruit avec un formulaire GET unique vers `edit.php?s=…&post_type=post` et des styles corrigés. v4 conservées inactives après validation des v5.
