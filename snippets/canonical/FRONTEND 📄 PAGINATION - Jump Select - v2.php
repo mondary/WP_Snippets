@@ -27,11 +27,14 @@ if (!defined('ABSPATH')) exit;
  *              - JS vanilla sans jQuery, HTML statique inchange :
  *                compatible cache LiteSpeed
  * Hooks WP: wp_footer
- * Fonctions clefs: clm_jump_select_footer
+ * Fonctions clefs: clm_jump_select_footer_v2 (suffixee : la v1 definissait
+ *                deja ce nom, l'activation de la v2 en parallele declenchait
+ *                un « Cannot redeclare function » fatal via le test
+ *                d'execution du plugin a l'activation)
  */
 
-add_action('wp_footer', 'clm_jump_select_footer', 99);
-function clm_jump_select_footer() {
+add_action('wp_footer', 'clm_jump_select_footer_v2', 99);
+function clm_jump_select_footer_v2() {
     if (is_admin() || is_feed()) return;
     ?>
 <style>
