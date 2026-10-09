@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.13] - 2026-10-09
+### Changed
+- `FRONTEND 📄 PAGINATION - Jump Select - v2` — retour UX après première utilisation : le jumper remplace désormais les **points de suspension** de la pagination (entre les premiers et derniers numéros, et non plus en bout de rangée), et la drop list laisse place à un **hybride « pill ⋯ + popover »** : clic sur le pill → popover compact avec saisie « Page __ / N » (validée par Entrée ou « Aller », clamp 1..N) et raccourcis −50 / −10 / +10 / +50 pour l'exploration. Rationale : à ~298 pages, scroller une dropdown native est pénible sur desktop, la saisie seule est pénible sur mobile et ne sert pas l'exploration ; l'hybride couvre les deux en un clic. Popover en `position:fixed` (jamais clippé), fermable par ESC (retour focus) ou clic extérieur, focus automatique dans l'input, style aux variables Kadence. v1 conservée dans `snippets/canonical/`.
+
 ## [2026.10.12] - 2026-10-08
 ### Added
 - `FRONTEND 📄 PAGINATION - Jump Select - v1` — un menu déroulant « Page N » greffé dans la pagination Kadence (home, archives, recherche) : avec ~298 pages, on saute à n'importe laquelle d'un seul geste au lieu d'être limité aux liens « 1 2 3 … 298 ». Le `<select>` porte la classe `page-numbers` du thème (style pill, survol et rayon hérités), JS vanilla sans jQuery ni requête serveur, URL cible reconstruite depuis un lien `/page/N/` existant (page 1 = base sans segment `/page/`), compatible cache LiteSpeed. Marqueur de version en `title` sur le select (pas de titre de page sur ce snippet).
