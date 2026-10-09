@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026.10.15] - 2026-10-09
+### Fixed
+- **Régression après le grand tri du 2026.10.8** — pour plusieurs familles, c'est l'instance **active** qui avait été corbeillée et l'inactive gardée, coupant des fonctionnalités en silence. 10 snippets restaurés et **actifs** : `POST 🔎 SEARCH - Auto - v4` #277 (recherche au clavier sur le site — `search-drawer` de nouveau servi sur la home), `ADMIN ⚙️ MENUBAR - Search - v4` #285 (recherche globale dans la barre d'admin), `Readbutton - v3` #284, `Menu Order Alpha - v2` #204, `External Clickable - v2` #223, `Export Markdown RAG - v1` #268, `Duplicate Post Page - v3` #289 (désactivé par erreur la veille par un update REST sans champ `active`, qui éteint le snippet), et pour `Snippets Menu - v2`, `Posts Submenu - v1` et `Display Time - v2` (dont les instances actives avaient été corbeillées) : code canonique repoussé sur les entrées trashed #418/#421/#424 (sorties de corbeille) puis activation. État final : 42 actifs / 60 hors corbeille.
+- Précision coquilles vides : #342 `Active Plugins First - v2`, #352 `TAGS - Already Existing - v3` et #337 `Download Images - v1` sont quasi vides en ligne (~85 chars) et leurs fichiers canoniques n'existent plus dans le dépôt — le vrai code vit dans les vieux noms #206/#210/#211, actifs et fonctionnels : aucune perte, aucun doublon d'exécution. Le rapatriement noté « à faire » par l'audit (vrai code → dépôt sous noms canoniques) reste ouvert.
+
 ## [2026.10.14] - 2026-10-09
 ### Changed
 - `FRONTEND 📄 PAGINATION - Jump Select - v3` — retour UX après test en conditions réelles : sur une page du milieu (`1 … 49 50 51 52 53 … 298`), la v2 ne remplaçait que les points de droite, ceux de gauche restaient un « … » mort impossible à distinguer du jumper — on ne savait pas où cliquer. La v3 remplace **chaque groupe de points de suspension par un pill ⋯ cliquable** (popover partagé, positionné sous le bouton cliqué) : partout où il y a des points, on peut sauter. Fallback conservé avant le chevron « suivant » quand il n'y a aucun « … ». v2 conservée dans `snippets/canonical/`.
