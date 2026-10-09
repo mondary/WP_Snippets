@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.14] - 2026-10-09
+### Changed
+- `FRONTEND 📄 PAGINATION - Jump Select - v3` — retour UX après test en conditions réelles : sur une page du milieu (`1 … 49 50 51 52 53 … 298`), la v2 ne remplaçait que les points de droite, ceux de gauche restaient un « … » mort impossible à distinguer du jumper — on ne savait pas où cliquer. La v3 remplace **chaque groupe de points de suspension par un pill ⋯ cliquable** (popover partagé, positionné sous le bouton cliqué) : partout où il y a des points, on peut sauter. Fallback conservé avant le chevron « suivant » quand il n'y a aucun « … ». v2 conservée dans `snippets/canonical/`.
+
 ## [2026.10.13] - 2026-10-09
 ### Changed
 - `FRONTEND 📄 PAGINATION - Jump Select - v2` — retour UX après première utilisation : le jumper remplace désormais les **points de suspension** de la pagination (entre les premiers et derniers numéros, et non plus en bout de rangée), et la drop list laisse place à un **hybride « pill ⋯ + popover »** : clic sur le pill → popover compact avec saisie « Page __ / N » (validée par Entrée ou « Aller », clamp 1..N) et raccourcis −50 / −10 / +10 / +50 pour l'exploration. Rationale : à ~298 pages, scroller une dropdown native est pénible sur desktop, la saisie seule est pénible sur mobile et ne sert pas l'exploration ; l'hybride couvre les deux en un clic. Popover en `position:fixed` (jamais clippé), fermable par ESC (retour focus) ou clic extérieur, focus automatique dans l'input, style aux variables Kadence. v1 conservée dans `snippets/canonical/`.
