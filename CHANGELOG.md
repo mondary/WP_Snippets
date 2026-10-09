@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026.10.17] - 2026-10-09
+### Fixed
+- **Recherche du site et recherche admin réparées en v5** — diagnostic : les fichiers v4 récupérés contenaient des blocs de métadonnées injectés dans le code PHP et une seconde balise `<?php`; l'API indiquait pourtant `active: true` sans erreur, mais le JS `capturedKeys` n'apparaissait pas dans la page et le formulaire admin n'était pas rendu. `POST 🔎 SEARCH - Auto - v5` est reconstruit avec une initialisation compatible avec LiteSpeed Delay JS, capture la frappe pendant l'ouverture Kadence et attend sa vraie classe `body.showing-popup-drawer-from-full`. `ADMIN ⚙️ MENUBAR - Search - v5` est reconstruit avec un formulaire GET unique vers `edit.php?s=…&post_type=post` et des styles corrigés. v4 conservées inactives après validation des v5.
+
+## [2026.10.16] - 2026-10-09
 ## [2026.10.16] - 2026-10-09
 ### Changed
 - **Rapatriement des 3 « coquilles vides »** — le code réel (le plus récent existant, vérifié : v2 de juillet pour Plugins First, v3 de mai pour Tags, version unique pour Download Images ; aucune version plus récente nulle part, les coquilles étant vides) est rapatrié depuis les snippets actifs en ligne vers le dépôt sous les noms canoniques : `ADMIN 🔧 SETTINGS - Active Plugins First - v2`, `POST 🏷️ TAGS - Already Existing - v3`, `ADMIN 📅 SCHEDULER - Download Images - v1` (fichiers créés dans `snippets/canonical/`, scopes repris de l'existant, `php -l` OK).

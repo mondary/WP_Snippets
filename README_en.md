@@ -2,7 +2,7 @@
 
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
-✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.14**.
+✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.17**.
 
 [Support the project on Ko-fi](https://ko-fi.com/pouark)
 
@@ -18,6 +18,7 @@
 - **Site statistics page** — aggregated views and visitors, yearly charts, and CSV import under Tools. See `snippets/canonical/FRONTEND 📊 STATS - Site Stats Page - 2026.10.1.php`.
 - **Jump-to-page pagination** — every ellipsis group in the Kadence pagination (home, archives, search) becomes a clickable "⋯" pill: a popover with a "Page __ / 298" input (Enter or "Go") and −50 / −10 / +10 / +50 shortcuts. One click for both targeted jumps and exploration, cache-friendly. See `snippets/canonical/FRONTEND 📄 PAGINATION - Jump Select - v3.php`.
 - **Duplicate Posts Detection** — "Doublons 🔍" page under Posts: compares titles (normalized keywords) and/or shared external URLs, groups pairs/triples (smallest groups first) with 72px thumbnails, status badge and date gaps; clicking a title opens the article in a dedicated window (face-to-face); AJAX trashing without reload + checkboxes and bulk "Trash" action. Defaults: Titles only, 70%, 12 months. A “🔍 Doublons” button is also available directly in the Posts list, alongside the annual calendar button. See `snippets/canonical/ADMIN 🧰 DETECT - Duplicates Posts - v6.php`.
+- **Search restored** — typing a character on the public site opens Kadence search; the admin bar also has a field to search posts. Clean v5 snippets support LiteSpeed delayed scripts. See `snippets/canonical/POST 🔎 SEARCH - Auto - v5.php` and `snippets/canonical/ADMIN ⚙️ MENUBAR - Search - v5.php`.
 - **Action bar `v4`** — a discreet sticky bar gathers Google News, RSS, Newsletter, fullscreen Diaporama, Scheduled posts, Stats, Ko-fi and Back to top. It stays readable on desktop and scrolls horizontally on mobile. See `snippets/canonical/FRONTEND 🌸 FAB - Hub Flottant - v4.php`.
 
 ## 🧠 Usage
