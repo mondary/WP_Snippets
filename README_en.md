@@ -2,7 +2,7 @@
 
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
-✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.18**.
+✨ WordPress snippet collection focused on admin productivity, publishing, and editorial workflows — version **2026.10.19**.
 
 [Support the project on Ko-fi](https://ko-fi.com/pouark)
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026.10.19] - 2026-10-11
+### Fixed
+- `POST 🔗 LINKS - External Clickable - v3` — **liens cliquables réparés sur les articles** : les URLs externes en texte brut (ex. `https://github.com/…`) n'étaient plus transformées en liens depuis le push du 8 octobre. Diagnostic : le snippet #223 restait `active: true` en ligne mais son code contenait les blocs de métadonnées CLM injectés hors commentaire + une seconde balise `<?php` (ParseError silencieuse dans l'`eval()` du plugin → le filtre `the_content` n'était jamais enregistré). v3 reconstruite propre (code fonctionnel de la v2, headers propres), poussée via REST PATCH sur #223, `php -l` OK. Vérifié en ligne : l'article `switch-un-selecteur-de-fenetres…` sert désormais `<a href target="_blank">` pour `switch-dev.sanyamgarg.com` et `github.com/Sanyam-G/switch`. v2 conservée dans `snippets/canonical/`.
+- Audit complémentaire : 16 autres snippets en ligne portent le même code corrompu (parse error `unexpected token "<"`), dont 7 actifs (`Menu Order Alpha` #204, `Export Markdown RAG` #268, `Readbutton` #284, `Duplicate Post Page` #289, `Snippets Menu` #418, `Posts Submenu` #421, `Display Time` #424 — le temps de lecture est bien absent des pages publiques).
+
 ## [2026.10.18] - 2026-10-09
 ### Fixed
 - `POST 🔎 SEARCH - Auto - v6` — correction d'une course dans la v5 : si Kadence focalise son champ avant la fin de l'animation, les lettres suivantes sont désormais insérées dans le champ après le texte capturé au départ ; le timer d'ouverture ne réécrit plus ensuite le champ et n'efface plus les frappes rapides. Version v5 conservée dans `snippets/canonical/`.
