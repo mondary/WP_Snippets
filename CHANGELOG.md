@@ -1,5 +1,13 @@
 # Changelog
 
+## [2026.10.22] - 2026-10-12
+### Changed
+- **Décisions sur les 9 inactifs corrompus** (nettoyés en 2026.10.21) :
+  - `POST 🦶 FOOTER - Social Ego - v2` (#230) **activé** — footer social restauré : « © 2025 Clement MONDARY » + liens LinkedIn, Facebook, X, Instagram, Bluesky, Mastodon, Threads (vérifié en ligne).
+  - **7 snippets mis à la corbeille en ligne** (`trashed: true`, désactivés) : Scroll To Top - v2 (#234, intégré au FAB), Duplicate Post Page - v3 (#244, remplacé par v4 #289), Search Auto - v4 (#277, remplacée par v6 #437), MENUBAR Search - v4 (#285, remplacée par v5 #436), DIAG Snippets - v1 (#427, remplacé par #247), Super Tracker - v1 (#428, remplacé par 2026.09.1 #291), Preview 13 - v5 (#429).
+  - Archivage local : 6 fichiers déplacés de `snippets/canonical/` vers `snippets/archive/` (Preview 13 - v5 y était déjà).
+- État final en ligne : **66 snippets vivants (41 actifs), 7 en corbeille, 0 parse error**. Page témoin : liens cliquables, temps de lecture, barre de progression, footer social « © Clement MONDARY » et FAB tous présents.
+
 ## [2026.10.21] - 2026-10-12
 ### Changed
 - **Nettoyage des 73 snippets en ligne** : suppression de tout le « blabla » de commentaires (métadonnées CLM `FINAL-CANONICAL-META`, blocs `FEATURES-DESCRIPTION`/`CLASSIFICATION`, anciens headers pullés, balises `<?php` imbriquées). Chaque snippet porte désormais uniquement un header 3 lignes : nom + description simple (1-2 lignes), repris aussi dans le champ `desc` du plugin (visible dans la liste admin). Le code fonctionnel est strictement inchangé — 73/73 validés `php -l` avant push, poussés via REST PATCH avec conservation de l'état actif/inactif. Re-scan final : **73 snippets, 0 parse error, 0 métadonnée CLM restante**. 43 fichiers de `snippets/canonical/` resynchronisés au format léger (correspondances par nom exact ; anciennes versions intouchées).

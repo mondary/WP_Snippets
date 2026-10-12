@@ -1,10 +1,9 @@
 <?php
 /*
- * Display name: TOOL 📄 DIAG - Snippets - v1
- * Scope: global
+ * TOOL 📄 DIAG - Snippets - v1
+ * Diagnostic snippets v1 — remplacé par #247.
  */
 
-<?php
 /*
  * Display name: #🔥 DIAG snippets !!!!!!
  * Source: WordPress (pulled)
@@ -94,7 +93,7 @@ $snippets = $wpdb->get_results("
         .btn-danger:hover { background: #b32d2e; }
     </style>
 </head>
-<body data-rsssl=1>
+<body data-rsssl=1 data-rsssl=1 data-rsssl=1>
     <div class="container">
         <h1>🔍 WP Snippets Performance Diagnostics</h1>
         <p><strong>Généré:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
@@ -401,4 +400,3 @@ $snippets = $wpdb->get_results("
 
 // Arrêter l'exécution normale de WordPress
 die();
-
