@@ -1,12 +1,9 @@
 <?php
 /*
- * Display name: ADMIN ⚙️ MENUBAR - Readbutton - v4
- * Scope: global
+ * ADMIN ⚙️ MENUBAR - Readbutton - v4
+ * Bouton de lecture dans la barre d'administration.
  */
 
-/**
- * Add a custom button to the WordPress admin bar.
- */
 function add_custom_admin_bar_button() {
     global $wp_admin_bar;
 

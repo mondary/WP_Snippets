@@ -1,71 +1,8 @@
 <?php
 /*
- * Display name: ADMIN ⚙️ MENUBAR - Search - v4
- * Scope: global
+ * ADMIN ⚙️ MENUBAR - Search - v4
+ * Recherche admin v4 — remplacée par la v5 (#436).
  */
-
-<?php
-/*
- * Display name: 🧭 ADMIN MENUBAR - Search - v4
- * Source: WordPress (pulled)
- * Online ID: 242
- * Online modified: 2026-05-28 08:27:13
- * Scope: global
- * Active: oui
- */
-
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/global/030__id-57__admin-search.php
- * Display name: ADMIN - Search
- * Scope: global
- * Online snippet: oui
- * Online active: oui
- * Online ID: 57
- * Online modified: 2025-03-07 14:39:59
- * Online revision: 37
- * Exact duplicate group: oui (1d00d17fefa8…, 2 membres)
- * Canonical exact group ID: 93
- * Version family: DUP ADMIN - Search (1 variantes)
- * Version: v4
- * Recommended latest in family: WP_Snippets_Online_Current/active/global/030__id-57__admin-search.php
- * Is family latest: oui
- * Canonical reasons: exact-group-canonical, protected-online-active
- * Features: search-ui, admin-bar, head-injection
- * Dependances probables: WordPress core hooks
- * Hooks WP: admin_bar_menu, wp_head, admin_head
- * Fonctions clefs: ajouter_barre_recherche_admin
- * Lignes / octets (brut): 91 / 3476
- * Hash code normalise (sha256): 1d00d17fefa8407ab5dcf66c2e495938009b78686d8824f1364dbe4913e74ec7
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
- */
-
- * Fichier: ACTIVE__global__admin-search__v2__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-search__v2__src-wp_snippets_online_current.php
- * Resume fonctionnalites: interface de recherche, UI frontend (CSS/HTML), 3 hook(s) WP, 1 fonction(s) clef
- * Features detectees: admin-menubar, search-ui, css-ui, footer-head-injection
- * Dependances probables: WordPress core hooks
- * Hooks WP: admin_bar_menu, wp_head, admin_head
- * Fonctions clefs: ajouter_barre_recherche_admin
- * APIs WP detectees: add_action, add_node, admin_url
- * Signatures contenu: inline-style, html-markup
- * Lignes / octets: 104 / 4090
- * Empreinte code (sha256): ecabed33ecb895aa719a8551b6632940ab38e229f266ff81a60a90252863bf81
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
- * Fichier: ACTIVE__global__admin-search__v2__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-search__v2__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: admin_menubar
- * Clusters secondaires: search_ui
- * Domaine: admin
- * Confiance: high
- * Scores (top): admin_menubar=18, search_ui=10, post_footer_ui=5, frontend_ui_widget=4
- * Raisons principales: admin-menubar, menubar, admin_bar_menu
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
 
 // Ajoute une barre de recherche dans la barre de menu admin de WordPress
 add_action('admin_bar_menu', 'ajouter_barre_recherche_admin', 35);
@@ -144,4 +81,3 @@ add_action('admin_head', function() {
             box-sizing: border-box !important;
     </style>';
 });
-

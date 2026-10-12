@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: ADMIN ✏️ EDITOR - Close Sidebars On Open - v2
- * Scope: admin
+ * ADMIN ✏️ EDITOR - Close Sidebars On Open - v2
+ * Ferme automatiquement les sidebars de Gutenberg à l'ouverture de l'éditeur.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

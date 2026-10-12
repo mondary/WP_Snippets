@@ -1,10 +1,9 @@
 <?php
 /*
- * Display name: TOOL 📊 TRACKING - Super Tracker - v1
- * Scope: global
+ * TOOL 📊 TRACKING - Super Tracker - v1
+ * Super Tracker v1 — remplacé par 2026.09.1 (#291).
  */
 
-<?php
 /*
  * Display name: 📊 SUPER TRACKER OPTIMISÉ
  * Source: WordPress (pulled)
@@ -169,4 +168,3 @@ if (!defined('SUPER_TRACKER_LOADED')) {
     }
     add_action('wp_footer', 'super_tracker_custom_events', 998);
 }
-

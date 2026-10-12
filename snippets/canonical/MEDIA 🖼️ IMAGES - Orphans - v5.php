@@ -1,32 +1,7 @@
 <?php
 /*
- * Display name: MEDIA 🖼️ IMAGES - Orphans - v5
- * Scope: global
- */
-
-/**
- * Plugin Name: Media Library - Usage Audit
- * Description: Colonne "Used In" + index d'usage (featured/content/orphan) avec analyse manuelle par batch. Inclut la taille de la médiathèque.
- * Version: 8.5.0
- *
- * CHANGELOG
- * 8.5.0 - Vue Médiathèque : filtres de vue raccourcis pour tenir sur une ligne ; boutons d’action
- *         ramenés à la taille compacte WordPress, sans gras ni style primaire.
- * 8.4.0 - FR : libellés traduits (filtres, colonne « Utilisée dans », notices), « Analyser l'usage »
- *         et « Recalculer la taille » en véritables boutons WP (class button), séparés visuellement des filtres.
- * 8.3.0 - Fusion taille médiathèque intégrée (plus de doublon), UI allégée (filtres dans dropdown uniquement),
- *         analyse du plus récent au plus ancien (DESC), liens colonne Used In fiabilisés (fallback permalink).
- * 8.2.0 - Barre d'avancement pendant l'analyse (progression lot par lot + auto-continue).
- * 8.1.0 - Liens rapides en notice (filtres + force rebuild) et token rebuild persistant (fix lien expire).
- * 8.0.0 - Filtre Orphan only rendu strict + fusion meta_query admin pour eviter les conflits.
- * 7.1.0 - Ajout d'un lien permanent "Analyze Usage" dans la barre des vues de la mediatheque.
- * 7.0.0 - Acceleration filtre (meta_query), liens de filtres visibles, analyse en cache.
- * 6.0.0 - Version stable: analyse par batch manuel, affichage rapide depuis cache, filtre orphan/used/featured/content.
- * 5.0.0 - Suppression forcee des colonnes MLA en JS + force affichage colonne Used In.
- * 4.0.0 - Compatibilite PHP 7.4+, priorite maximale des colonnes, fallback CSS pour masquer colonnes MLA.
- * 3.0.0 - Unification du nom de snippet, suppression robuste des colonnes MLA, ajout filtre Orphan/Used/Featured/Content.
- * 2.0.0 - Ajout audit d'usage media (featured + content + orphan) avec colonnes dediees.
- * 1.0.0 - Premiere tentative basee MLA (taxonomies + meta), retiree du canonical.
+ * MEDIA 🖼️ IMAGES - Orphans - v5
+ * Audit d'usage de la médiathèque : orphelins, filtres, recalcul des tailles.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -604,4 +579,3 @@ if ( ! function_exists( 'clm_media_usage_v7_boot' ) ) {
         exit;
     }
 }
-

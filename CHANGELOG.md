@@ -1,5 +1,12 @@
 # Changelog
 
+## [2026.10.21] - 2026-10-12
+### Changed
+- **Nettoyage des 73 snippets en ligne** : suppression de tout le « blabla » de commentaires (métadonnées CLM `FINAL-CANONICAL-META`, blocs `FEATURES-DESCRIPTION`/`CLASSIFICATION`, anciens headers pullés, balises `<?php` imbriquées). Chaque snippet porte désormais uniquement un header 3 lignes : nom + description simple (1-2 lignes), repris aussi dans le champ `desc` du plugin (visible dans la liste admin). Le code fonctionnel est strictement inchangé — 73/73 validés `php -l` avant push, poussés via REST PATCH avec conservation de l'état actif/inactif. Re-scan final : **73 snippets, 0 parse error, 0 métadonnée CLM restante**. 43 fichiers de `snippets/canonical/` resynchronisés au format léger (correspondances par nom exact ; anciennes versions intouchées).
+### Fixed
+- **Progress bar réactivée** : `POST 🦶 FOOTER - Progress Bar - v2` (#233) — code corrompu nettoyé + **activation réussie via REST** (première activation API qui passe : le code propre satisfait la validation du plugin). Vérifié en ligne : la barre de progression de lecture (`reading-progress`) est servie sur les pages publiques. Les 8 autres inactifs corrompus (#230, #234, #244, #277, #285, #427, #428, #429) ont été nettoyés également mais laissés inactifs (supplantés ou intégrés au FAB).
+- Vérifications croisées post-nettoyage sur l'article « switch-un-selecteur… » : liens cliquables ✅, temps de lecture ✅, barre de progression ✅, FAB ✅, aucun fatal.
+
 ## [2026.10.20] - 2026-10-12
 ### Fixed
 - **Réparation en masse des 7 snippets actifs au code corrompu** (même cause que la 2026.10.19 : métadonnées CLM injectées hors commentaire + seconde balise `<?php` → ParseError silencieuse dans l'`eval()` du plugin, snippet `active: true` mais code jamais exécuté). Code fonctionnel extrait du code en ligne, headers reconstruits propres, `php -l` OK, poussé via REST PATCH sur les mêmes IDs avec `active: true`, vérifié en re-scan : **0 snippet actif cassé restant** (9 inactifs corrompus restants, sans impact service).

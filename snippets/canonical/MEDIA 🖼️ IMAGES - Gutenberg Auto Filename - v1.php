@@ -1,16 +1,7 @@
 <?php
 /*
- * Display name: MEDIA 🖼️ IMAGES - Gutenberg Auto Filename - v1
- * Scope: global
- */
-
-/**
- * Plugin Name: Gutenberg Auto Image Filename
- * Description: Renomme les images collees dans Gutenberg a partir du titre de l'article.
- * Version: 1.0.0
- *
- * Exemple : titre "Google Chrome" + image.png => google-chrome.png.
- * En cas de doublon, WordPress ajoute automatiquement -1, -2, etc.
+ * MEDIA 🖼️ IMAGES - Gutenberg Auto Filename - v1
+ * Renomme automatiquement les fichiers médias uploadés via Gutenberg.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

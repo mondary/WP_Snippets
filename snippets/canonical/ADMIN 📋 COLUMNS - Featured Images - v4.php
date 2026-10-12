@@ -1,12 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 📋 COLUMNS - Featured Images - v4
- * Scope: global
- *
- * v4:
- * - Colonne featured image dans la liste des articles.
- * - Bouton "Supprimer image" directement sous l'image.
- * - Supprime le media associé (attachment + fichier), sans ouvrir l'article.
+ * ADMIN 📋 COLUMNS - Featured Images - v4
+ * Colonne image mise en avant dans la liste des articles + suppression du média orphelin.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

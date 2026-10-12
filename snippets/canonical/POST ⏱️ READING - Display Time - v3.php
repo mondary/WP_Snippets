@@ -1,11 +1,7 @@
 <?php
 /*
- * Display name: POST ⏱️ READING - Display Time - v3
- * Scope: global
- * Repare: v2 en ligne corrompue (metadonnees hors commentaire + double <?php
- *         -> ParseError silencieuse). Le code v2 etait aussi un echo nu au
- *         niveau global, dont la sortie n'atteignait jamais la page : la v3
- *         affiche le temps de lecture via un filtre the_content.
+ * POST ⏱️ READING - Display Time - v3
+ * Affiche « ⏱️ Temps de lecture estimé » en tête des articles.
  */
 
 add_filter( 'the_content', 'clm_reading_time_display', 20 );

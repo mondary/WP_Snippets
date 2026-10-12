@@ -1,10 +1,9 @@
 <?php
 /*
- * Display name: ADMIN 🧰 TOOL - Duplicate Post Page - v4
- * Scope: global
+ * ADMIN 🧰 TOOL - Duplicate Post Page - v4
+ * Duplique articles et pages en un clic depuis les listes admin.
  */
 
-// Add duplicate button to post/page list of actions.
 add_filter( 'post_row_actions', 'wpcode_snippet_duplicate_post_link', 10, 2 );
 add_filter( 'page_row_actions', 'wpcode_snippet_duplicate_post_link', 10, 2 );
 

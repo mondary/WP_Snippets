@@ -1,43 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 🧰 DETECT - Duplicates Posts - v6
- * Scope: global
- *
- * v6:
- * - Bouton « 🔍 Doublons » directement sur la liste des articles (edit.php)
- * - Le lien « Calendrier annuel » de la même ligne est stylé en vrai bouton (cohérence visuelle)
- *
- * v5:
- * - Groupes triés du plus petit au plus grand (paires d'abord, gros groupes en dernier)
- * - Filtre « Écart max » : option « Même jour » (écart 0 = vrai problème de programmation)
- * - Dates au format AAAA/MM/JJ HH:MM (plus lisible et triable)
- * - Écart recalculé en jours calendaires (deux articles du même soir = 0 jour)
- *
- * v4:
- * - Suppression en AJAX : plus de rechargement, la position de défilement est conservée
- * - Cases à cocher par article + sélection par groupe, action groupée « Corbeille »
- * - Bouton « Pré-cocher les doublons » (coche tout sauf la référence de chaque groupe)
- *
- * v3:
- * - Vignettes plus grandes (72px), format standard sans effets de style
- * - Ordre des colonnes : Titre (avec vignette) > Statut > Date > Écart > Pourquoi > Actions
- * - Clic sur un titre = ouverture de l'article dans une fenêtre dédiée (face à face)
- * - Libellé du menu : « Doublons 🔍 » (emoji à droite)
- * - Nouveau filtre « Écart max » (7 jours / 1 mois / 3 mois / 6 mois) sur l'écart avec la référence
- *
- * v2:
- * - Défauts revus après premier usage : méthode « Titres seulement », seuil 70 %, période 12 mois
- * - Seuil réglable de 70 % à 100 % par paliers de 5
- * - Miniature de l'image mise en avant devant chaque titre
- * - Clic sur un titre = ouvrir l'article dans un nouvel onglet (comparaison face à face)
- *
- * v1:
- * - Page « Doublons » sous le menu Articles (admin.php?page=clm-duplicates)
- * - Détection par similarité de titre (tokens normalisés FR : accents, pluriels et mots vides ignorés)
- *   et/ou URLs externes communes dans le contenu des articles
- * - Groupes (paires, triplons…) avec écart de dates, actions Modifier / Voir / Corbeille
- * - Filtres : méthode (titres / URLs / les deux), seuil, période, statuts
- * - Aucune suppression automatique : l'outil liste, vous décidez
+ * ADMIN 🧰 DETECT - Duplicates Posts - v6
+ * Page « Doublons 🔍 » : similarité titres/URLs, face à face, corbeille AJAX.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -853,6 +817,3 @@ add_action( 'admin_post_clm_dup_trash', function () {
 	wp_safe_redirect( add_query_arg( 'clm_dup_trashed', '1', $back ) );
 	exit;
 } );
-
-
-

@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: FRONTEND 📄 PAGINATION - Jump Select - v3
- * Scope: global
+ * FRONTEND 📄 PAGINATION - Jump Select - v3
+ * Points de suspension de pagination cliquables : popover de saut direct à une page.
  */
 
 if (!defined('ABSPATH')) exit;

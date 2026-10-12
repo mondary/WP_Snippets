@@ -1,8 +1,9 @@
 <?php
 /*
- * Display name: ADMIN 🔧 SETTINGS - Fusion OutilsReglages - v1
- * Scope: global
+ * ADMIN 🔧 SETTINGS - Fusion OutilsReglages - v1
+ * Fusionne les menus Outils et Réglages en une seule entrée admin.
  */
+
 if (!defined('ABSPATH')) exit;
 if (!function_exists('clm_merge_tools_into_settings_v4')) {
 function clm_merge_tools_into_settings_v4() {

@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: ADMIN ⚙️ MENUBAR - Search - v5
- * Scope: global
+ * ADMIN ⚙️ MENUBAR - Search - v5
+ * Recherche globale des articles dans la barre d'administration.
  */
 
 if (!defined('ABSPATH')) exit;

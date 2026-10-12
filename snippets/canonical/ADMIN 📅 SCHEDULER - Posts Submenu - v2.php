@@ -1,12 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 📅 SCHEDULER - Posts Submenu - v2
- * Scope: global
- */
-
-/**
- * Ajoute un sous-menu « Articles planifiés » dans la colonne latérale gauche,
- * sous le menu Articles. Affiche un badge avec le nombre d'articles planifiés.
+ * ADMIN 📅 SCHEDULER - Posts Submenu - v2
+ * Sous-menu « Articles planifiés » sous Articles, avec badge compteur.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

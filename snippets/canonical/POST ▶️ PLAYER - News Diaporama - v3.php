@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: POST ▶️ PLAYER - News Diaporama - v3
- * Scope: global
+ * POST ▶️ PLAYER - News Diaporama - v3
+ * Overlay « Lire en diaporama » : défilement automatique des articles du site.
  */
 
 if (!defined('ABSPATH')) exit;

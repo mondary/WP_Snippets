@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: FRONTEND 📄 PAGINATION - Jump Select - v2
- * Scope: global
+ * FRONTEND 📄 PAGINATION - Jump Select - v2
+ * Pagination Jump Select v2 (doublon) — remplacé par la v3 (#434).
  */
 
 if (!defined('ABSPATH')) exit;

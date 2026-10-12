@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: FRONTEND 📊 STATS - Site Stats Page - 2026.09.11
- * Scope: global
+ * FRONTEND 📊 STATS - Site Stats Page - 2026.09.11
+ * Page Statistiques : vues/visiteurs agrégés, graphiques annuels, import CSV.
  */
 
 if (!defined('ABSPATH')) exit;

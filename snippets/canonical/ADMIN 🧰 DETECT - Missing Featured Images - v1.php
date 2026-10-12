@@ -1,12 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 🧰 DETECT - Missing Featured Images - v1
- * Scope: global
- *
- * v1:
- * - Filtre dans la liste des articles (Avec / Sans image mise en avant)
- * - Sous-menu "Sans image" avec compteur sous Articles
- * - Page dédiée listant les articles publiés sans image mise en avant
+ * ADMIN 🧰 DETECT - Missing Featured Images - v1
+ * Détection des articles sans image mise en avant : filtre de liste + sous-menu « Sans image ».
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

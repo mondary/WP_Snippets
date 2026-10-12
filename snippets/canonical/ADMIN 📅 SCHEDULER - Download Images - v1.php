@@ -1,72 +1,9 @@
 <?php
 /*
- * Display name: ADMIN 📅 SCHEDULER - Download Images - v1
- * Scope: global
+ * ADMIN 📅 SCHEDULER - Download Images - v1
+ * Téléchargement d'images distantes — ancien nom, service assuré par #211.
  */
 
-/* CLM-CREATED-AT: 2026-02-25 */
-/* FINAL-CANONICAL-META
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/global/068__id-127__admin-download-images.php
- * Display name: ADMIN - Download images
- * Scope: global
- * Online snippet: oui
- * Online active: oui
- * Online ID: 127
- * Online modified: 2025-08-17 10:20:09
- * Online revision: 3
- * Exact duplicate group: non
- * Version family: ADMIN - Download images (1 variantes)
- * Version: v1
- * Recommended latest in family: WP_Snippets_Online_Current/active/global/068__id-127__admin-download-images.php
- * Is family latest: oui
- * Canonical reasons: unique-code, protected-online-active
- * Features: snippet-php
- * Dependances probables: WordPress core hooks
- * Hooks WP: save_post, admin_notices, admin_menu
- * Fonctions clefs: mondary_auto_download_images, mondary_is_local_image, mondary_download_external_image, mondary_images_download_notice
- * Lignes / octets (brut): 224 / 7870
- * Hash code normalise (sha256): 491b5e932c2cd34abc21d91970eb7d3fcd002482a9974a84d487951a23b37116
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
- */
-
-/* CLM-FEATURES-DESCRIPTION:START
- * Fichier: ACTIVE__global__admin-download-images__v1__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-download-images__v1__src-wp_snippets_online_current.php
- * Resume fonctionnalites: customisation interface admin, automatisation date/programmation, 3 hook(s) WP, 4 fonction(s) clef
- * Features detectees: admin-ui, scheduler-date, svg-ui, cache-transient
- * Dependances probables: WordPress core hooks
- * Hooks WP: save_post, admin_notices, admin_menu
- * Fonctions clefs: mondary_auto_download_images, mondary_is_local_image, mondary_download_external_image, mondary_images_download_notice
- * APIs WP detectees: add_action, wp_is_post_revision, wp_is_post_autosave, wp_get_attachment_url, wp_update_post, get_site_url, wp_remote_get, get_bloginfo, is_wp_error, wp_remote_retrieve_body, wp_upload_bits, wp_check_filetype, wp_insert_attachment, wp_generate_attachment_metadata, wp_update_attachment_metadata … (+3)
- * Signatures contenu: html-markup
- * Lignes / octets: 236 / 8496
- * Empreinte code (sha256): 4f9277bfc29ce7c07e6396b52fcff8d73208d566f47e3572c8cb5ecde43e32a8
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
-/* CLM-FEATURE-CLASSIFICATION:START
- * Fichier: ACTIVE__global__admin-download-images__v1__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__admin-download-images__v1__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: scheduler_posts
- * Clusters secondaires: performance_optimization, admin_ui_settings, media_images
- * Domaine: global
- * Confiance: medium
- * Scores (top): scheduler_posts=8, performance_optimization=5, admin_ui_settings=4, media_images=4, frontend_ui_widget=2
- * Raisons principales: scheduler-date, schedule
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
-
-/**
- * Auto-download external images to media library
- * Ce snippet télécharge automatiquement toutes les images externes 
- * lors de la sauvegarde d'un article et met à jour les URLs
- */
-
-// Hook sur la sauvegarde des articles
 add_action('save_post', 'mondary_auto_download_images', 10, 2);
 
 function mondary_auto_download_images($post_id, $post) {
@@ -270,4 +207,3 @@ add_action('admin_menu', function() {
         }
     );
 });
-

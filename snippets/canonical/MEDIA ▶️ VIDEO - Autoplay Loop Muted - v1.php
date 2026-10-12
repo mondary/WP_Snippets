@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: MEDIA ▶️ VIDEO - Autoplay Loop Muted - v1
- * Scope: global
+ * MEDIA ▶️ VIDEO - Autoplay Loop Muted - v1
+ * Vidéos des articles en autoplay, boucle et muet.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

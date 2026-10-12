@@ -1,8 +1,7 @@
 <?php
-
 /*
- * Display name: ADMIN 📅 SCHEDULER - Editor Next Free Slot - v5
- * Scope: admin
+ * ADMIN 📅 SCHEDULER - Editor Next Free Slot - v5
+ * Sélectionne le prochain créneau libre comme date de publication dans Gutenberg.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -467,4 +466,3 @@ JS;
     wp_add_inline_script( 'wp-edit-post', $script, 'after' );
 }
 add_action( 'admin_enqueue_scripts', 'clm_editor_enqueue_next_free_slot_script' );
-

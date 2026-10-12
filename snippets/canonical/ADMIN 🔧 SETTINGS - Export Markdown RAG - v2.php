@@ -1,12 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 🔧 SETTINGS - Export Markdown RAG - v2
- * Scope: global
- */
-
-/**
- * Export WordPress posts as one Markdown file per article (ZIP) for RAG ingestion.
- * UI: button on wp-admin/edit.php (Articles list).
+ * ADMIN 🔧 SETTINGS - Export Markdown RAG - v2
+ * Bouton « Export Markdown (RAG) » dans Articles : ZIP d'un fichier .md par article.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

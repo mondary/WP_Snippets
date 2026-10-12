@@ -1,36 +1,9 @@
 <?php
 /*
- * Display name: 🧭 ADMIN MENUBAR - Futur Menubar - v4
- * Scope: global
+ * 🧭 ADMIN MENUBAR - Futur Menubar - v4
+ * Aperçu des articles programmés (/?future_site=1) : icône fusée admin + paywall premium.
  */
 
-/**
- * Futur site v4 — aperçu des articles programmés, réservé aux membres premium.
- *
- * Admin : Articles > Futur site (+ icône fusée dans la barre d'admin)
- * Front : /?future_site=1
- *
- * v4 (base v3, retour au canonique) :
- *   - Le garde-fou n'est plus admin-only : accès si admin (manage_options)
- *     OU si le compte porte un rôle premium ($FS_PREMIUM_ROLES ci-dessous,
- *     filtrable via le filtre fs_futur_premium_roles). AJUSTER le slug du
- *     rôle attribué aux abonnés après paiement.
- *   - Les non-abonnés qui ouvrent /?future_site=1 ne voient plus une 404
- *     mais un PAYWALL (CTA vers /abonnement/ + retour au présent).
- *   - Les abonnés voient la home avec les articles 'future' inclus et le
- *     bandeau « Bienvenue dans la version spoiler du site ».
- *
- * Entrée publique : la ligne « Articles programmés » du FAB Hub Flottant v10.
- * Hooks WP: admin_menu, admin_init, template_redirect, show_admin_bar, pre_get_posts, admin_bar_menu, wp_body_open, wp_footer
- */
-
-/**
- * Configuration :
- * - manage_options : les admins passent toujours
- * - $FS_PREMIUM_ROLES : rôles WP attribués aux abonnés payants.
- *   AJUSTER si le slug diffère (ex. 'premium_member', 'abonne', 'customer').
- *   Extensible via add_filter('fs_futur_premium_roles', fn($r) => [...]);
- */
 $FS_CAP = 'manage_options';
 
 /**
@@ -134,7 +107,7 @@ add_action('template_redirect', function () {
         .fs-paywall__back:hover{border-color:rgba(226,232,240,.5)}
     </style>
 </head>
-<body>
+<body data-rsssl=1 data-rsssl=1>
     <main class="fs-paywall">
         <span class="fs-paywall__badge">🚀 FUTUR SITE</span>
         <h1>Le futur vous attend…<br>mais il est réservé aux membres premium.</h1>

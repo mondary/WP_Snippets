@@ -1,16 +1,7 @@
 <?php
 /*
- * Display name: ADMIN ⚙️ MENUBAR - Articles publiés & manqués - v1
- * Scope: global
- */
-
-/**
- * Ajoute quatre sous-menus sous Articles :
- * 1. Publiés    → lien direct vers la liste filtrée (statut publish)
- * 2. Planifiés  → lien direct vers la liste filtrée (statut future)
- * 3. Manqués    → page dédiée listant les articles dont la date
- *    de publication programmée est dépassée sans avoir été publiés
- * 4. Brouillons → lien direct vers la liste filtrée (statut draft)
+ * ADMIN ⚙️ MENUBAR - Articles publiés & manqués - v1
+ * Menu admin « Aujourd'hui » : articles publiés et créneaux manqués du jour.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

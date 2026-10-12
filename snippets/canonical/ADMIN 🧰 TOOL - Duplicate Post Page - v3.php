@@ -1,71 +1,8 @@
 <?php
 /*
- * Display name: ADMIN 🧰 TOOL - Duplicate Post Page - v3
- * Scope: global
+ * ADMIN 🧰 TOOL - Duplicate Post Page - v3
+ * Duplication articles/pages v3 — remplacé par la v4 (#289).
  */
-
-<?php
-/*
- * Display name: 🧰 UTILITIES - Admin List Duplicate Post Page - v3
- * Source: WordPress (pulled)
- * Online ID: 244
- * Online modified: 2026-05-28 08:27:14
- * Scope: admin
- * Active: oui
- */
-
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/admin/002__id-6__admin-list-duplicate-post-page.php
- * Display name: ADMIN - List Duplicate Post/Page
- * Scope: admin
- * Online snippet: oui
- * Online active: oui
- * Online ID: 6
- * Online modified: 2025-02-10 17:39:19
- * Online revision: 5
- * Exact duplicate group: oui (c6b485d1fb4c…, 3 membres)
- * Canonical exact group ID: 75
- * Version family: DUP ADMIN - List Duplicate Post/Page (1 variantes)
- * Version: v3
- * Recommended latest in family: WP_Snippets_Online_Current/active/admin/002__id-6__admin-list-duplicate-post-page.php
- * Is family latest: oui
- * Canonical reasons: exact-group-canonical, protected-online-active
- * Features: snippet-php
- * Dependances probables: WordPress core hooks
- * Hooks WP: post_row_actions, page_row_actions, admin_action_wpcode_snippet_duplicate_post
- * Fonctions clefs: wpcode_snippet_duplicate_post_link
- * Lignes / octets (brut): 131 / 4187
- * Hash code normalise (sha256): c6b485d1fb4c6893208ff7ede5f555193aa6862a9100004ee51779f534cdd170
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
- */
-
- * Fichier: ACTIVE__admin__admin-list-duplicate-post-page__v3__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-list-duplicate-post-page__v3__src-wp_snippets_online_current.php
- * Resume fonctionnalites: 3 hook(s) WP, 1 fonction(s) clef
- * Features detectees: snippet-php
- * Dependances probables: WordPress core hooks
- * Hooks WP: post_row_actions, page_row_actions, admin_action_wpcode_snippet_duplicate_post
- * Fonctions clefs: wpcode_snippet_duplicate_post_link
- * APIs WP detectees: add_filter, get_post_type_object, wp_nonce_url, add_query_arg, add_action, wp_die, wp_verify_nonce, get_post, wp_get_current_user, wp_insert_post, get_object_taxonomies, get_post_type, wp_get_object_terms, wp_set_object_terms, get_post_meta … (+3)
- * Signatures contenu: html-markup
- * Lignes / octets: 144 / 4857
- * Empreinte code (sha256): 09bc73132e0ce12e0eeb62b327e656eafc8cb30382a55243c635c0c7abc36948
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
- * Fichier: ACTIVE__admin__admin-list-duplicate-post-page__v3__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__admin__admin-list-duplicate-post-page__v3__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: misc_utilities
- * Clusters secondaires: aucun
- * Domaine: post-front
- * Confiance: low
- * Scores (top): misc_utilities=1
- * Raisons principales: fallback
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
 
 // Add duplicate button to post/page list of actions.
 add_filter( 'post_row_actions', 'wpcode_snippet_duplicate_post_link', 10, 2 );
@@ -184,4 +121,3 @@ add_action( 'admin_action_wpcode_snippet_duplicate_post', function () {
 		wp_die( 'Error loading post for duplication, please try again.' );
 	}
 } );
-

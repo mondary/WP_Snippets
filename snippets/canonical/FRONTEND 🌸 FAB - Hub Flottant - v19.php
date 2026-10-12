@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: FRONTEND 🌸 FAB - Hub Flottant - v19
- * Scope: global
+ * FRONTEND 🌸 FAB - Hub Flottant - v19
+ * Hub flottant latéral : Google News, stats, Ko-fi, newsletter, diaporama, GTranslate.
  */
 
 if (!defined('ABSPATH')) exit;

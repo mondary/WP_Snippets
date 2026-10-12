@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: FRONTEND 📊 CURSOR - Live Cursors - 2026.09.16
- * Scope: global
+ * FRONTEND 📊 CURSOR - Live Cursors - 2026.09.16
+ * Curseurs des visiteurs affichés en direct sur le site.
  */
 
 if (!defined('ABSPATH')) exit;

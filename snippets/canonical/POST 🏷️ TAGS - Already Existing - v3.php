@@ -1,66 +1,9 @@
 <?php
 /*
- * Display name: POST 🏷️ TAGS - Already Existing - v3
- * Scope: global
+ * POST 🏷️ TAGS - Already Existing - v3
+ * Tags déjà existants v3 (canonique) — service assuré par #210.
  */
 
-/* CLM-CREATED-AT: 2026-02-25 */
-/* FINAL-CANONICAL-META
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/global/004__id-9__post-already-existing-tags.php
- * Display name: POST - Already existing tags
- * Scope: global
- * Online snippet: oui
- * Online active: oui
- * Online ID: 9
- * Online modified: 2024-12-06 15:37:09
- * Online revision: 3
- * Exact duplicate group: non
- * Version family: POST - Already existing tags (1 variantes)
- * Version: v3
- * Recommended latest in family: WP_Snippets_Online_Current/active/global/004__id-9__post-already-existing-tags.php
- * Is family latest: oui
- * Canonical reasons: unique-code, protected-online-active
- * Features: snippet-php
- * Dependances probables: WordPress core hooks
- * Hooks WP: wp_after_insert_post, wp_insert_post
- * Fonctions clefs: aet_included_categories, aet_halt, aet_tagging
- * Lignes / octets (brut): 91 / 3829
- * Hash code normalise (sha256): aec0e30fa0f07b37c4f69865d6721ad4e1f3447aa2cc76f74fdeca1f4b508254
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
- */
-
-/* CLM-FEATURES-DESCRIPTION:START
- * Fichier: ACTIVE__global__post-already-existing-tags__v1__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-already-existing-tags__v1__src-wp_snippets_online_current.php
- * Resume fonctionnalites: 2 hook(s) WP, 3 fonction(s) clef
- * Features detectees: snippet-php
- * Dependances probables: WordPress core hooks
- * Hooks WP: wp_after_insert_post, wp_insert_post
- * Fonctions clefs: aet_included_categories, aet_halt, aet_tagging
- * APIs WP detectees: get_option, get_post, get_the_terms, wp_list_pluck, wp_strip_all_tags, get_post_field, get_terms, wp_delete_object_term_relationships, wp_set_post_terms, add_action
- * Signatures contenu: aucune signature notable
- * Lignes / octets: 103 / 4372
- * Empreinte code (sha256): 4fe272cb1a38b529b4ffec38ed581b4ff2646d309651ebcefdbe11b1a6fe1123
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
-/* CLM-FEATURE-CLASSIFICATION:START
- * Fichier: ACTIVE__global__post-already-existing-tags__v1__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-already-existing-tags__v1__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: taxonomy_tags
- * Clusters secondaires: post_footer_ui
- * Domaine: post-front
- * Confiance: high
- * Scores (top): taxonomy_tags=10, post_footer_ui=5
- * Raisons principales: tags, already existing tags
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
-
-// Selectionne les bons tags pour votre article, parmis les tags deja existants
 defined( 'ABSPATH' ) || die( 'Cannot access pages directly.' );
 
 // Fonction pour récupérer les catégories incluses dans les options
@@ -137,4 +80,3 @@ if ( get_option( 'aet_turn_on' ) && ! aet_halt() ) {
         add_action( 'wp_insert_post', 'aet_tagging' );
     }
 }
-

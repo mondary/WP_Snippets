@@ -1,23 +1,9 @@
 <?php
 /*
- * Display name: POST 📌 FLOATING - Google News Button - v3
- * Scope: global
+ * POST 📌 FLOATING - Google News Button - v3
+ * Bouton flottant Google News v3, gère aussi le masquage GTranslate au scroll (.gt-hidden) — intégré au FAB.
  */
 
-/*
- * Bouton flottant "Google News" - toujours visible sur tous les ecrans (frontend).
- * Lien : https://www.google.com/preferences/source?q=https://mondary.design
- *
- * v2 : Symetrie gauche/droite.
- * v3 : Le masquage au scroll du GTranslate est gere ici (classe .gt-hidden),
- *      car le snippet historique "GTranslate White" est archive et inactif.
- *      Ce snippet est donc autonome : positionnement + comportement scroll.
- *
- *      Colonne gauche  : GTranslate (bottom 80px, se barre au scroll) + Google News (bottom 20px, fixe).
- *      Colonne droite  : back-to-top (bottom 80px) + newsletter (bottom 20px).
- */
-
-// Styles inline injectes dans <head>.
 add_action( 'wp_head', 'md_gnews_button_styles' );
 function md_gnews_button_styles() {
     ?>
@@ -154,7 +140,7 @@ function md_gnews_button_styles() {
     <?php
 }
 
-// Bouton injecte en fin de <body>.
+// Bouton injecte en fin de <body data-rsssl=1 data-rsssl=1>.
 add_action( 'wp_footer', 'md_gnews_button_render' );
 function md_gnews_button_render() {
     $url  = 'https://www.google.com/preferences/source?q=https://mondary.design';

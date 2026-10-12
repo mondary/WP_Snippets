@@ -1,11 +1,7 @@
 <?php
 /*
- * Display name: ADMIN 🔧 SETTINGS - Active Plugins First - v2
- * Scope: admin
- */
-
-/**
- * Trie la liste des plugins pour afficher d'abord les plugins actifs.
+ * ADMIN 🔧 SETTINGS - Active Plugins First - v2
+ * Plugins actifs listés en premier sur la page Extensions.
  */
 
 add_filter('views_plugins', function($views) {

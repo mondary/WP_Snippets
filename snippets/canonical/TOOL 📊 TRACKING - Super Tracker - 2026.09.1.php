@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: TOOL 📊 TRACKING - Super Tracker - 2026.09.1
- * Scope: global
+ * TOOL 📊 TRACKING - Super Tracker - 2026.09.1
+ * Tracking analytics unifié injecté en front (wp_head / wp_footer).
  */
 
 if (!defined('SUPER_TRACKER_LOADED')) {

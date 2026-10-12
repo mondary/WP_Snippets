@@ -1,14 +1,9 @@
 <?php
 /*
- * Display name: ADMIN 🔧 SETTINGS - Menu Order Alpha - v3
- * Scope: global
+ * ADMIN 🔧 SETTINGS - Menu Order Alpha - v3
+ * Page Réglages « Ordre du Menu » : tri du menu admin normal, alphabétique ou extensions regroupées.
  */
 
-/**
- * Plugin pour trier le menu admin WordPress avec options et gestion des extensions.
- */
-
-// Ajouter une entrée dans le menu Réglages
 add_action('admin_menu', function() {
     add_options_page(
         'Ordre du Menu', // Titre de la page

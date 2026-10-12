@@ -1,12 +1,7 @@
 <?php
 /*
- * Display name: ADMIN ⚙️ MENUBAR - Snippets Menu - v3
- * Scope: global
- */
-
-/**
- * Ajoute un bouton avec une icône de ciseaux dans la barre d'administration
- * menant vers la page des snippets WPCode
+ * ADMIN ⚙️ MENUBAR - Snippets Menu - v3
+ * Icône « snippets » dans la barre d'admin vers la page Code Snippets.
  */
 
 add_action('admin_bar_menu', function($admin_bar) {

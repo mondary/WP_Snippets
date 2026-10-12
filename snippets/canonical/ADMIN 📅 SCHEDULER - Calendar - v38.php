@@ -1,10 +1,9 @@
 <?php
 /*
- * Display name: ADMIN 📅 SCHEDULER - Calendar - v38
- * Scope: global
+ * ADMIN 📅 SCHEDULER - Calendar - v38
+ * Calendrier éditorial annuel : drag & drop, créneaux, réallocation brouillons, quota du jour.
  */
 
-// Assurez-vous que le script ne peut être exécuté que dans WordPress
 if (!defined('ABSPATH')) exit;
 
 // Ajout des scripts nécessaires

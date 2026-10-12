@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: POST 🔎 SEARCH - Auto - v5
- * Scope: global
+ * POST 🔎 SEARCH - Auto - v5
+ * Recherche clavier v5 — remplacée par la v6 (#437).
  */
 
 if (!defined('ABSPATH')) exit;

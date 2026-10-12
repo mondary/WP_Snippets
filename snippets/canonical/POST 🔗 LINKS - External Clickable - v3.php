@@ -1,10 +1,7 @@
 <?php
 /*
- * Display name: POST 🔗 LINKS - External Clickable - v3
- * Scope: global
- * Repare: code en ligne v2 corrompu (double <?php + metadonnees hors commentaire
- *         -> ParseError silencieuse, filtre the_content jamais enregistre).
- *         v3 = code fonctionnel de la v2, headers propres.
+ * POST 🔗 LINKS - External Clickable - v3
+ * Rend cliquables toutes les URLs https:// en texte brut dans les articles et pages (nouvel onglet).
  */
 
 add_filter('the_content', 'rendre_liens_https_cliquables');

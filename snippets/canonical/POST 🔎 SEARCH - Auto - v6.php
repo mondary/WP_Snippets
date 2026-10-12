@@ -1,7 +1,7 @@
 <?php
 /*
- * Display name: POST 🔎 SEARCH - Auto - v6
- * Scope: global
+ * POST 🔎 SEARCH - Auto - v6
+ * Une frappe de lettre sur le site ouvre la recherche Kadence (compatible LiteSpeed).
  */
 
 if (!defined('ABSPATH')) exit;

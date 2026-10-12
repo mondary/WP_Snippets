@@ -1,72 +1,8 @@
 <?php
 /*
- * Display name: POST 🦶 FOOTER - Social Ego - v2
- * Scope: global
+ * POST 🦶 FOOTER - Social Ego - v2
+ * Boutons sociaux « ego » en pied d'article (X, LinkedIn…) — délégué au FAB.
  */
-
-<?php
-/*
- * Display name: 🦶 POST FOOTER - Footer Social Ego - v2
- * Source: WordPress (pulled)
- * Online ID: 230
- * Online modified: 2026-05-28 08:27:10
- * Scope: global
- * Active: oui
- */
-
- * Role final: canonical
- * Source root: WP_Snippets_Online_Current
- * Source path: WP_Snippets_Online_Current/active/global/036__id-76__post-footer-social-ego.php
- * Display name: POST - Footer Social + Ego
- * Scope: global
- * Online snippet: oui
- * Online active: oui
- * Online ID: 76
- * Online modified: 2025-04-07 09:14:01
- * Online revision: 4
- * Exact duplicate group: oui (fc7cdf89b588…, 2 membres)
- * Canonical exact group ID: 98
- * Version family: DUP POST - Footer Social + Ego (1 variantes)
- * Version: v2
- * Recommended latest in family: WP_Snippets_Online_Current/active/global/036__id-76__post-footer-social-ego.php
- * Is family latest: oui
- * Canonical reasons: exact-group-canonical, protected-online-active
- * Features: head-injection, footer-injection
- * Dependances probables: Font Awesome
- * Hooks WP: wp_head, wp_enqueue_scripts, wp_footer
- * Fonctions clefs: render_combined_footer
- * Lignes / octets (brut): 214 / 9317
- * Hash code normalise (sha256): fc7cdf89b588c2ee9e9abde7c6d9f42480aa8e5dd8feadf0dd2bbabec7153451
- * Genere le (UTC): 2026-02-24T16:05:10+00:00
- */
-
- * Fichier: ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
- * Resume fonctionnalites: flux RSS, UI frontend (CSS/HTML), 3 hook(s) WP, 1 fonction(s) clef
- * Features detectees: rss, css-ui, footer-head-injection, svg-ui
- * Dependances probables: WordPress core hooks
- * Hooks WP: wp_head, wp_enqueue_scripts, wp_footer
- * Fonctions clefs: render_combined_footer
- * Selecteurs / IDs: #FE7676
- * APIs WP detectees: add_action, wp_enqueue_style
- * Signatures contenu: inline-style, inline-script, html-markup
- * Lignes / octets: 227 / 9952
- * Empreinte code (sha256): 33df3b63db0df030d6204f70677b6d5b252c481f7584783e67cae5a9f183c3d1
- * Description generee le (UTC): 2026-02-24T16:39:50+00:00
- * CLM-FEATURES-DESCRIPTION:END */
-
- * Fichier: ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
- * Path: WP_Snippets_FINAL_CLEAN/canonical/ACTIVE__global__post-footer-social-ego__v2__src-wp_snippets_online_current.php
- * Bucket FINAL: canonical
- * Statut: ACTIVE
- * Cluster principal: post_footer_ui
- * Clusters secondaires: aucun
- * Domaine: post-front
- * Confiance: high
- * Scores (top): post_footer_ui=15, rss_feed=6, frontend_ui_widget=6
- * Raisons principales: footer, social, ego
- * Classification generee le (UTC): 2026-02-24T16:44:28+00:00
- * CLM-FEATURE-CLASSIFICATION:END */
 
 /* 
 Title: Combined Footer with Social Links and Copyright
@@ -268,4 +204,3 @@ function render_combined_footer() {
 
 // Hook the combined footer to display at the bottom of the page
 add_action('wp_footer', 'render_combined_footer');
-
