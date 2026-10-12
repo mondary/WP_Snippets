@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.10.20] - 2026-10-12
+### Fixed
+- **Réparation en masse des 7 snippets actifs au code corrompu** (même cause que la 2026.10.19 : métadonnées CLM injectées hors commentaire + seconde balise `<?php` → ParseError silencieuse dans l'`eval()` du plugin, snippet `active: true` mais code jamais exécuté). Code fonctionnel extrait du code en ligne, headers reconstruits propres, `php -l` OK, poussé via REST PATCH sur les mêmes IDs avec `active: true`, vérifié en re-scan : **0 snippet actif cassé restant** (9 inactifs corrompus restants, sans impact service).
+  - `ADMIN 🔧 SETTINGS - Menu Order Alpha - v3` (#204), `ADMIN 🔧 SETTINGS - Export Markdown RAG - v2` (#268), `ADMIN ⚙️ MENUBAR - Readbutton - v4` (#284), `ADMIN 🧰 TOOL - Duplicate Post Page - v4` (#289), `ADMIN ⚙️ MENUBAR - Snippets Menu - v3` (#418), `ADMIN 📅 SCHEDULER - Posts Submenu - v2` (#421) — code historique restauré tel quel ; anciennes versions conservées dans `snippets/canonical/`.
+  - `POST ⏱️ READING - Display Time - v3` (#424) — au-delà de la corruption, le code v2 était un `echo` nu au niveau global dont la sortie n'atteignait jamais la page (vérifié sur page fraîche non cachée et wp-login : aucun affichage). La v3 affiche désormais le temps de lecture via `add_filter('the_content', …, 20)` : « ⏱️ Temps de lecture estimé : N minute(s) » préfixé au contenu des articles. **Vérifié en ligne** sur `/2015/08/pixate/`.
+
 ## [2026.10.19] - 2026-10-11
 ### Fixed
 - `POST 🔗 LINKS - External Clickable - v3` — **liens cliquables réparés sur les articles** : les URLs externes en texte brut (ex. `https://github.com/…`) n'étaient plus transformées en liens depuis le push du 8 octobre. Diagnostic : le snippet #223 restait `active: true` en ligne mais son code contenait les blocs de métadonnées CLM injectés hors commentaire + une seconde balise `<?php` (ParseError silencieuse dans l'`eval()` du plugin → le filtre `the_content` n'était jamais enregistré). v3 reconstruite propre (code fonctionnel de la v2, headers propres), poussée via REST PATCH sur #223, `php -l` OK. Vérifié en ligne : l'article `switch-un-selecteur-de-fenetres…` sert désormais `<a href target="_blank">` pour `switch-dev.sanyamgarg.com` et `github.com/Sanyam-G/switch`. v2 conservée dans `snippets/canonical/`.
