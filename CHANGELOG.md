@@ -1,5 +1,14 @@
 # Changelog
 
+## [2026.10.26] - 2026-10-22
+### Changed
+- **Miroir local/distant complet** — les 10 snippets actifs qui n'avaient pas de fichier `canonical/` sont repatriés ou remplacés :
+  - **Bascule des doublons #210 → #352 et #211 → #337** : l'activation des canonical échouait parce que les anciens snippets étaient encore actifs (même fonction `aet_included_categories` / `mondary_auto_download_images` → `Cannot redeclare` dans le sandbox du plugin). Anciens désactivés, canonical activés, puis #210/#211 mis à la corbeille. Les en-têtes « service assuré par #21x » sont remplacés par les descriptions réelles.
+  - **Repatriés dans `canonical/`** depuis le code actif : `🔗 SHORTCODE - Indispensables 2025 - v2` (#224), `🔗 SHORTCODE - Post VSCode Plugins - v2` (#225), `🧭 ADMIN MENUBAR - Hide Commentsmenu - v2` (#236), `🧭 ADMIN MENUBAR - Hide Jetpack Menubar - v2` (#237), `⚙️ ADMIN MENUBAR - Raccourcis Dashboards - v3` (#238), `🧭 ADMIN MENUBAR - Hide New Post Label - v2` (#239).
+  - **Noms nettoyés** : `#🔥 DIAG snippets !!!!!!` (#247) → `ADMIN 🧰 TOOL - DIAG Snippets - v1` ; `PERSOumami` (#410) → `FRONTEND 📊 TRACKING - Umami - v1`.
+  - **DIAG v1** : le `<body>` littéral était réécrit par Really Simple SSL (`data-rsssl=1` ajouté à chaque sauvegarde). Le tag est maintenant produit par `<?php echo '<bo' . 'dy>'; ?>`, le code stocké reste stable.
+- Audit final : **42 snippets actifs, 42 fichiers canonical identiques au caractère près, 0 manquant, 0 divergence, 0 erreur PHP, 8 en corbeille**.
+
 ## [2026.10.25] - 2026-10-22
 ### Changed
 - `POST 🦶 FOOTER - Social Ego - v3` (#230) — **année du copyright dynamique**. Le footer affichait `© 2025 Clement MONDARY` en dur ; il affiche désormais `© <?php echo date_i18n('Y'); ?> Clement MONDARY`, donc **2026** aujourd'hui et automatiquement l'année suivante. v3 déployée sur le même snippet #230 (renommé, code mis à jour, `active: true`), v2 conservée dans `snippets/canonical/`. Vérifié en ligne sur `/` et un article : `© 2026 Clement MONDARY`. Cache LiteSpeed purgé.

@@ -1,7 +1,7 @@
 <?php
 /*
  * POST 🏷️ TAGS - Already Existing - v3
- * Tags déjà existants v3 (canonique) — service assuré par #210.
+ * Complète automatiquement les tags déjà existants à la sauvegarde d'un article.
  */
 
 defined( 'ABSPATH' ) || die( 'Cannot access pages directly.' );

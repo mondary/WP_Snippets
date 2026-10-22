@@ -1,7 +1,7 @@
 <?php
 /*
  * ADMIN 📅 SCHEDULER - Download Images - v1
- * Téléchargement d'images distantes — ancien nom, service assuré par #211.
+ * Télécharge en local les images distantes des articles à la publication + alertes admin.
  */
 
 add_action('save_post', 'mondary_auto_download_images', 10, 2);
