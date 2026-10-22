@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.10.25] - 2026-10-22
+### Changed
+- `POST 🦶 FOOTER - Social Ego - v3` (#230) — **année du copyright dynamique**. Le footer affichait `© 2025 Clement MONDARY` en dur ; il affiche désormais `© <?php echo date_i18n('Y'); ?> Clement MONDARY`, donc **2026** aujourd'hui et automatiquement l'année suivante. v3 déployée sur le même snippet #230 (renommé, code mis à jour, `active: true`), v2 conservée dans `snippets/canonical/`. Vérifié en ligne sur `/` et un article : `© 2026 Clement MONDARY`. Cache LiteSpeed purgé.
+
 ## [2026.10.24] - 2026-10-22
 ### Fixed
 - `POST 🦶 FOOTER - Scroll To Top - v2` (#234) — **décalage du bouton « retour en haut » restauré**. Le snippet avait été mis à la corbeille le 2026.10.22 en le croyant « intégré au FAB », mais le FAB v19 délègue explicitement le repositionnement de `#kt-scroll-up` à ce snippet. Sans lui, Kadence revenait à `bottom:30px; right:30px` : le bouton chevauchait le FAB (z-index 1000 < 99998) et disparaissait derrière le menu flottant. #234 est sorti de corbeille, réactivé, et repasse `bottom:80px; right:20px` : le bouton apparaît au-dessus du FAB. Vérifié en ligne : `scrollButton.style.bottom='80px'`, bouton 41×41 à y=779, FAB à y=834. Cache LiteSpeed purgé.
