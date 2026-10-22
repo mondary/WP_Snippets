@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026.10.23] - 2026-10-22
+### Fixed
+- `POST 🔎 SEARCH - Auto - v7` — **recherche plein écran « géante » restaurée**. Diagnostic : le snippet v6 (#437) était bien actif, mais le bloc CSS de la v4 (champ `15vw`, texte blanc, aligné à gauche) n'avait pas été repris lors de la reconstruction des v5/v6 ; la frappe ouvrait donc le tiroir Kadence avec son apparence standard. v7 réintègre le CSS de la v4 à l'identique et conserve la capture des frappes. L'ouverture est fiabilisée : sur une page froide, LiteSpeed charge le JS Kadence après la première frappe ; le script réessaie jusqu'à 80 fois (4 s) au lieu d'abandonner après 1 s, puis restitue toutes les lettres saisies. Le script porte `data-no-defer="1"` et `data-no-optimize="1"` pour ne plus être différé.
+- Déployé et actif : **v7 #438** ; **v6 #437 désactivée** (v5 #435 et v4 #277 déjà inactives/corbeille). Vérifié en ligne : `/`, un article et `?s=test` servent `__clmAutoSearchV7` + `font-size:15vw`, champ de 216 px sur desktop, saisie « bonjour » complète même en frappe précoce. Cache LiteSpeed purgé.
+
 ## [2026.10.22] - 2026-10-12
 ### Changed
 - **Décisions sur les 9 inactifs corrompus** (nettoyés en 2026.10.21) :
