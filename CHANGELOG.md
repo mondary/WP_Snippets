@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026.11.1] - 2026-11-23
+### Added
+- `FRONTEND 📄 PAGINATION - Infinite Scroll Opt-in - v1` (#441) — défilement infini **opt-in** : la pagination serveur Kadence reste le défaut (SEO, cache, chargement) ; un bouton « Défilement infini » à côté de la pagination charge les pages `/page/N/` à 600 px du bas, avec préférence `localStorage`, déduplication, images LiteSpeed réhydratées, fin de liste et reprise sur erreur. Actif en production via Code Snippets ; l'ancien mu-plugin temporaire a été retiré du chargement.
+
 ## [2026.10.26] - 2026-10-22
 ### Changed
 - **Miroir local/distant complet** — les 10 snippets actifs qui n'avaient pas de fichier `canonical/` sont repatriés ou remplacés :
